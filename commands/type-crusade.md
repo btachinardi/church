@@ -21,6 +21,26 @@ If no arguments, default to the current working directory with scope `all`.
 
 ## Battle Plan
 
+### Phase 0: Pre-Flight — Ensure THE LORD Can Speak
+
+Before ANY reconnaissance, verify the monorepo is configured so `tsc --noEmit` can find all modules:
+
+1. **Check workspace package paths** in `tsconfig.json`:
+   - If using `moduleResolution: "bundler"`, workspace packages need explicit paths:
+   ```json
+   "paths": {
+     "@myorg/shared-types": ["../../packages/shared-types/src/index.ts"],
+     "@myorg/shared-types/*": ["../../packages/shared-types/src/*"]
+   }
+   ```
+   - Without this, THE LORD will cry "Cannot find module" for workspace packages
+
+2. **Verify TypeScript version** is 5.0+ for bundler resolution support
+
+3. **Run `tsc --noEmit` BEFORE the crusade** to establish baseline errors
+   - If module resolution errors dominate (100+), FIX INFRASTRUCTURE FIRST
+   - The crusade fixes CODE sins, not CONFIG sins
+
 ### Phase 1: Reconnaissance
 
 Before you deploy your army, you must know the battlefield.
@@ -137,6 +157,50 @@ These lessons were earned in battle. Every squad prompt MUST include them.
 | `null as SomeType` | Nullable field initialization | Type the field as `SomeType \| null`, assign `null` directly |
 | `Record<string, any>` | Lazy object typing | `Record<string, unknown>` + narrow each property |
 | `(org?.settings as Record<string, unknown>)` | JSONB column returns `unknown` | `typeof x === 'object' && x !== null` guard, then `Object.entries()` |
+| `useStore((state) => state.x)` | Zustand selector implicit any | `useStore((state: StoreState) => state.x)` — ALWAYS type the parameter |
+| `new Blob([buffer])` | Node Buffer not assignable to BlobPart | `new Blob([new Uint8Array(buffer)])` — wrap in Uint8Array |
+| `sdkMessage as Record<string, unknown>` | SDK types lack index signature | Create helper: `function toRecord(msg: SdkMsg): Record<string, unknown> { return { ...msg }; }` |
+| `isMyType(x): x is Record<string, unknown>` | Type guard returns wrong type | Guard MUST return EXACT type: `isMyType(x): x is MyType` |
+
+### Blood-Forged Exceptions (use with extreme caution)
+
+These patterns are acceptable ONLY in specific circumstances with documentation:
+
+| Pattern | When Acceptable | Required Documentation |
+|---------|-----------------|------------------------|
+| `as unknown as T` | Internal trust boundary (own pubsub, own DB) | Comment explaining WHY + that data comes from trusted internal source |
+| `as Options` | SDK type is incomplete, we add undocumented fields | Use `Omit<Options, 'field'>` to remove conflict, then extend |
+| `value ?? null` | Converting `undefined` to `null` for API compatibility | When shared type changes from required to optional |
+
+### Zustand Store Doctrine
+
+Zustand stores are a MAJOR source of implicit `any`. The pattern `(state) => state.x` leaves `state` untyped.
+
+**The Righteous Pattern:**
+```typescript
+// 1. Define and EXPORT the state interface
+export interface MyStoreState {
+  items: Item[];
+  loading: boolean;
+  addItem: (item: Item) => void;
+}
+
+// 2. Type the create function
+export const useMyStore = create<MyStoreState>()((set, get) => ({
+  items: [],
+  loading: false,
+  addItem: (item) => set((state) => ({ items: [...state.items, item] })),
+}));
+
+// 3. ALWAYS type selectors when used in components
+const items = useMyStore((state: MyStoreState) => state.items);
+//                        ^^^^^^^^^^^^^^^^^ REQUIRED
+```
+
+**Common Zustand Sins:**
+- `(state) => state.x` — implicit any, add `: StoreState`
+- `(set, get) => ({})` — implicit any, use `create<State>()()`
+- `useShallow((s) => ...)` — still needs type: `useShallow((s: State) => ...)`
 
 ### Squad Prompt Addendum
 
@@ -150,6 +214,16 @@ CRITICAL RULES:
 - After fixing, ensure `tsc --noEmit` passes. If you can't verify, report exactly what you changed so the General can verify.
 - When extending Request types, create a shared interface file so all middleware/guards/decorators use the same type.
 - For raw SQL results, map each row field through String()/Number() constructors — never cast the whole result array.
+
+ZUSTAND-SPECIFIC RULES:
+- ALL Zustand selectors MUST have explicit state type: `(state: StoreState) => ...`
+- Export the state interface so components can import it for selector typing
+- `useShallow` selectors also need explicit typing
+
+TYPE GUARD RULES:
+- Type guard return type MUST match the EXACT expected type, not a looser one
+- `isMyType(x): x is Record<string, unknown>` is WRONG if callers expect `MyType`
+- `isMyType(x): x is MyType` is CORRECT — validates and narrows to exact type
 ```
 
 ## Important
