@@ -23,28 +23,23 @@ export function FooterSection() {
             </p>
             <pre className="overflow-x-auto text-sm leading-relaxed">
               <code className="text-gray-300">
-                <span className="text-gray-500"># Clone the holy repository</span>
+                <span className="text-gray-500"># Add the holy marketplace</span>
                 {'\n'}
-                <span className="text-gold">git clone</span>{' '}
-                <span className="text-parchment">
-                  https://github.com/your-order/church-of-clean-code
-                </span>
+                <span className="text-gold">/plugin marketplace add</span>{' '}
+                <span className="text-parchment">btachinardi/church</span>
                 {'\n\n'}
-                <span className="text-gray-500"># Install the agents into your ~/.claude/</span>
+                <span className="text-gray-500"># Install the sacred plugin</span>
                 {'\n'}
-                <span className="text-gold">cp</span>{' '}
-                <span className="text-parchment">agents/*.md ~/.claude/agents/</span>
-                {'\n'}
-                <span className="text-gold">cp</span>{' '}
-                <span className="text-parchment">commands/*.md ~/.claude/commands/</span>
+                <span className="text-gold">/plugin install</span>{' '}
+                <span className="text-parchment">church@btachinardi-church</span>
                 {'\n\n'}
-                <span className="text-gray-500"># Unleash a crusade</span>
+                <span className="text-gray-500"># Unleash the crusades</span>
                 {'\n'}
-                <span className="text-gold">/type-crusade</span>
+                <span className="text-gold">/church:type-crusade</span>
                 {'\n'}
-                <span className="text-gold">/git-crusade</span>
+                <span className="text-gold">/church:git-crusade</span>
                 {'\n'}
-                <span className="text-gold">/test-crusade</span>
+                <span className="text-gold">/church:test-crusade</span>
                 {'\n'}
                 <span className="text-gray-500">
                   # ... and 7 more holy instruments
