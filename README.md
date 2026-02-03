@@ -1,12 +1,14 @@
 # The Church of Clean Code
 
+> **[church.btas.dev](https://church.btas.dev)** | [GitHub](https://github.com/btachinardi/church)
+
 A Claude Code plugin providing 10 specialized **purist subagents** and 10 **crusade orchestration commands** for parallel code quality enforcement.
 
 ## Installation
 
 ```bash
 # Add the marketplace
-/plugin marketplace add your-username/church
+/plugin marketplace add btachinardi/church
 
 # Install the plugin
 /plugin install church@church
