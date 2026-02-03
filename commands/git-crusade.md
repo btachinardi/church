@@ -1,5 +1,5 @@
 ---
-description: Unleash parallel Git Purist agents to audit every branch, commit, and worktree across the codebase. No pending change survives. No bad message stands. The Git Crusade begins.
+description: Unleash parallel Git Purist agents to audit branches, commits, and worktrees across the codebase. No bad commit survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
 argument-hint: [path] [--depth 20] [--fix]
 ---

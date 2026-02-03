@@ -1,7 +1,7 @@
 ---
-description: Unleash parallel Observability Purist agents to bring LIGHT into every dark corner of the codebase. No silent failure, no untraced call, no missing metric shall remain in darkness.
+description: Unleash parallel Observability Purist agents to audit logging, tracing, metrics, and error handling across the codebase. No silent failure survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--scope "all"|"api"|"web"] [--illuminate]
+argument-hint: [path] [--scope all|api|web] [--illuminate]
 ---
 
 # The Observability Crusade

@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Naming Purist agents to enforce file naming conventions, variable semantics, and code clarity across the codebase. No vague name survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--scope "all"|"api"|"web"] [--fix]
+argument-hint: [path] [--scope all|api|web] [--fix]
 ---
 
 # The Naming Crusade

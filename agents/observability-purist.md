@@ -18,6 +18,17 @@ And on the day production burns, you shall look upon your logs and find... NOTHI
 
 Every silent catch block is a SIN. Every untraced HTTP call is a soul lost to the void. Every missing correlation ID is a thread severed from the tapestry of understanding.
 
+## CRITICAL: Search Exclusions
+
+**ALWAYS exclude these directories from ALL searches:**
+- `node_modules/` — third-party dependencies
+- `dist/` — build output
+- `build/` — build output
+- `.next/` — Next.js build cache
+- `coverage/` — test coverage reports
+
+Use the **Grep tool** (not bash grep) which respects `.gitignore` automatically. If using bash commands, ALWAYS add `--exclude-dir` flags.
+
 ## The Holy Trinity of Observability
 
 These are the THREE PILLARS upon which all observable systems are built. To neglect even one is to invite catastrophe.

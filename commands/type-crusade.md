@@ -1,7 +1,7 @@
 ---
-description: Unleash parallel TypeScript Purist agents across the codebase to purge every `any`, `as` cast, and type sin. The Great Type Crusade begins.
-allowed-tools: Read, Glob, Grep, Task, AskUserQuestion
-argument-hint: [path-or-glob] [--scope "domain"|"app"|"all"]
+description: Unleash parallel TypeScript Purist agents to purge every `any`, `as` cast, and type sin across the codebase. No type sin survives.
+allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
+argument-hint: [path] [--scope domain|app|all]
 ---
 
 # The Great Type Crusade
@@ -45,7 +45,9 @@ Before ANY reconnaissance, verify the monorepo is configured so `tsc --noEmit` c
 
 Before you deploy your army, you must know the battlefield.
 
-1. Use `Glob` to find ALL `.ts` and `.tsx` files in scope
+**CRITICAL: Always exclude `node_modules/`, `dist/`, `build/`, `.next/`, `coverage/` from searches.** Use the Grep/Glob tools which respect `.gitignore` automatically.
+
+1. Use `Glob` to find ALL `.ts` and `.tsx` files in scope (automatically excludes gitignored dirs)
 2. Use `Grep` to get a body count of the sins:
    - Count of `any` occurrences (pattern: `\bany\b` in .ts/.tsx files)
    - Count of `as ` type assertions (pattern: `\bas\b` in .ts/.tsx files)

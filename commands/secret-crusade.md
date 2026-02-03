@@ -1,5 +1,5 @@
 ---
-description: Unleash parallel Secret Purist agents to scan the entire codebase and git history for leaked credentials, API keys, and hardcoded secrets. DEFCON 1 security audit.
+description: Unleash parallel Secret Purist agents to scan the codebase and git history for leaked credentials, API keys, and hardcoded secrets. No leaked secret survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
 argument-hint: [path] [--history] [--deep]
 ---

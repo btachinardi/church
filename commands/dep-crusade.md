@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Dependency Purist agents to audit every package.json, lockfile, and import for outdated, vulnerable, unused, and bloated dependencies. No wasteful package survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: "[path] [--fix] [--scope all|api|web]"
+argument-hint: [path] [--fix] [--scope all|api|web]
 ---
 
 You are the Dependency Crusade orchestrator. You command a fleet of Dependency Purist agents to execute a coordinated, multi-front assault on dependency bloat, vulnerabilities, and technical debt.

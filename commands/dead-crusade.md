@@ -1,7 +1,7 @@
 ---
-description: Unleash parallel Dead Code Purist agents to find and eliminate every unused export, orphaned file, commented-out block, and unreachable branch. The dead shall be buried.
+description: Unleash parallel Dead Code Purist agents to find and eliminate unused exports, orphaned files, commented-out blocks, and unreachable branches across the codebase. No dead code survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: "[path] [--scope all|api|web] [--reap] [--severity critical|warning|info]"
+argument-hint: [path] [--scope all|api|web] [--reap] [--severity critical|warning|info]
 ---
 
 # Dead Code Crusade
@@ -57,17 +57,16 @@ const targetPath = args.path || process.cwd();
 
 ### 1.2 Count the Living
 
-Use Glob to count files in scope:
+Use Glob to count files in scope. **CRITICAL: ALWAYS exclude node_modules, dist, build, .next, coverage**:
 
 ```bash
-# TypeScript/JavaScript files
-find {targetPath} -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" \) | wc -l
-
-# Exclude node_modules, dist, build
-find {targetPath} -type f \( -name "*.ts" -o -name "*.tsx" \) \
+# TypeScript/JavaScript files (with exclusions)
+find {targetPath} -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" \) \
   -not -path "*/node_modules/*" \
   -not -path "*/dist/*" \
-  -not -path "*/build/*" | wc -l
+  -not -path "*/build/*" \
+  -not -path "*/.next/*" \
+  -not -path "*/coverage/*" | wc -l
 ```
 
 Report:
@@ -81,20 +80,24 @@ Report:
 
 ### 1.3 Estimate the Dead
 
-Quick pattern-based estimate:
+Quick pattern-based estimate. **CRITICAL: ALWAYS use --exclude-dir**:
 
 ```bash
 # Unused exports (rough estimate)
-grep -r "^export " --include="*.ts" --include="*.tsx" | wc -l
+grep -r "^export " --include="*.ts" --include="*.tsx" \
+  --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=build --exclude-dir=.next --exclude-dir=coverage | wc -l
 
 # Commented code blocks
-grep -r "^[[:space:]]*//.*[({;]" --include="*.ts" | wc -l
+grep -r "^[[:space:]]*//.*[({;]" --include="*.ts" \
+  --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=build --exclude-dir=.next --exclude-dir=coverage | wc -l
 
 # Console statements
-grep -r "console\.(log|debug|info)" --include="*.ts" --exclude="*.spec.ts" | wc -l
+grep -r "console\.(log|debug|info)" --include="*.ts" --exclude="*.spec.ts" \
+  --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=build --exclude-dir=.next --exclude-dir=coverage | wc -l
 
 # TODO comments
-grep -r "TODO\|FIXME\|HACK" --include="*.ts" | wc -l
+grep -r "TODO\|FIXME\|HACK" --include="*.ts" \
+  --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=build --exclude-dir=.next --exclude-dir=coverage | wc -l
 ```
 
 Report:

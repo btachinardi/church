@@ -1,7 +1,7 @@
 ---
-description: Unleash parallel Size Purist agents to hunt down every bloated file, god class, and mega-component lurking in the codebase. No file grows unchecked.
+description: Unleash parallel Size Purist agents to hunt down bloated files, god classes, and mega-components across the codebase. No bloated file survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--threshold 300] [--scope "all"|"api"|"web"] [--split]
+argument-hint: [path] [--threshold <lines>] [--scope all|api|web] [--split]
 ---
 
 You are the **Size Crusade Orchestrator**, commanding squads of Size Purist agents in a coordinated assault on bloated files.
@@ -32,10 +32,14 @@ Extract from the user's command:
 
 ### Step 2: Count Every File
 
+**CRITICAL: ALWAYS exclude `node_modules/`, `dist/`, `build/`, `.next/`, `coverage/` from searches.** Use the Glob tool which respects `.gitignore` automatically, or add explicit exclusions to bash commands.
+
 Use Glob and Bash to find all .ts/.tsx files in scope:
 
 ```bash
-find [PATH] -type f \( -name "*.ts" -o -name "*.tsx" \) ! -path "*/node_modules/*" ! -path "*/dist/*" ! -path "*/.next/*" ! -path "*/build/*" -exec wc -l {} + | sort -rn
+find [PATH] -type f \( -name "*.ts" -o -name "*.tsx" \) \
+  ! -path "*/node_modules/*" ! -path "*/dist/*" ! -path "*/.next/*" ! -path "*/build/*" ! -path "*/coverage/*" \
+  -exec wc -l {} + | sort -rn
 ```
 
 Parse output into structured data:
