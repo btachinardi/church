@@ -1,0 +1,21 @@
+{
+  "name": "church",
+  "description": "The Church of Clean Code - Purist subagents and crusade commands for code quality enforcement",
+  "version": "1.0.0",
+  "author": {
+    "name": "Bruno"
+  },
+  "homepage": "https://github.com/your-username/church",
+  "repository": "https://github.com/your-username/church",
+  "license": "MIT",
+  "keywords": [
+    "code-quality",
+    "typescript",
+    "clean-code",
+    "architecture",
+    "testing",
+    "observability",
+    "linting",
+    "purist"
+  ]
+}
