@@ -11,11 +11,29 @@ A Claude Code plugin providing 10 specialized **purist subagents** and 10 **crus
 /plugin marketplace add btachinardi/church
 
 # Install the plugin
-/plugin install church@church
+/plugin install church@btachinardi-church
+```
 
-# Or load locally during development
+### Installation Scopes
+
+```bash
+# User scope (yourself across all projects) - default
+/plugin install church@btachinardi-church --scope user
+
+# Project scope (all collaborators on this repo)
+/plugin install church@btachinardi-church --scope project
+
+# Local scope (yourself in this repo only)
+/plugin install church@btachinardi-church --scope local
+```
+
+### Local Development
+
+```bash
 claude --plugin-dir ./church
 ```
+
+> Requires Claude Code v1.0.33+
 
 ## What's Included
 
