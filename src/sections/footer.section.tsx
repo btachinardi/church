@@ -1,4 +1,22 @@
+import { CopyButton } from '../components/copy-button.component';
 import { ScrollReveal } from '../components/scroll-reveal.component';
+
+const commands = [
+  {
+    comment: 'Add the holy marketplace',
+    command: '/plugin marketplace add btachinardi/church',
+  },
+  {
+    comment: 'Install the sacred plugin',
+    command: '/plugin install church@btachinardi-church',
+  },
+] as const;
+
+const crusades = [
+  '/church:type-crusade',
+  '/church:git-crusade',
+  '/church:test-crusade',
+] as const;
 
 export function FooterSection() {
   return (
@@ -18,34 +36,40 @@ export function FooterSection() {
 
         <ScrollReveal delay={200}>
           <div className="mb-12 overflow-hidden rounded-lg border border-gold/15 bg-cathedral-deep p-6 text-left">
-            <p className="mb-3 text-xs uppercase tracking-widest text-gold-dim">
+            <p className="mb-4 text-xs uppercase tracking-widest text-gold-dim">
               The Sacred Installation
             </p>
-            <pre className="overflow-x-auto text-sm leading-relaxed">
-              <code className="text-gray-300">
-                <span className="text-gray-500"># Add the holy marketplace</span>
-                {'\n'}
-                <span className="text-gold">/plugin marketplace add</span>{' '}
-                <span className="text-parchment">btachinardi/church</span>
-                {'\n\n'}
-                <span className="text-gray-500"># Install the sacred plugin</span>
-                {'\n'}
-                <span className="text-gold">/plugin install</span>{' '}
-                <span className="text-parchment">church@btachinardi-church</span>
-                {'\n\n'}
-                <span className="text-gray-500"># Unleash the crusades</span>
-                {'\n'}
-                <span className="text-gold">/church:type-crusade</span>
-                {'\n'}
-                <span className="text-gold">/church:git-crusade</span>
-                {'\n'}
-                <span className="text-gold">/church:test-crusade</span>
-                {'\n'}
-                <span className="text-gray-500">
+            <div className="space-y-4">
+              {commands.map((item) => (
+                <div key={item.command}>
+                  <p className="mb-1 text-xs text-gray-500"># {item.comment}</p>
+                  <div className="flex items-center justify-between gap-2 rounded bg-black/40 px-3 py-2">
+                    <code className="font-mono text-sm text-parchment">
+                      {item.command}
+                    </code>
+                    <CopyButton text={item.command} />
+                  </div>
+                </div>
+              ))}
+
+              <div>
+                <p className="mb-1 text-xs text-gray-500"># Unleash the crusades</p>
+                <div className="space-y-1">
+                  {crusades.map((cmd) => (
+                    <div
+                      key={cmd}
+                      className="flex items-center justify-between gap-2 rounded bg-black/40 px-3 py-2"
+                    >
+                      <code className="font-mono text-sm text-gold">{cmd}</code>
+                      <CopyButton text={cmd} />
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-2 text-xs text-gray-500">
                   # ... and 7 more holy instruments
-                </span>
-              </code>
-            </pre>
+                </p>
+              </div>
+            </div>
           </div>
         </ScrollReveal>
 

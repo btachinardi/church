@@ -1,3 +1,4 @@
+import { CodeBlock } from '../components/code-block.component';
 import { ScrollReveal } from '../components/scroll-reveal.component';
 
 const steps = [
@@ -49,9 +50,7 @@ export function InstallationSection() {
                     <h3 className="mb-2 font-cinzel text-lg font-bold text-gold">
                       {item.title}
                     </h3>
-                    <div className="mb-3 overflow-x-auto rounded-md bg-black/50 px-4 py-3 font-mono text-sm text-parchment">
-                      <code>{item.command}</code>
-                    </div>
+                    <CodeBlock code={item.command} className="mb-3" />
                     <p className="text-sm text-gray-400">{item.description}</p>
                   </div>
                 </div>
