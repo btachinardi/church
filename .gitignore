@@ -36,3 +36,12 @@ coverage/
 *.tmp
 *.temp
 .cache/
+
+# TypeScript
+*.tsbuildinfo
+
+# Vite
+vite.config.ts.timestamp-*
+
+# Turbo
+.turbo/
