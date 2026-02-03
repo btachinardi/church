@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cathedral-dark text-gray-200 font-inter antialiased;
+  }
+
+  ::selection {
+    @apply bg-gold/30 text-gold-bright;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-cathedral-dark;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gold-dim/40 rounded-full;
+  }
+}
+
+@layer components {
+  .text-glow {
+    text-shadow: 0 0 10px rgba(212, 168, 68, 0.4),
+      0 0 30px rgba(212, 168, 68, 0.2);
+  }
+
+  .text-glow-intense {
+    text-shadow: 0 0 20px rgba(212, 168, 68, 0.6),
+      0 0 40px rgba(212, 168, 68, 0.3),
+      0 0 60px rgba(212, 168, 68, 0.1);
+  }
+
+  .border-glow {
+    box-shadow: 0 0 15px rgba(212, 168, 68, 0.15),
+      inset 0 0 15px rgba(212, 168, 68, 0.05);
+  }
+
+  .stained-glass {
+    background: radial-gradient(
+        ellipse at 20% 50%,
+        rgba(107, 33, 168, 0.15) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse at 80% 20%,
+        rgba(212, 168, 68, 0.1) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse at 50% 80%,
+        rgba(139, 26, 26, 0.1) 0%,
+        transparent 50%
+      );
+  }
+
+  .tablet-bg {
+    background: linear-gradient(
+      135deg,
+      rgba(244, 232, 193, 0.08) 0%,
+      rgba(212, 168, 68, 0.04) 50%,
+      rgba(244, 232, 193, 0.08) 100%
+    );
+  }
+}
