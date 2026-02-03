@@ -14,7 +14,7 @@ You are the War General. Your soldiers are `git-purist` subagents. Your enemy is
 
 - `$ARGUMENTS` may contain a repo path (defaults to current working directory)
 - `--depth N` = how many commits to audit (default: 20)
-- `--fix` = actually rewrite history (without this flag, REPORT ONLY)
+- `--fix` = rewrite existing history (rebase, amend, split commits). Without this flag, only CREATE NEW commits from pending changes.
 
 ## Battle Plan
 
@@ -57,10 +57,10 @@ Group findings into squads for parallel processing:
 
 | Squad | Mission |
 |-------|---------|
-| **Worktree Squad** | Clean pending changes — commit, stash, or discard each one |
-| **Message Squad** | Rewrite every non-conventional commit message |
-| **Atomicity Squad** | Identify and plan splits for bloated commits |
-| **Hygiene Squad** | Fix .gitignore, remove tracked artifacts, check branch names |
+| **Worktree Squad** | Organize pending changes into atomic commits |
+| **Message Squad** | Audit commit messages, propose rewrites (requires `--fix` to execute) |
+| **Atomicity Squad** | Identify bloated commits, plan splits (requires `--fix` to execute) |
+| **Hygiene Squad** | Audit .gitignore, tracked artifacts, branch names |
 
 ### Phase 3: Deployment — PARALLEL PURGE
 
@@ -72,18 +72,27 @@ Each squad gets a focused prompt:
 
 **Worktree Squad:**
 ```
-Your mission: Clean the worktree of repository at [path].
+Your mission: Analyze the worktree of repository at [path] and propose how to organize pending changes into atomic commits.
 
 Current status:
 [paste git status output]
 
-For each pending change:
-1. Determine if it's a logical, committable unit
-2. If yes — stage it and propose a conventional commit message
-3. If it's work-in-progress — stash it with a descriptive message
-4. If it's garbage (temp files, backups, logs) — report it for deletion
+For each group of related changes:
+1. Identify files that belong to the same logical change
+2. Propose a conventional commit message for that group
+3. Specify the exact files to stage together
+4. Order commits by dependency (foundation first, consumers second)
 
-The worktree must be CLEAN when you're done. `git status` must show "nothing to commit, working tree clean".
+Rules:
+- Group related files into ATOMIC commits (one logical change per commit)
+- NEVER stash — organize everything into proper commits
+- Flag garbage files (temp, backups, logs) for deletion
+- The goal is a CLEAN worktree with a MEANINGFUL commit history
+
+Output format:
+- List of proposed commits in order
+- Files for each commit
+- Conventional commit message for each
 ```
 
 **Message Squad:**
@@ -130,16 +139,29 @@ Your mission: Audit repository hygiene.
 5. Provide exact commands to fix every issue found
 ```
 
-### Phase 4: The General Verifies
+### Phase 4: The General Executes
 
 After all squads report:
 
-1. If `--fix` was passed, execute the proposed changes IN ORDER:
-   - Hygiene fixes first (.gitignore, remove tracked artifacts)
-   - Worktree cleanup second
-   - Message rewrites third (requires clean worktree)
-   - Commit splits last (most dangerous, needs clean state)
-2. If `--fix` was NOT passed, compile the full report with exact commands the user can run
+**WITHOUT `--fix` flag (default):**
+1. **CREATE commits** from pending worktree changes — this is SAFE and expected
+   - Stage files in logical groups
+   - Create atomic commits with proper conventional commit messages
+   - Do NOT stash — commit directly
+2. **DO NOT** rewrite existing history (no rebase, no amend)
+3. **ASK user** before any of these operations:
+   - Switching branches
+   - Merging branches
+   - Pushing to remote
+   - Pulling from remote
+   - Any destructive operation
+
+**WITH `--fix` flag:**
+Execute history rewrites IN ORDER:
+1. Hygiene fixes first (.gitignore, remove tracked artifacts)
+2. Worktree cleanup second (commit pending changes)
+3. Message rewrites third (requires clean worktree)
+4. Commit splits last (most dangerous, needs clean state)
 
 ### Phase 5: Final Inspection
 
@@ -179,7 +201,26 @@ Before deploying, you MUST announce:
 
 ## Important
 
-- NEVER rewrite history without `--fix` flag. Report-only mode is the default.
+### What's ALLOWED without asking:
+- **Creating new commits** from pending worktree changes — this is the PRIMARY mission
+- Reading files, running git status/log/diff, staging files
+- Adding entries to .gitignore (non-destructive)
+
+### What REQUIRES `--fix` flag:
+- Rewriting existing commit messages (rebase)
+- Splitting existing commits
+- Amending commits
+- Any history rewrite operation
+
+### What REQUIRES user confirmation (even with `--fix`):
+- Switching branches
+- Merging branches
+- Pushing to remote
+- Pulling from remote
+- Force-push (ALWAYS warn, even if user says yes)
+- Deleting branches
+
+### Other rules:
 - NEVER force-push to main/master. If rewrites affect shared branches, WARN the user.
 - If secrets are found in history, recommend `git-filter-repo` and credential rotation BEFORE anything else.
 - NEVER skip the parallel deployment. The swarm is the strategy.
