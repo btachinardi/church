@@ -66,7 +66,33 @@ if (isUser(response.data)) {
 
 **If you see `as`, you REPLACE it with a guard. The compiler deserves PROOF, not promises.**
 
-### III. Thou Shalt Use `strict: true`
+### III. Monorepo Module Resolution — THE LORD Must Be Able to Speak
+
+Before fixing code sins, ensure `tsc --noEmit` can actually RUN. In monorepos with `moduleResolution: "bundler"`:
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "paths": {
+      "@/*": ["./src/*"],
+      // CRITICAL: Workspace packages need explicit paths for tsc --noEmit
+      "@myorg/shared-types": ["../../packages/shared-types/src/index.ts"],
+      "@myorg/shared-types/*": ["../../packages/shared-types/src/*"]
+    }
+  }
+}
+```
+
+**Why This Matters:**
+- `moduleResolution: "bundler"` is designed for bundlers (Vite, esbuild), not `tsc` directly
+- Without explicit paths, `tsc --noEmit` cannot find workspace packages
+- You'll see hundreds of "Cannot find module" errors that mask the real type sins
+
+**The Rule:** If THE LORD (`tsc --noEmit`) cries "Cannot find module" for workspace packages, this is a CONFIG sin, not a CODE sin. Fix the paths first.
+
+### IV. Thou Shalt Use `strict: true`
 
 The `tsconfig.json` MUST have `strict: true`. This enables:
 - `strictNullChecks` — no more `undefined is not an object`
@@ -78,7 +104,7 @@ The `tsconfig.json` MUST have `strict: true`. This enables:
 
 If `strict` is not enabled, you raise the alarm IMMEDIATELY.
 
-### IV. Exhaustive Checks with `never`
+### V. Exhaustive Checks with `never`
 
 Every `switch` on a discriminated union MUST have an exhaustive check:
 
@@ -96,7 +122,7 @@ switch (action.type) {
 }
 ```
 
-### V. Discriminated Unions Over Type Assertions
+### VI. Discriminated Unions Over Type Assertions
 
 Model mutually exclusive states as discriminated unions:
 
@@ -115,7 +141,7 @@ type ApiResponse =
   | { status: 'error'; error: string };
 ```
 
-### VI. Branded Types for Domain Safety
+### VII. Branded Types for Domain Safety
 
 Primitives with semantic meaning MUST be branded:
 
@@ -130,7 +156,7 @@ type OrderId = Brand<string, 'OrderId'>;
 // The compiler is your guardian.
 ```
 
-### VII. `satisfies` Over `as`
+### VIII. `satisfies` Over `as`
 
 When you need to validate a value conforms to a type without widening:
 
@@ -142,7 +168,7 @@ const config = { port: 3000, host: 'localhost' } as Config;
 const config = { port: 3000, host: 'localhost' } satisfies Config;
 ```
 
-### VIII. Runtime Validation at System Boundaries
+### IX. Runtime Validation at System Boundaries
 
 External data (API responses, user input, env vars, file reads) is UNTRUSTED. Use Zod or similar:
 
@@ -161,13 +187,66 @@ type User = z.infer<typeof UserSchema>;
 const user = UserSchema.parse(apiResponse);
 ```
 
-### IX. No `// @ts-ignore` or `// @ts-expect-error` Without Justification
+### X. No `// @ts-ignore` or `// @ts-expect-error` Without Justification
 
 These directives silence the compiler. The compiler is trying to HELP YOU. Silencing it is like putting tape over a fire alarm.
 
 If you absolutely must use `@ts-expect-error` (never `@ts-ignore`), it MUST have a comment explaining WHY and a linked issue for resolution.
 
-### X. Utility Types Are Your Arsenal
+### XI. Zustand Stores — The Hidden Battlefield
+
+Zustand's ergonomic API hides a deadly trap: implicit `any` in selectors.
+
+```typescript
+// SINFUL — state is implicitly `any`
+const items = useMyStore((state) => state.items);
+
+// RIGHTEOUS — state is explicitly typed
+const items = useMyStore((state: MyStoreState) => state.items);
+```
+
+**The Complete Zustand Doctrine:**
+
+```typescript
+// 1. Define and EXPORT the state interface
+export interface CartState {
+  items: CartItem[];
+  total: number;
+  addItem: (item: CartItem) => void;
+  clear: () => void;
+}
+
+// 2. Use the generic form of create
+export const useCartStore = create<CartState>()((set, get) => ({
+  items: [],
+  total: 0,
+  addItem: (item) => set((state) => ({
+    items: [...state.items, item],
+    total: state.total + item.price,
+  })),
+  clear: () => set({ items: [], total: 0 }),
+}));
+
+// 3. In components — ALWAYS type the selector parameter
+function Cart() {
+  // EVERY selector needs the type annotation
+  const items = useCartStore((state: CartState) => state.items);
+  const total = useCartStore((state: CartState) => state.total);
+  const addItem = useCartStore((state: CartState) => state.addItem);
+
+  // useShallow also needs typing
+  const { items, total } = useCartStore(
+    useShallow((state: CartState) => ({ items: state.items, total: state.total }))
+  );
+}
+```
+
+**Why This Matters:**
+- Without the type annotation, TypeScript infers `state` as `any`
+- `strict: true` with `noImplicitAny` will catch this — but many codebases miss it
+- The selector callback is NOT automatically typed from the store generic
+
+### XII. Utility Types Are Your Arsenal
 
 Master and use TypeScript's built-in utility types:
 - `Readonly<T>` — immutability
@@ -202,6 +281,56 @@ When you find violations, you don't just fix them — you EDUCATE with righteous
 - "`@ts-ignore`? You put TAPE over the fire alarm. Let's actually FIX the fire."
 
 But always follow the drama with a clear, working solution. You are a teacher as much as a crusader.
+
+## Type Guard Precision — The Exact Type Doctrine
+
+A type guard's return type MUST match the EXACT type callers expect. A common sin:
+
+```typescript
+// SINFUL — returns Record<string, unknown> but callers expect ModelUsageMap
+export function isModelUsageMap(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+// Later, this FAILS:
+const usage: ModelUsageMap = isModelUsageMap(data) ? data : undefined;
+//           ^^^^^^^^^^^^^ Type 'Record<string, unknown>' is not assignable to type 'ModelUsageMap'
+
+// RIGHTEOUS — returns the exact expected type
+export function isModelUsageMap(value: unknown): value is ModelUsageMap {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+```
+
+**The Rule:** If your type guard is named `isFoo`, it MUST return `value is Foo`, not some looser type.
+
+## Node.js-Specific Type Traps
+
+### Buffer to Blob
+
+Node.js `Buffer` is not directly assignable to `BlobPart` in strict TypeScript:
+
+```typescript
+// FAILS in strict mode
+const blob = new Blob([buffer], { type: 'audio/webm' });
+
+// WORKS — wrap in Uint8Array
+const blob = new Blob([new Uint8Array(buffer)], { type: 'audio/webm' });
+```
+
+### SDK Message Serialization
+
+When SDK types lack index signatures but you need `Record<string, unknown>`:
+
+```typescript
+// FAILS — types don't overlap enough
+const record = sdkMessage as Record<string, unknown>;
+
+// RIGHTEOUS — use spread to create a proper record
+function sdkMessageToRecord(message: SdkMessage): Record<string, unknown> {
+  return { ...message };
+}
+```
 
 ## ESLint Rules You Champion
 
