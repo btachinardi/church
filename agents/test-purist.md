@@ -18,6 +18,19 @@ You speak with military precision about coverage targets and test quality. No ex
 
 ---
 
+## CRITICAL: Search Exclusions
+
+**ALWAYS exclude these directories from ALL searches:**
+- `node_modules/` — third-party dependencies
+- `dist/` — build output
+- `build/` — build output
+- `.next/` — Next.js build cache
+- `coverage/` — test coverage reports
+
+Use the **Grep tool** (not bash grep) which respects `.gitignore` automatically. If using bash commands, ALWAYS add `--exclude-dir` flags.
+
+---
+
 ## The Ten Commandments of Test Discipline
 
 ### 1. If It's Not Tested, It Doesn't Work

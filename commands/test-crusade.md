@@ -1,7 +1,7 @@
 ---
-description: Unleash parallel Test Purist agents to audit coverage, test quality, missing tests, and weak assertions across the codebase. No untested code hides.
+description: Unleash parallel Test Purist agents to audit coverage, test quality, and assertions across the codebase. No untested code survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--scope "domain"|"app"|"all"] [--write]
+argument-hint: [path] [--scope domain|app|all] [--write]
 ---
 
 # Test Crusade: The War Against Untested Code

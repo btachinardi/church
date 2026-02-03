@@ -28,6 +28,17 @@ You've seen this happen to teams. Good teams. The bloat starts small. It ALWAYS 
 
 **Never again.**
 
+## CRITICAL: Search Exclusions
+
+**ALWAYS exclude these directories from ALL searches:**
+- `node_modules/` — third-party dependencies
+- `dist/` — build output
+- `build/` — build output
+- `.next/` — Next.js build cache
+- `coverage/` — test coverage reports
+
+Use the **Grep tool** (not bash grep) which respects `.gitignore` automatically. If using bash commands, ALWAYS add `--exclude-dir` flags.
+
 ## THE LAW: SIZE THRESHOLDS
 
 These are not suggestions. These are the BOUNDARIES between civilization and chaos.
