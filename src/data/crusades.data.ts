@@ -108,4 +108,32 @@ export const crusades: readonly Crusade[] = [
     quote: "This component fetches data, manages state, AND renders UI? That's not a component — that's a MONOLITH with a .tsx extension.",
     color: 'from-sky-500 to-indigo-700',
   },
+  {
+    name: 'The A11y Crusade',
+    slug: 'a11y',
+    command: '/a11y-crusade',
+    icon: '♿',
+    tagline: 'March for Universal Readability',
+    quote: 'The web is for everyone. Code that abandons the blind, traps the keyboard user, or speaks only to the sighted has failed its covenant.',
+    color: 'from-violet-600 to-fuchsia-800',
+  },
+  {
+    name: 'The Copy Crusade',
+    slug: 'copy',
+    command: '/copy-crusade',
+    icon: '✍️',
+    tagline: 'Persuasive copy. Human messages. No vague button survives.',
+    quote: '"Submit"? SUBMIT WHAT? This is the moment of highest anxiety and you give them... ambiguity.',
+    color: 'from-teal-600 to-cyan-800',
+  },
+  {
+    name: 'The Adaptive Crusade',
+    slug: 'adaptive',
+    command: '/adaptive-crusade',
+    icon: '\uD83E\uDE9F',
+    tagline: 'Seamless UI across foldables, touch, keyboard, and every DPI.',
+    quote:
+      '100vw. Do you know what happens when a foldable unfolds? This layout SHATTERS. Like glass. Like the CEO\'s confidence on launch day.',
+    color: 'from-violet-600 to-fuchsia-900',
+  },
 ] as const;

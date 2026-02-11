@@ -11,6 +11,9 @@ import { namingCrusade } from './naming.data';
 import { sizeCrusade } from './size.data';
 import { observabilityCrusade } from './observability.data';
 import { reactCrusade } from './react.data';
+import { a11yCrusade } from './a11y.data';
+import { copyCrusade } from './copy.data';
+import { adaptiveCrusade } from './adaptive.data';
 
 export const crusadeDetails: Record<string, CrusadeDetail> = {
   type: typeCrusade,
@@ -24,4 +27,7 @@ export const crusadeDetails: Record<string, CrusadeDetail> = {
   size: sizeCrusade,
   observability: observabilityCrusade,
   react: reactCrusade,
+  a11y: a11yCrusade,
+  copy: copyCrusade,
+  adaptive: adaptiveCrusade,
 };

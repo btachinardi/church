@@ -69,6 +69,35 @@ This skill provides the foundational principles enforced by the Church of Clean 
 - All endpoints traced
 - Health checks for all dependencies
 
+### 11. Accessibility (Universal Readability)
+- All images have alt text (descriptive or null)
+- Text contrast: 4.5:1 minimum (3:1 for large text)
+- No information conveyed by color alone
+- All interactive elements keyboard accessible
+- Focus indicators visible (3:1 contrast)
+- ARIA used correctly (or native HTML preferred)
+- No keyboard traps
+
+### 12. High-Converting Copy
+- No "Submit" buttons without context - use specific action verbs
+- No no-reply email addresses - use monitored addresses
+- Hero headlines must state a clear benefit
+- Features must connect to benefits (FAB framework)
+- Landing pages must follow AIDA/PAS/4Ps structure
+- SMS messages must be under 160 characters
+- Error messages must include next steps
+
+### 13. Adaptive UI
+- No hardcoded `100vw`/`100vh` -- use `%`, `dvh`, container queries
+- Foldable hinge awareness via viewport segment APIs
+- Canonical layouts (List-Detail, Feed, Supporting Pane) for wide screens
+- State preservation across resize, fold, rotate (forms, scroll, navigation)
+- Focus-visible styles on all interactive elements, no `outline: none`
+- All images have `srcset` for multi-DPI support, icons are SVG
+- Touch targets minimum 44x44 CSS pixels
+- No hover-only interactions -- touch/keyboard alternatives required
+- Drag-and-drop has visual feedback and keyboard alternative
+
 ## When to Invoke Crusades
 
 | Situation | Recommended Crusade |
@@ -80,3 +109,11 @@ This skill provides the foundational principles enforced by the Church of Clean 
 | Codebase cleanup | `/church:dead-crusade`, `/church:size-crusade` |
 | New team onboarding | `/church:naming-crusade` |
 | Production incident | `/church:observability-crusade --illuminate` |
+| Accessibility compliance | `/church:a11y-crusade` |
+| WCAG 2.2 audit | `/church:a11y-crusade --write` |
+| Low conversion rates | `/church:copy-crusade` |
+| Email deliverability issues | `/church:copy-crusade --scope email` |
+| Landing page optimization | `/church:copy-crusade --scope landing` |
+| Foldable/responsive UI audit | `/church:adaptive-crusade` |
+| Touch target compliance | `/church:adaptive-crusade --concern touch` |
+| Focus/keyboard accessibility | `/church:adaptive-crusade --concern focus` |
