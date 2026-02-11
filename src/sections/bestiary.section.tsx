@@ -4,7 +4,7 @@ import { bestiary } from '../data/bestiary.data';
 
 export function BestiarySection() {
   return (
-    <section className="relative px-6 py-24 sm:py-32">
+    <section id="bestiary" className="relative px-6 py-24 sm:py-32">
       {/* Red ambient glow */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/3 top-1/4 h-96 w-96 rounded-full bg-blood/5 blur-3xl" />

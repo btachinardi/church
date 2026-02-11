@@ -4,7 +4,7 @@ import { crusades } from '../data/crusades.data';
 
 export function CrusadesSection() {
   return (
-    <section className="relative px-6 py-24 sm:py-32">
+    <section id="crusades" className="relative px-6 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl">
         <ScrollReveal>
           <div className="mb-16 text-center">

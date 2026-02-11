@@ -4,7 +4,7 @@ import { commandments } from '../data/commandments.data';
 
 export function CommandmentsSection() {
   return (
-    <section className="relative px-6 py-24 sm:py-32">
+    <section id="commandments" className="relative px-6 py-24 sm:py-32">
       <div className="mx-auto max-w-4xl">
         <ScrollReveal>
           <div className="mb-16 text-center">

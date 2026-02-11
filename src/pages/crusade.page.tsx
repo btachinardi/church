@@ -67,14 +67,7 @@ function CrusadeContent({ crusade }: { readonly crusade: CrusadeDetail }) {
           />
         </div>
 
-        <div className="relative z-10 text-center">
-          <Link
-            to="/"
-            className="mb-8 inline-flex items-center gap-2 text-sm text-gold-dim transition-colors hover:text-gold"
-          >
-            <span>&larr;</span> Back to the Cathedral
-          </Link>
-
+        <div className="relative z-10 pt-16 text-center">
           <div className="mb-6 animate-flicker text-6xl">{crusade.icon}</div>
 
           <h1 className="mb-4 font-cinzel text-4xl font-black leading-tight tracking-wide text-gold sm:text-6xl lg:text-7xl text-glow-intense">
