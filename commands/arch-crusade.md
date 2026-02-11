@@ -95,6 +95,11 @@ RECONNAISSANCE COMPLETE
 - **Scope**: Application and presentation layers
 - **Deliverable**: Pattern violations with fix proposals
 
+#### **Shadow Contract Squad** (arch-purist agent)
+- **Target**: Schemas, DTOs, and tool definitions that hardcode subsets of domain enums or state machines
+- **Scope**: All Zod schemas, DTOs, and tool/API definitions cross-referenced with domain entities
+- **Deliverable**: Schema-domain divergence violations with derivation fixes
+
 **Deployment Strategy**:
 ```typescript
 // Conceptual parallel execution
@@ -102,7 +107,8 @@ const squads = [
   { name: "Layer Violation", focus: "domain-purity", domains: allDomains },
   { name: "Circular Dependency", focus: "cycles", domains: allDomains },
   { name: "Cross-Domain", focus: "domain-isolation", domains: allDomains },
-  { name: "Pattern Compliance", focus: "patterns", domains: allDomains }
+  { name: "Pattern Compliance", focus: "patterns", domains: allDomains },
+  { name: "Shadow Contract", focus: "schema-domain-alignment", domains: allDomains }
 ]
 
 // Each squad gets its own arch-purist agent with specific focus
@@ -350,7 +356,7 @@ publish(new OrderCreatedEvent({ userId: order.userId }))
   Domains Audited: {count} ({list})
   Files Scanned: {count}
   Imports Analyzed: {count}
-  Squads Deployed: 4 (Layer Violation, Circular Dependency, Cross-Domain, Pattern Compliance)
+  Squads Deployed: 5 (Layer Violation, Circular Dependency, Cross-Domain, Pattern Compliance, Shadow Contract)
 
 🏰 FORTRESS STATUS: {SECURE | COMPROMISED | CRITICAL}
 
@@ -372,6 +378,7 @@ publish(new OrderCreatedEvent({ userId: order.userId }))
   Layer Skipping (Commandment 6):        {count}
   Type Duplication (Commandment 7):      {count}
   Cross-Domain Imports (Commandment 8):  {count}
+  Shadow Contracts (Commandment 9):     {count}
 
 🎯 TOP OFFENDERS (domains with most violations)
   1. {domain_name}: {count} violations ({critical} critical)
@@ -419,7 +426,7 @@ LONG-TERM (Refactoring):
 
 🏛️ ARCHITECTURAL COMMANDMENTS REFERENCE
 
-The Eight Commandments of DDD Architecture:
+The Nine Commandments of DDD Architecture:
   1. Domain Purity — Domain depends on NOTHING
   2. No Upward Dependencies — Dependencies flow DOWNWARD only
   3. Interface Segregation — Application uses interfaces, not implementations
@@ -428,6 +435,7 @@ The Eight Commandments of DDD Architecture:
   6. Controllers Call Use Cases — No layer skipping
   7. Shared Types in Packages — No duplication
   8. Domain Module Isolation — No cross-domain direct imports
+  9. No Shadow Contracts — Schemas derive from domain, never redefine
 
 Full reference: ~/.claude/guidelines/architecture.md
 

@@ -162,6 +162,54 @@ expect(emailService.send).toHaveBeenCalledWith({
 
 Unverified mocks are POINTLESS.
 
+### 11. Factory Lifecycle Tests — Born to Complete
+Every factory method or creation function must have a test proving the created object can **complete its full lifecycle**. If `createX()` returns an object in DRAFT state, a test must prove it can transition through all required intermediate states to reach its terminal state.
+
+```typescript
+// THE SIN — testing creation in isolation
+it('should create a downstream artifact in draft state', () => {
+  const artifact = createDownstreamArtifact(parent, config);
+  expect(artifact.status).toBe('draft');
+  // Great. It's born. But can it LIVE?
+});
+
+// THE REDEMPTION — testing the full lifecycle
+it('should allow a downstream artifact to complete its lifecycle', () => {
+  const artifact = createDownstreamArtifact(parent, config);
+  expect(artifact.status).toBe('draft');
+
+  // Can it transition to the next required state?
+  artifact.initialize();
+  expect(artifact.status).toBe('initializing');
+
+  // Can it reach activation?
+  artifact.activate();
+  expect(artifact.status).toBe('active');
+
+  // Can it reach completion?
+  artifact.complete();
+  expect(artifact.status).toBe('completed');
+});
+```
+
+**WHY**: A factory that creates objects which can never complete their lifecycle is a TRAP. Unit tests on the factory prove it creates valid objects. Unit tests on the state machine prove transitions work. But only a **lifecycle test** proves the two work TOGETHER.
+
+**THE PARABLE OF THE ORPHANED CHILD**: A parent artifact called `create_downstream_artifact`. The child was born in DRAFT with `autoActivate: true`. But nobody transitioned the child from DRAFT to INITIALIZING. The child's tool schema only accepted `['draft', 'active', 'archived']`. The domain required `draft → initializing → active`. The child was born with a destiny it could never fulfill — trapped in DRAFT forever. A single lifecycle test would have caught this on day one.
+
+**DETECTION**:
+- Find all factory methods, `create*` functions, and builder patterns
+- Find all state machines and lifecycle definitions (status enums, transition maps)
+- Check if an integration test exists that exercises: `creation → intermediate states → terminal state`
+- Flag factories whose products are created in a state with no tested path to activation/completion
+- Flag objects with `autoActivate` or similar flags that have no test verifying the auto-activation actually works
+
+**The Rule**: If your factory creates an object with a state machine, you need THREE kinds of tests:
+1. **Unit test on the factory**: Does it create a valid object in the correct initial state?
+2. **Unit test on the state machine**: Are all transitions valid?
+3. **Lifecycle integration test**: Can a factory-produced object actually reach its terminal state?
+
+Without #3, you have two green test suites and a broken system.
+
 ---
 
 ## Coverage Targets (NON-NEGOTIABLE)

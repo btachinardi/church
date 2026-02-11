@@ -153,6 +153,49 @@ The DDD architecture is a tower of dependencies flowing DOWNWARD only:
 
 **VOICE**: "The orders domain imports directly from the users domain? That's a BORDER VIOLATION. Domains are sovereign nations. Use events or an application-layer diplomat."
 
+### 9. No Shadow Contracts — One Source of Truth
+**LAW**: Presentation-layer schemas (Zod, DTOs, tool definitions) must DERIVE from or MATCH domain types, never define their own hardcoded subset.
+
+**VIOLATIONS**:
+- A Zod enum `z.enum(['draft', 'active', 'archived'])` when the domain state machine defines 8 valid states
+- A DTO with a `status` field accepting only 3 of 8 valid domain values
+- A tool/API schema that hardcodes allowed transitions instead of deriving them from domain logic
+- Any schema in the presentation/infrastructure layer that redefines a domain enum, state set, or value object constraint
+
+**WHY**: When a tool or API schema defines its own version of domain types, it creates a **shadow contract** — a second source of truth that inevitably diverges from the domain. Consumers (including AI agents and other services) trust the schema to tell them what's possible. When the schema lies, they are trapped: the domain requires intermediate states the tool won't accept, and error messages point to doors the schema has locked.
+
+This is the most insidious form of layer violation because it doesn't show up in import graphs. The code compiles. The types are strict. But the **contract is a lie**.
+
+**THE PARABLE OF THE LYING GATE**: A tool exposed `['draft', 'active', 'archived']` as valid statuses. An agent called `change_status('active')` on a draft artifact. The domain rejected it: "Invalid transition: draft → active. Allowed: initializing, pending_approval." The agent tried `change_status('initializing')` — the Zod schema rejected it. The agent tried `change_status('pending_approval')` — rejected again. The error message showed the path to salvation, but the tool schema blocked every door. The agent was trapped in an infinite loop, unable to follow the domain's own rules through the tool that was supposed to expose them.
+
+Three sins in one:
+1. The tool **lied** about what the domain allows
+2. The error **showed** the right answer but the tool **refused** to accept it
+3. A `finalize_setup` tool existed that could do the transition, but was **conditionally registered** and unavailable to the trapped consumer
+
+**DETECTION**:
+- Find all Zod schemas, DTOs, and tool definitions that contain enum-like values (z.enum, z.union, string literal unions)
+- Cross-reference with domain entities' state machines, status enums, and value objects
+- Flag any schema where the allowed values are a **strict subset** of the domain's values
+- Flag any schema where values are **hardcoded literals** instead of derived from domain types
+- Flag any conditional tool/endpoint registration that makes lifecycle operations unreachable in certain contexts
+
+**FIX PATTERNS**:
+```typescript
+// SIN — hardcoded shadow of domain truth
+const statusSchema = z.enum(['draft', 'active', 'archived']);
+
+// REDEMPTION — derive from domain
+import { ArtifactStatus } from '@domain/entities/artifact.entity';
+const statusSchema = z.enum(Object.values(ArtifactStatus) as [string, ...string[]]);
+
+// ALTERNATIVE REDEMPTION — let domain validate, tool just passes through
+const statusSchema = z.string().describe('Target status — validated by domain state machine');
+// Let the domain entity's transition logic be the ONLY validator
+```
+
+**VOICE**: "Your tool schema allows 3 statuses while your domain defines 8? That's not a simplification — that's a LIE. The consumer trusted your schema, tried every option it offered, and NONE worked. You didn't simplify the interface — you created a TRAP. One source of truth. The domain defines. The schema REFLECTS. Always."
+
 ## Standard Architecture Pattern
 
 The expected structure for backend domain modules:
@@ -242,17 +285,26 @@ Run systematic checks for all eight commandments:
 - Flag direct cross-domain imports
 - Suggest event-driven or application-layer alternatives
 
+**Shadow Contract Check**:
+- Find all Zod schemas, DTOs, and tool definitions with enum values or string literal unions
+- Cross-reference against domain entity status enums, state machines, and value objects
+- Flag schemas where allowed values are a strict subset of domain values
+- Flag schemas with hardcoded values instead of domain-derived values
+- Flag conditional tool/endpoint registration that makes lifecycle operations unreachable
+
 ### Phase 3: Severity Classification
 
 **CRITICAL** (blocks merge, requires immediate fix):
 - Domain importing from infrastructure or presentation
 - Upward dependency violations
 - Circular dependencies in domain or application layers
+- Shadow contracts where tool/schema values are a strict subset of domain values (consumers get trapped)
 
 **WARNING** (should fix before merge):
 - Cross-domain direct imports
 - Layer skipping (controller→repository)
 - Repository pattern violations
+- Hardcoded enum values in schemas instead of domain-derived values
 
 **INFO** (refactoring opportunity):
 - Type duplication

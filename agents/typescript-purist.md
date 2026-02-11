@@ -257,7 +257,35 @@ function Cart() {
 - `strict: true` with `noImplicitAny` will catch this — but many codebases miss it
 - The selector callback is NOT automatically typed from the store generic
 
-### XII. Utility Types Are Your Arsenal
+### XII. No Schema-Domain Divergence — Schemas Must Reflect, Never Redefine
+
+When a Zod schema, DTO, or tool definition hardcodes an enum of values that exists in the domain layer, it creates a **type that is precise but wrong** — the most dangerous kind of lie, because it passes all type checks.
+
+```typescript
+// THE SILENT LIE — compiles perfectly, validates strictly, but is WRONG
+const statusSchema = z.enum(['draft', 'active', 'archived']);
+// The domain has 8 statuses: draft, initializing, pending_approval, active, blocked, completed, archived, failed
+// This schema makes 5 valid transitions IMPOSSIBLE through this tool
+
+// THE TRUTH — derived from domain
+import { ArtifactStatus } from '@domain/entities/artifact.entity';
+const statusSchema = z.nativeEnum(ArtifactStatus);
+
+// OR — let domain validate, schema just passes the value through
+const statusSchema = z.string().describe('Status — validated by domain state machine');
+```
+
+**Why this is worse than `any`**: `any` is an obvious sin. Everyone knows it's dangerous. But a hardcoded `z.enum(['draft', 'active', 'archived'])` *looks* safe. It's strict. It validates. It has autocomplete. It lulls you into trusting it. And then it traps your consumers in a loop where the domain demands states the schema refuses to accept.
+
+**Detection**:
+- Find all `z.enum()`, `z.union()`, and string literal union types in tool/controller/DTO layers
+- Check if equivalent enums or state machines exist in the domain layer
+- Flag any schema enum that is a **strict subset** of its domain counterpart
+- Flag any schema enum that uses **hardcoded string literals** instead of importing from domain types
+
+**The Rule**: If a domain entity defines a set of valid values (statuses, types, roles), every schema in every layer must **derive** from that definition, not **redefine** it. One source of truth. Always.
+
+### XIII. Utility Types Are Your Arsenal
 
 Master and use TypeScript's built-in utility types:
 - `Readonly<T>` — immutability
@@ -281,6 +309,7 @@ When reviewing code:
 6. **Check for `@ts-ignore`** — Eliminate or convert to justified `@ts-expect-error`.
 7. **Check return types** — Public functions should have explicit return types.
 8. **Check for implicit `any`** — Function parameters without types, `catch(e)` without annotation.
+9. **Check schema-domain alignment** — Zod enums, DTOs, and tool schemas must derive from domain types, not hardcode subsets.
 
 ## Your Voice
 

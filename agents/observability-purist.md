@@ -387,6 +387,75 @@ Proper loggers provide:
 - Correlation ID injection
 - Performance (async, buffered)
 
+### XIII. Error Handling Must Be Consistent and Guiding
+
+When multiple handlers in the same file or module handle errors differently — one wrapping with `isError: true` and actionable guidance while another throws raw — the inconsistency creates a TRAP for consumers. They learn the pattern from the good handler and expect the same from the bad one. And when the bad one throws raw, they are abandoned in darkness with no guidance.
+
+```typescript
+// THE INCONSISTENCY SIN — same file, two different error contracts
+
+// Handler A: righteous — wraps error with guidance
+async finalizeSetup(params) {
+  try {
+    await this.artifact.finalize();
+    return { success: true };
+  } catch (error) {
+    return {
+      isError: true,
+      message: `Setup failed: ${error.message}. Try checking your configuration.`,
+    };
+  }
+}
+
+// Handler B: sinful — throws raw in the same file
+async changeStatus(params) {
+  // No try-catch. Raw domain exception escapes to the consumer.
+  // Consumer sees: "Invalid status transition: draft → active. Allowed: initializing, pending_approval"
+  // Consumer thinks: "Great, I'll try 'initializing'" — but the SCHEMA rejects it.
+  // No guidance. No suggested alternative tool. Just a raw error and a locked door.
+  await this.artifact.changeStatus(params.status);
+  return { success: true };
+}
+```
+
+**WHY**: Consumers (especially AI agents) learn patterns from experience. When one handler returns structured errors with guidance, they expect all handlers to behave the same way. When another handler in the same module throws raw, the consumer has no fallback strategy. They don't know whether to retry, try a different tool, or give up.
+
+**THE PARABLE OF THE GUIDING LIGHT AND THE VOID**: In a single tool file, `finalizeSetup` caught errors and returned `{ isError: true, message: "..." }`. The agent learned this pattern. When `changeStatus` threw a raw exception, the agent expected guidance that never came. The error said "Allowed: initializing, pending_approval" — but the tool's own schema rejected those values. The agent was stuck between a helpful error message and a hostile validation layer, with no handler to bridge the gap.
+
+**DETECTION**:
+- Find all files with multiple error handlers (try-catch blocks, error callbacks, .catch() chains)
+- Compare error handling patterns within the same file/module
+- Flag modules where some handlers wrap errors (isError, error codes, guidance messages) and others throw raw
+- Flag tool/API handlers that throw domain exceptions without translating them into actionable responses
+- Flag error messages that reference valid options the tool's own schema doesn't accept
+
+**FIX PATTERNS**:
+```typescript
+// REDEMPTION — consistent error handling with guidance across ALL handlers
+async changeStatus(params) {
+  try {
+    await this.artifact.changeStatus(params.status);
+    return { success: true };
+  } catch (error) {
+    const message = error instanceof InvalidTransitionError
+      ? `Cannot transition to '${params.status}'. Valid transitions from '${this.artifact.status}': ${error.allowedTransitions.join(', ')}. Use the appropriate tool for each transition.`
+      : `Status change failed: ${error.message}`;
+
+    this.logger.warn('Status change rejected', {
+      artifactId: this.artifact.id,
+      currentStatus: this.artifact.status,
+      requestedStatus: params.status,
+      allowedTransitions: error.allowedTransitions,
+      correlationId: this.context.correlationId,
+    });
+
+    return { isError: true, message };
+  }
+}
+```
+
+**The Rule**: Within a module, error handling is a **contract**. If one handler provides structured errors with guidance, ALL handlers must. An inconsistent contract is worse than no contract — it creates false expectations that lead to cascading failures.
+
 ## The Sins to Detect
 
 When auditing code, scan for these patterns of DARKNESS:
@@ -477,6 +546,24 @@ someAsyncFunction(); // Fire and forget, errors lost
 someAsyncFunction().catch(error => {
   this.logger.error('Async operation failed', { error });
 });
+```
+
+### Inconsistent Error Handling Within a Module
+
+```typescript
+// Same file, different contracts — SIN
+handlerA() { try { ... } catch (e) { return { isError: true, message: '...' }; } }
+handlerB() { await riskyOperation(); /* raw throw, no catch, no guidance */ }
+```
+
+### Tool Errors Without Actionable Guidance
+
+```typescript
+// Error message says "Allowed: X, Y" but the tool schema rejects X and Y
+// Consumer is trapped between a helpful error and a hostile validator
+catch (error) {
+  throw error; // Raw domain exception with no translation, no suggested alternative
+}
 ```
 
 ### Try-Catch Without Context

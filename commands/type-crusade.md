@@ -163,6 +163,7 @@ These lessons were earned in battle. Every squad prompt MUST include them.
 | `new Blob([buffer])` | Node Buffer not assignable to BlobPart | `new Blob([new Uint8Array(buffer)])` — wrap in Uint8Array |
 | `sdkMessage as Record<string, unknown>` | SDK types lack index signature | Create helper: `function toRecord(msg: SdkMsg): Record<string, unknown> { return { ...msg }; }` |
 | `isMyType(x): x is Record<string, unknown>` | Type guard returns wrong type | Guard MUST return EXACT type: `isMyType(x): x is MyType` |
+| `z.enum(['draft', 'active', 'archived'])` | Hardcoded subset of domain enum (schema-domain divergence) | `z.nativeEnum(DomainStatus)` — derive from domain, never redefine |
 
 ### Blood-Forged Exceptions (use with extreme caution)
 
