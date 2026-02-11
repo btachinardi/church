@@ -12,6 +12,8 @@ argument-hint: [path] [--domain <name>] [--fix]
 
 This slash command orchestrates a comprehensive architectural audit of the entire codebase using parallel Architecture Purist agents. It detects layer violations, circular dependencies, cross-domain coupling, and structural rot across all domains.
 
+**NEW CAPABILITY**: The crusade can also **generate comprehensive architecture documentation** including domain catalogs, context maps, target state visions, and migration plans.
+
 ## Usage
 
 ```bash
@@ -25,11 +27,19 @@ This slash command orchestrates a comprehensive architectural audit of the entir
 
 **Examples:**
 ```bash
-/arch-crusade
-/arch-crusade apps/api/src/domains
-/arch-crusade --domain orders
-/arch-crusade apps/api/src/domains/orders --fix
+/arch-crusade                                    # Full audit
+/arch-crusade apps/api/src/domains               # Backend only
+/arch-crusade --domain orders                    # Specific domain
+/arch-crusade apps/api/src/domains/orders --fix  # Auto-fix violations
+/arch-crusade --docs                             # Generate architecture docs
+/arch-crusade --target-state                     # Design target architecture
 ```
+
+**Extended Modes:**
+- `--docs` — Generate comprehensive architecture documentation (domains.md, context-map.md, etc.)
+- `--target-state` — Design target state architecture with ADRs and migration plans
+- `--reconcile` — Ensure all features are accounted for in architecture redesign
+- `--scenarios` — Validate architecture against real-world development scenarios
 
 ## Mission Phases
 
@@ -212,6 +222,121 @@ publish(new OrderCreatedEvent({ userId: order.userId }))
 ### Phase 5: Victory Report
 
 **Objective**: Deliver comprehensive audit results with clear next steps.
+
+### Phase 6: Documentation Generation (if --docs)
+
+**Objective**: Create comprehensive architecture documentation library.
+
+**LEARNING**: An audit alone is not enough. The kingdom needs scriptures.
+
+**Documents to Generate**:
+
+1. **domains.md** — Complete catalog of all domains with:
+   - Responsibility statements
+   - Owned entities
+   - Key operations
+   - Published/subscribed events
+   - Dependencies with justification
+
+2. **context-map.md** — DDD context map showing:
+   - Visual domain relationships (ASCII diagrams)
+   - Integration patterns (shared kernel, customer/supplier, conformist)
+   - Hub domains (intentional vs accidental)
+   - Tech debt markers
+
+3. **dependency-policy.md** — Import rules registry:
+   - Allowed dependencies (foundational domains)
+   - Intentional dependencies (hub domains)
+   - Tech debt (circular dependencies)
+   - Remediation priorities (P0-P3)
+
+4. **domain-events.md** — Event catalog:
+   - EventEmitter2 events (backend communication)
+   - PubSub events (frontend SSE)
+   - Event flows with diagrams
+   - Missing events (recommendations)
+
+**Deployment Strategy**:
+```
+1. Deploy Explore agents to understand each domain deeply
+2. Catalog all entities, operations, events
+3. Map dependencies from audit results
+4. Generate documentation in docs/architecture/
+5. Link violations to improvement opportunities
+```
+
+### Phase 7: Target State Design (if --target-state)
+
+**Objective**: Don't just identify sins — show the path to redemption.
+
+**LEARNING**: Developers need a vision, not just a problem list.
+
+**Deliverables**:
+
+1. **target-state.md** — The divine vision:
+   - Simplified domain model (consolidate related domains)
+   - Clear primary aggregates
+   - Event-driven integrations
+   - Migration roadmap
+
+2. **adr/NNN-*.md** — Architecture Decision Records:
+   - Context: Why the current state is problematic
+   - Decision: What should change
+   - Consequences: Trade-offs and impacts
+   - Alternatives considered
+
+3. **reconciliation.md** — Feature migration map:
+   - Every feature from current state
+   - Mapped to new home in target state
+   - 0 features left behind
+   - Migration effort estimates
+
+4. **Detailed pillar scriptures** (pillars/*.md):
+   - One document per major domain
+   - Comprehensive entity definitions
+   - Operation catalogs
+   - Integration points
+
+### Phase 8: Scenario Validation (if --scenarios)
+
+**Objective**: Prove the architecture works against real-world use cases.
+
+**LEARNING**: Architecture must serve the business, not theoretical purity.
+
+**Validation Method**:
+1. Generate 10+ real-world development scenarios
+2. Map each to domain entities and operations
+3. Identify gaps where architecture doesn't support workflows
+4. Refine architecture to handle all scenarios
+5. Document successful mappings
+
+**Example Scenarios to Validate**:
+- Sprint planning → execution → QA → release
+- Production error → alert → investigation → fix
+- User feedback → triage → resolution
+- Complex feature with spec-driven development
+- Multi-agent collaboration on parallel work
+- Real-time UI iteration with feedback loops
+
+### Phase 9: Reuse Strategy (if --target-state)
+
+**Objective**: Prevent future domain proliferation through composition.
+
+**LEARNING**: Don't create new domains for every feature. Compose existing primitives.
+
+**Deliverable: reuse-strategy.md**:
+- Composition over proliferation principle
+- Task artifacts as extension points
+- Workflows as behavior templates
+- Tools as universal interface
+- Memory scoping for all context
+- Subtasks for all decomposition
+- Events for all communication
+
+**Anti-patterns to document**:
+- Creating domain for every feature
+- Creating parallel hierarchies
+- Creating custom storage for everything
 
 **Report Structure**:
 
