@@ -68,11 +68,11 @@ export const namingCrusade: CrusadeDetail = {
     },
   ],
   howItWorks: [
-    'Reconnaissance scans the target scope, discovering all TypeScript files and running Grep patterns to detect file naming violations, unprefixed booleans, generic junk drawer names, single-letter variables, and non-screaming constants.',
-    'Four specialist squads deploy in parallel: the File Naming squad audits every file against [name].[component-type].ts convention, the Variable squad hunts semantic violations, the Function squad targets vague verbs, and the Type squad enforces nomenclature doctrine.',
-    'Each squad operates independently with its own narrow doctrine, reading flagged files, analyzing context, and classifying every violation by severity -- CRITICAL for convention-breaking sins, WARNING for semantic laziness, INFO for minor clarity improvements.',
-    'Results are reconciled into a consolidated report, deduplicated across squads, and organized by severity with exact file locations, current names, suggested renames, and passionate rationale for every fix.',
-    'If the --fix flag is set, file renames execute via git mv to preserve history, import paths are updated, identifier renames are applied with the Edit tool, and a type check verifies nothing was broken.',
-    'The Victory Report presents final battle statistics, lists every commandment enforced, and declares the codebase linguistically purified -- or provides precise instructions for manual remediation.',
+    { phase: 'Reconnaissance', description: 'Scans the target scope, discovering all TypeScript files and running Grep patterns to detect file naming violations, unprefixed booleans, generic junk drawer names, single-letter variables, and non-screaming constants.' },
+    { phase: 'Squad Deployment', description: 'Four specialist squads deploy in parallel: the File Naming squad audits every file against [name].[component-type].ts convention, the Variable squad hunts semantic violations, the Function squad targets vague verbs, and the Type squad enforces nomenclature doctrine.' },
+    { phase: 'Independent Analysis', description: 'Each squad operates independently with its own narrow doctrine, reading flagged files, analyzing context, and classifying every violation by severity -- CRITICAL for convention-breaking sins, WARNING for semantic laziness, INFO for minor clarity improvements.' },
+    { phase: 'Consolidation', description: 'Results are reconciled into a consolidated report, deduplicated across squads, and organized by severity with exact file locations, current names, suggested renames, and passionate rationale for every fix.' },
+    { phase: 'Execution', description: 'If the --fix flag is set, file renames execute via git mv to preserve history, import paths are updated, identifier renames are applied with the Edit tool, and a type check verifies nothing was broken.' },
+    { phase: 'Victory Report', description: 'Presents final battle statistics, lists every commandment enforced, and declares the codebase linguistically purified -- or provides precise instructions for manual remediation.' },
   ],
 };

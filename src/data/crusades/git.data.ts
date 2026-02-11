@@ -68,11 +68,11 @@ export const gitCrusade: CrusadeDetail = {
     },
   ],
   howItWorks: [
-    'Reconnaissance: Survey the damage with git status, recent history, commit sizes, branch inventory, .gitignore gaps, and a secrets scan. The grim statistics are presented.',
-    'Sin Classification: Findings are grouped into four squads -- Worktree, Message, Atomicity, and Hygiene -- each assigned to its specialist domain.',
-    'Parallel Deployment: All four specialist purist agents are launched simultaneously via the Task tool in a single message. The swarm is the strategy.',
-    'Squad Reports: Each specialist delivers a detailed verdict -- proposed commits for the worktree, message rewrites, commit split plans, and hygiene fixes with exact commands.',
-    'The General Executes: Pending changes are committed into atomic groups. With the --fix flag, existing history is rewritten in safe order: hygiene first, worktree second, messages third, splits last.',
-    'Final Inspection: The full audit runs again. The worktree must be clean, all messages conventional, no bloated commits remaining. The Victory Report is declared.',
+    { phase: 'Reconnaissance', description: 'Survey the damage with git status, recent history, commit sizes, branch inventory, .gitignore gaps, and a secrets scan. The grim statistics are presented.' },
+    { phase: 'Sin Classification', description: 'Findings are grouped into four squads -- Worktree, Message, Atomicity, and Hygiene -- each assigned to its specialist domain.' },
+    { phase: 'Parallel Deployment', description: 'All four specialist purist agents are launched simultaneously via the Task tool in a single message. The swarm is the strategy.' },
+    { phase: 'Squad Reports', description: 'Each specialist delivers a detailed verdict -- proposed commits for the worktree, message rewrites, commit split plans, and hygiene fixes with exact commands.' },
+    { phase: 'The General Executes', description: 'Pending changes are committed into atomic groups. With the --fix flag, existing history is rewritten in safe order: hygiene first, worktree second, messages third, splits last.' },
+    { phase: 'Final Inspection', description: 'The full audit runs again. The worktree must be clean, all messages conventional, no bloated commits remaining. The Victory Report is declared.' },
   ],
 } as const;

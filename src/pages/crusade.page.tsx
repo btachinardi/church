@@ -4,6 +4,27 @@ import { CodeBlock } from '../components/code-block.component';
 import { crusadeDetails } from '../data/crusades/index';
 import type { CrusadeDetail } from '../data/crusade-detail.types';
 
+function BoldFirstSentence({
+  text,
+  className,
+}: {
+  readonly text: string;
+  readonly className?: string;
+}) {
+  const periodIndex = text.indexOf('. ');
+  if (periodIndex === -1 || periodIndex > 150) {
+    return <p className={className}>{text}</p>;
+  }
+  const firstSentence = text.slice(0, periodIndex + 1);
+  const rest = text.slice(periodIndex + 1);
+  return (
+    <p className={className}>
+      <strong className="text-gray-200">{firstSentence}</strong>
+      {rest}
+    </p>
+  );
+}
+
 function CrusadeNotFound() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-6">
@@ -47,7 +68,7 @@ function SpecialistCard({
         <p className="mb-2 text-xs uppercase tracking-widest text-gold-dim">
           {specialist.focus}
         </p>
-        <p className="text-sm text-gray-400">{specialist.description}</p>
+        <BoldFirstSentence text={specialist.description} className="text-sm text-gray-400" />
       </div>
     </ScrollReveal>
   );
@@ -96,9 +117,7 @@ function CrusadeContent({ crusade }: { readonly crusade: CrusadeDetail }) {
           </ScrollReveal>
 
           <ScrollReveal delay={200}>
-            <p className="text-lg leading-relaxed text-gray-300">
-              {crusade.description}
-            </p>
+            <BoldFirstSentence text={crusade.description} className="text-lg leading-relaxed text-gray-300" />
           </ScrollReveal>
         </div>
       </section>
@@ -119,7 +138,11 @@ function CrusadeContent({ crusade }: { readonly crusade: CrusadeDetail }) {
                   <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-gold/30 bg-gold/10 font-cinzel text-lg font-bold text-gold">
                     {index + 1}
                   </div>
-                  <p className="pt-1.5 text-gray-300">{step}</p>
+                  <p className="pt-1.5 text-gray-300">
+                    <span className="font-semibold text-gray-200">{step.phase}</span>
+                    <span className="mx-1.5 text-gold/40">&mdash;</span>
+                    <span>{step.description}</span>
+                  </p>
                 </div>
               </ScrollReveal>
             ))}
@@ -147,7 +170,7 @@ function CrusadeContent({ crusade }: { readonly crusade: CrusadeDetail }) {
                     <span className="flex-shrink-0 font-cinzel text-2xl font-bold text-gold text-glow">
                       {commandment.numeral}
                     </span>
-                    <p className="text-gray-300">{commandment.text}</p>
+                    <BoldFirstSentence text={commandment.text} className="text-gray-300" />
                   </div>
                 </div>
               </ScrollReveal>

@@ -82,11 +82,11 @@ export const deadCrusade: CrusadeDetail = {
     },
   ],
   howItWorks: [
-    'Reconnaissance -- scan the codebase to count the living, estimate the dead, and determine the scope of the battlefield.',
-    'Parallel Deployment -- six specialized squads launch simultaneously, each hunting a single species of dead code: unused exports, orphaned files, commented blocks, debug artifacts, stale TODOs, and unreachable branches.',
-    'Squad Synchronization -- all squad reports are collected, merged, and filtered by severity. Findings are sorted by criticality, lines affected, and file path.',
-    'Impact Calculation -- total lines of dead code are tallied across all categories, broken down by severity (CRITICAL, WARNING, INFO) and by squad.',
-    'The Burial Report -- a comprehensive markdown report is generated with executive summary, findings by severity, squad performance metrics, and next steps.',
-    'Reap or Audit -- in audit mode, the dead are catalogued. In reap mode, the dead are BURIED. The user chooses when the purge begins.',
+    { phase: 'Reconnaissance', description: 'Scan the codebase to count the living, estimate the dead, and determine the scope of the battlefield.' },
+    { phase: 'Parallel Deployment', description: 'Six specialized squads launch simultaneously, each hunting a single species of dead code: unused exports, orphaned files, commented blocks, debug artifacts, stale TODOs, and unreachable branches.' },
+    { phase: 'Squad Synchronization', description: 'All squad reports are collected, merged, and filtered by severity. Findings are sorted by criticality, lines affected, and file path.' },
+    { phase: 'Impact Calculation', description: 'Total lines of dead code are tallied across all categories, broken down by severity (CRITICAL, WARNING, INFO) and by squad.' },
+    { phase: 'The Burial Report', description: 'A comprehensive markdown report is generated with executive summary, findings by severity, squad performance metrics, and next steps.' },
+    { phase: 'Reap or Audit', description: 'In audit mode, the dead are catalogued. In reap mode, the dead are BURIED. The user chooses when the purge begins.' },
   ],
 } as const;

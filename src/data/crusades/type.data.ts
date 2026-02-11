@@ -67,11 +67,11 @@ export const typeCrusade: CrusadeDetail = {
     },
   ],
   howItWorks: [
-    'Pre-Flight: Verifies monorepo configuration, checks `tsconfig.json` for `strict: true`, and runs `tsc --noEmit` to establish a baseline. Config sins are fixed before code sins are hunted.',
-    'Reconnaissance: Scans the battlefield with Grep and Glob to produce a body count -- every `any`, `as` cast, `@ts-ignore`, and `@ts-expect-error` is catalogued. Files are grouped by directory and classified by their dominant sin.',
-    'Squad Assignment: Each file is assigned to one of four specialist squads based on its worst violation -- Any Elimination, Assertion Purge, Guard Reinforcement, or Schema Alignment. Files with mixed sins go to the squad matching their gravest offense.',
-    'Parallel Deployment: All four squads are launched simultaneously via the Task tool in a single message. Each specialist carries only the doctrine it needs, operating on its assigned files with surgical precision.',
-    'Compiler Judgment: After all squads report, `tsc --noEmit` is invoked as the final arbiter. If the Lord of Types speaks errors, they are fixed before victory is declared.',
-    'Second Purge: The battlefield is swept for survivors -- `as unknown` double-casts and remaining type assertions. Any stragglers are eliminated in hand-to-hand combat by the War General personally.',
+    { phase: 'Pre-Flight', description: 'Verifies monorepo configuration, checks `tsconfig.json` for `strict: true`, and runs `tsc --noEmit` to establish a baseline. Config sins are fixed before code sins are hunted.' },
+    { phase: 'Reconnaissance', description: 'Scans the battlefield with Grep and Glob to produce a body count -- every `any`, `as` cast, `@ts-ignore`, and `@ts-expect-error` is catalogued. Files are grouped by directory and classified by their dominant sin.' },
+    { phase: 'Squad Assignment', description: 'Each file is assigned to one of four specialist squads based on its worst violation -- Any Elimination, Assertion Purge, Guard Reinforcement, or Schema Alignment. Files with mixed sins go to the squad matching their gravest offense.' },
+    { phase: 'Parallel Deployment', description: 'All four squads are launched simultaneously via the Task tool in a single message. Each specialist carries only the doctrine it needs, operating on its assigned files with surgical precision.' },
+    { phase: 'Compiler Judgment', description: 'After all squads report, `tsc --noEmit` is invoked as the final arbiter. If the Lord of Types speaks errors, they are fixed before victory is declared.' },
+    { phase: 'Second Purge', description: 'The battlefield is swept for survivors -- `as unknown` double-casts and remaining type assertions. Any stragglers are eliminated in hand-to-hand combat by the War General personally.' },
   ],
 } as const;

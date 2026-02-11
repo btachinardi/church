@@ -68,11 +68,11 @@ export const a11yCrusade: CrusadeDetail = {
     },
   ],
   howItWorks: [
-    'Reconnaissance: Scan the codebase with Grep/Glob to detect missing alt text, div buttons, outline removal, ARIA usage, and potential contrast violations.',
-    'Squad Assignment: Classify violations into four specialist domains—Semantic (DOM structure), Focus (keyboard navigation), ARIA (dynamic content), and Perceivability (sensory alternatives).',
-    'Parallel Deployment: Launch all four specialist purist agents simultaneously via the Task tool in a single message for true parallelism.',
-    'Auto-Remediation (--write): Fix decorative alt text, convert div buttons to <button>, restore focus indicators, add role="alert" to errors, and convert px to rem.',
-    'Manual Review: Flag complex issues requiring human judgment—descriptive alt text, color contrast design decisions, heading hierarchy restructuring, and complex ARIA patterns.',
-    'Victory Report: Aggregate squad findings, prioritize critical blockers (keyboard traps, missing alt text, contrast failures), estimate remediation effort, and generate actionable next steps including integration with axe, Pa11y, and Lighthouse.',
+    { phase: 'Reconnaissance', description: 'Scan the codebase with Grep/Glob to detect missing alt text, div buttons, outline removal, ARIA usage, and potential contrast violations.' },
+    { phase: 'Squad Assignment', description: 'Classify violations into four specialist domains—Semantic (DOM structure), Focus (keyboard navigation), ARIA (dynamic content), and Perceivability (sensory alternatives).' },
+    { phase: 'Parallel Deployment', description: 'Launch all four specialist purist agents simultaneously via the Task tool in a single message for true parallelism.' },
+    { phase: 'Auto-Remediation (--write)', description: 'Fix decorative alt text, convert div buttons to <button>, restore focus indicators, add role="alert" to errors, and convert px to rem.' },
+    { phase: 'Manual Review', description: 'Flag complex issues requiring human judgment—descriptive alt text, color contrast design decisions, heading hierarchy restructuring, and complex ARIA patterns.' },
+    { phase: 'Victory Report', description: 'Aggregate squad findings, prioritize critical blockers (keyboard traps, missing alt text, contrast failures), estimate remediation effort, and generate actionable next steps including integration with axe, Pa11y, and Lighthouse.' },
   ],
 } as const;

@@ -5,6 +5,11 @@ export interface CrusadeSpecialist {
   readonly description: string;
 }
 
+export interface CrusadeStep {
+  readonly phase: string;
+  readonly description: string;
+}
+
 export interface CrusadeCommandment {
   readonly numeral: string;
   readonly text: string;
@@ -24,5 +29,5 @@ export interface CrusadeDetail {
   readonly battleCry: string;
   readonly commandments: readonly CrusadeCommandment[];
   readonly specialists: readonly CrusadeSpecialist[];
-  readonly howItWorks: readonly string[];
+  readonly howItWorks: readonly CrusadeStep[];
 }

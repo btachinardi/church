@@ -67,10 +67,10 @@ export const testCrusade: CrusadeDetail = {
     },
   ],
   howItWorks: [
-    'Reconnaissance \u2014 The crusade runs coverage reports, counts source and test files, scans for test debt, and builds a complete intelligence picture of the battlefield before any squad deploys.',
-    'Parallel Squad Deployment \u2014 Four specialist squads launch simultaneously: the Coverage Gap Squad, the Assertion Quality Squad, the Property Test Squad, and the Test Hygiene Squad. Each carries only the doctrine it needs.',
-    'Severity Classification \u2014 All findings are classified into CRITICAL (zero-coverage entities, missing property tests, empty assertions), WARNING (below-target files, weak assertions, skipped tests), and INFO (vague names, missing arbitraries, todos).',
-    'Consolidated Battle Report \u2014 Squad findings are aggregated into a unified report with severity breakdowns, top priority targets, and specific file-and-line references for every violation.',
-    'Victory Declaration \u2014 The crusade renders its verdict: Full Victory when all targets are met, Partial Victory when critical threats are eliminated, or Ongoing Battle when critical issues remain. Untested code is a THREAT to production.',
+    { phase: 'Reconnaissance', description: 'The crusade runs coverage reports, counts source and test files, scans for test debt, and builds a complete intelligence picture of the battlefield before any squad deploys.' },
+    { phase: 'Parallel Squad Deployment', description: 'Four specialist squads launch simultaneously: the Coverage Gap Squad, the Assertion Quality Squad, the Property Test Squad, and the Test Hygiene Squad. Each carries only the doctrine it needs.' },
+    { phase: 'Severity Classification', description: 'All findings are classified into CRITICAL (zero-coverage entities, missing property tests, empty assertions), WARNING (below-target files, weak assertions, skipped tests), and INFO (vague names, missing arbitraries, todos).' },
+    { phase: 'Consolidated Battle Report', description: 'Squad findings are aggregated into a unified report with severity breakdowns, top priority targets, and specific file-and-line references for every violation.' },
+    { phase: 'Victory Declaration', description: 'The crusade renders its verdict: Full Victory when all targets are met, Partial Victory when critical threats are eliminated, or Ongoing Battle when critical issues remain. Untested code is a THREAT to production.' },
   ],
 } as const;

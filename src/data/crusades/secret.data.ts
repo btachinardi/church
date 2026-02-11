@@ -67,11 +67,11 @@ export const secretCrusade: CrusadeDetail = {
     },
   ],
   howItWorks: [
-    'Reconnaissance -- Verify the git repository, count tracked files, identify key areas, and determine squad sizing based on codebase scale and command flags.',
-    'Squad Formation -- Assemble 2-4 specialist squads based on repo size: File Scanner Squad for source code, Config Sentinel Squad for barriers, History Squad for git forensics (--history), and Dependency Audit Squad for supply chain (--deep).',
-    'War Cry -- Announce deployment with squad assignments, file counts, and commit depth. If a secret has EVER been committed, we WILL find it.',
-    'Parallel Deployment -- Launch all specialist purist agents simultaneously via the Task tool. Each squad receives isolated scope and its own detection mission.',
-    'DEFCON Consolidation -- Aggregate findings from all squads. Highest DEFCON wins. Deduplicate cross-squad discoveries. Prioritize critical findings over warnings.',
-    'Victory Report -- Deliver a comprehensive security assessment with exact file locations, masked secret previews, exposure windows, and precise remediation commands for every finding.',
+    { phase: 'Reconnaissance', description: 'Verify the git repository, count tracked files, identify key areas, and determine squad sizing based on codebase scale and command flags.' },
+    { phase: 'Squad Formation', description: 'Assemble 2-4 specialist squads based on repo size: File Scanner Squad for source code, Config Sentinel Squad for barriers, History Squad for git forensics (--history), and Dependency Audit Squad for supply chain (--deep).' },
+    { phase: 'War Cry', description: 'Announce deployment with squad assignments, file counts, and commit depth. If a secret has EVER been committed, we WILL find it.' },
+    { phase: 'Parallel Deployment', description: 'Launch all specialist purist agents simultaneously via the Task tool. Each squad receives isolated scope and its own detection mission.' },
+    { phase: 'DEFCON Consolidation', description: 'Aggregate findings from all squads. Highest DEFCON wins. Deduplicate cross-squad discoveries. Prioritize critical findings over warnings.' },
+    { phase: 'Victory Report', description: 'Deliver a comprehensive security assessment with exact file locations, masked secret previews, exposure windows, and precise remediation commands for every finding.' },
   ],
 } as const;

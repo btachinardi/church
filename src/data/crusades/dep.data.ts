@@ -68,11 +68,11 @@ export const depCrusade: CrusadeDetail = {
     },
   ],
   howItWorks: [
-    'Reconnaissance: Discovers all package manifests across the monorepo, detects the package manager, and runs baseline security audits and outdated checks to gather intelligence.',
-    'Squad Formation: Assigns four specialized squads — Vulnerability Hunter, Outdated Package Tracker, Unused & Phantom Detective, and Duplication & Bloat Auditor — each carrying only the doctrine they need.',
-    'Parallel Deployment: All four specialist purist agents are launched simultaneously via the Task tool in a single message, auditing the dependency tree from four angles at once.',
-    'Synthesis & Triage: Aggregates all squad findings into severity tiers — Critical issues demanding immediate action, Warnings requiring scheduled fixes, and Info-level optimization opportunities.',
-    'Master Remediation: Generates a single executable remediation script combining all squad fixes, ordered by priority — security patches first, unused removal second, deduplication third.',
-    'Victory Report: Delivers a final verdict with metrics, detailed findings by severity, and a dramatic assessment of the dependency tree\'s fitness for production.',
+    { phase: 'Reconnaissance', description: 'Discovers all package manifests across the monorepo, detects the package manager, and runs baseline security audits and outdated checks to gather intelligence.' },
+    { phase: 'Squad Formation', description: 'Assigns four specialized squads — Vulnerability Hunter, Outdated Package Tracker, Unused & Phantom Detective, and Duplication & Bloat Auditor — each carrying only the doctrine they need.' },
+    { phase: 'Parallel Deployment', description: 'All four specialist purist agents are launched simultaneously via the Task tool in a single message, auditing the dependency tree from four angles at once.' },
+    { phase: 'Synthesis & Triage', description: 'Aggregates all squad findings into severity tiers — Critical issues demanding immediate action, Warnings requiring scheduled fixes, and Info-level optimization opportunities.' },
+    { phase: 'Master Remediation', description: 'Generates a single executable remediation script combining all squad fixes, ordered by priority — security patches first, unused removal second, deduplication third.' },
+    { phase: 'Victory Report', description: 'Delivers a final verdict with metrics, detailed findings by severity, and a dramatic assessment of the dependency tree\'s fitness for production.' },
   ],
 } as const;

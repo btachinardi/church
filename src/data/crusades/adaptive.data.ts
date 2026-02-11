@@ -75,11 +75,11 @@ export const adaptiveCrusade: CrusadeDetail = {
     },
   ],
   howItWorks: [
-    'Reconnaissance: Scans every CSS, SCSS, TSX, and TypeScript file for viewport hardcoding, missing srcset, outline:none, undersized touch targets, hover-only interactions, missing state persistence, and absent viewport segment detection. Classifies every violation by concern and severity.',
-    'Squad Assignment: Each violation is assigned to one of five specialist squads based on its concern -- Seam Sentinels for viewport issues, State Preservation Clerics for persistence gaps, Focus Trackers for keyboard sins, DPI Crusaders for resolution crimes, and Touch Target Templars for interaction failures.',
-    'Parallel Deployment: All five specialist squads are launched simultaneously via the Task tool in a single message. Each agent carries only the doctrine for its specific concern, analyzing assigned files with laser focus.',
-    'Deep Analysis: Each squad examines violation context, confirms the issue, assesses severity and user impact, and produces specific fix instructions with exact code changes. In --fix mode, fixes are applied directly.',
-    'Aggregation: Squad reports are synthesized into a consolidated findings report with violation counts, fix counts, and an Adaptive Scorecard rating each concern as PASS, WARN, or FAIL.',
-    'Victory Report: A final scorecard declares whether the codebase survives the fold. Touch targets, focus flow, resolution assets, state persistence, and viewport awareness are all verified. The Great Viewport Collapse will not happen here.',
+    { phase: 'Reconnaissance', description: 'Scans every CSS, SCSS, TSX, and TypeScript file for viewport hardcoding, missing srcset, outline:none, undersized touch targets, hover-only interactions, missing state persistence, and absent viewport segment detection. Classifies every violation by concern and severity.' },
+    { phase: 'Squad Assignment', description: 'Each violation is assigned to one of five specialist squads based on its concern -- Seam Sentinels for viewport issues, State Preservation Clerics for persistence gaps, Focus Trackers for keyboard sins, DPI Crusaders for resolution crimes, and Touch Target Templars for interaction failures.' },
+    { phase: 'Parallel Deployment', description: 'All five specialist squads are launched simultaneously via the Task tool in a single message. Each agent carries only the doctrine for its specific concern, analyzing assigned files with laser focus.' },
+    { phase: 'Deep Analysis', description: 'Each squad examines violation context, confirms the issue, assesses severity and user impact, and produces specific fix instructions with exact code changes. In --fix mode, fixes are applied directly.' },
+    { phase: 'Aggregation', description: 'Squad reports are synthesized into a consolidated findings report with violation counts, fix counts, and an Adaptive Scorecard rating each concern as PASS, WARN, or FAIL.' },
+    { phase: 'Victory Report', description: 'A final scorecard declares whether the codebase survives the fold. Touch targets, focus flow, resolution assets, state persistence, and viewport awareness are all verified. The Great Viewport Collapse will not happen here.' },
   ],
 } as const;

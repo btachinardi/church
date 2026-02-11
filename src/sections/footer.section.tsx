@@ -66,7 +66,7 @@ export function FooterSection() {
                   ))}
                 </div>
                 <p className="mt-2 text-xs text-gray-500">
-                  # ... and 7 more holy instruments
+                  # ... and 11 more holy instruments
                 </p>
               </div>
             </div>
@@ -80,8 +80,8 @@ export function FooterSection() {
 
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-gray-600">
             <span>&#10013; In Code We Trust &#10013;</span>
-            <span>11 Crusades</span>
-            <span>48 Specialists</span>
+            <span>14 Crusades</span>
+            <span>61 Specialists</span>
             <span>Opus-Powered</span>
           </div>
         </ScrollReveal>

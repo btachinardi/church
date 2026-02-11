@@ -74,11 +74,11 @@ export const archCrusade: CrusadeDetail = {
     },
   ],
   howItWorks: [
-    'Reconnaissance -- Map the battlefield. Discover all domain modules, scan every TypeScript file, extract all import statements, classify files by layer, and build the complete dependency graph.',
-    'Squad Deployment -- Five specialist squads deploy in parallel: Layer Violation, Circular Dependency, Cross-Domain, Pattern Compliance, and Shadow Contract. Each carries only the doctrine it needs.',
-    'Violation Detection -- Each squad systematically inspects its domain of concern. Layer boundaries are verified, import cycles are traced, domain borders are patrolled, patterns are audited, and schemas are cross-referenced against domain sources of truth.',
-    'Severity Classification -- Every violation is triaged: CRITICAL violations that block merges, WARNINGS that demand attention before merge, and INFO-level refactoring opportunities. The fortress status is declared: SECURE, COMPROMISED, or CRITICAL.',
-    'Fix Proposals -- Concrete, actionable remediation for every violation. Before-and-after code, architectural principles upheld, and the long-term cost of ignoring the crack in the wall.',
-    'Victory Report -- A comprehensive audit report with violations by severity and type, top offending domains, recommended actions prioritized by urgency, and auto-fix availability for safe corrections.',
+    { phase: 'Reconnaissance', description: 'Map the battlefield. Discover all domain modules, scan every TypeScript file, extract all import statements, classify files by layer, and build the complete dependency graph.' },
+    { phase: 'Squad Deployment', description: 'Five specialist squads deploy in parallel: Layer Violation, Circular Dependency, Cross-Domain, Pattern Compliance, and Shadow Contract. Each carries only the doctrine it needs.' },
+    { phase: 'Violation Detection', description: 'Each squad systematically inspects its domain of concern. Layer boundaries are verified, import cycles are traced, domain borders are patrolled, patterns are audited, and schemas are cross-referenced against domain sources of truth.' },
+    { phase: 'Severity Classification', description: 'Every violation is triaged: CRITICAL violations that block merges, WARNINGS that demand attention before merge, and INFO-level refactoring opportunities. The fortress status is declared: SECURE, COMPROMISED, or CRITICAL.' },
+    { phase: 'Fix Proposals', description: 'Concrete, actionable remediation for every violation. Before-and-after code, architectural principles upheld, and the long-term cost of ignoring the crack in the wall.' },
+    { phase: 'Victory Report', description: 'A comprehensive audit report with violations by severity and type, top offending domains, recommended actions prioritized by urgency, and auto-fix availability for safe corrections.' },
   ],
 } as const;
