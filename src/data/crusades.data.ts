@@ -1,5 +1,6 @@
-interface Crusade {
+export interface Crusade {
   readonly name: string;
+  readonly slug: string;
   readonly command: string;
   readonly icon: string;
   readonly tagline: string;
@@ -10,6 +11,7 @@ interface Crusade {
 export const crusades: readonly Crusade[] = [
   {
     name: 'The Type Crusade',
+    slug: 'type',
     command: '/type-crusade',
     icon: '⚔️',
     tagline: 'Purge every `any`, every `as` cast, every type sin.',
@@ -18,6 +20,7 @@ export const crusades: readonly Crusade[] = [
   },
   {
     name: 'The Git Crusade',
+    slug: 'git',
     command: '/git-crusade',
     icon: '📜',
     tagline: 'Clean history. Atomic commits. Conventional messages.',
@@ -26,6 +29,7 @@ export const crusades: readonly Crusade[] = [
   },
   {
     name: 'The Secret Crusade',
+    slug: 'secret',
     command: '/secret-crusade',
     icon: '🔐',
     tagline: 'DEFCON 1 credential scanning. No key shall hide.',
@@ -34,6 +38,7 @@ export const crusades: readonly Crusade[] = [
   },
   {
     name: 'The Architecture Crusade',
+    slug: 'arch',
     command: '/arch-crusade',
     icon: '🏰',
     tagline: 'DDD layer boundaries. The fortress must hold.',
@@ -42,6 +47,7 @@ export const crusades: readonly Crusade[] = [
   },
   {
     name: 'The Dependency Crusade',
+    slug: 'dep',
     command: '/dep-crusade',
     icon: '📦',
     tagline: 'Audit every package. Evict the unworthy.',
@@ -50,6 +56,7 @@ export const crusades: readonly Crusade[] = [
   },
   {
     name: 'The Test Crusade',
+    slug: 'test',
     command: '/test-crusade',
     icon: '🛡️',
     tagline: "If it's not tested, it doesn't work.",
@@ -58,6 +65,7 @@ export const crusades: readonly Crusade[] = [
   },
   {
     name: 'The Dead Code Crusade',
+    slug: 'dead',
     command: '/dead-crusade',
     icon: '💀',
     tagline: 'The dead shall be buried. No corpse remains.',
@@ -66,6 +74,7 @@ export const crusades: readonly Crusade[] = [
   },
   {
     name: 'The Naming Crusade',
+    slug: 'naming',
     command: '/naming-crusade',
     icon: '✒️',
     tagline: 'Names are documentation. Bad names are lies.',
@@ -74,6 +83,7 @@ export const crusades: readonly Crusade[] = [
   },
   {
     name: 'The Size Crusade',
+    slug: 'size',
     command: '/size-crusade',
     icon: '🗡️',
     tagline: 'No file grows unchecked. No monolith survives.',
@@ -82,6 +92,7 @@ export const crusades: readonly Crusade[] = [
   },
   {
     name: 'The Observability Crusade',
+    slug: 'observability',
     command: '/observability-crusade',
     icon: '🔦',
     tagline: 'Let there be LIGHT. No silent failure remains.',
@@ -90,6 +101,7 @@ export const crusades: readonly Crusade[] = [
   },
   {
     name: 'The React Crusade',
+    slug: 'react',
     command: '/react-crusade',
     icon: '🛕',
     tagline: 'Component purity. Effect discipline. The Immutable State.',

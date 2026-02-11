@@ -29,12 +29,24 @@ church/
 │   ├── secret/          # 4 secret specialists
 │   └── size/            # 4 size specialists
 ├── commands/            # Crusade orchestration commands (*.md)
+│   ├── react-crusade.md # 11 crusade commands total
+│   └── ...
 ├── skills/              # Auto-discovered skills (SKILL.md)
 ├── .claude-plugin/      # Plugin manifest (plugin.json, marketplace.json)
 ├── src/                 # Vite + React website source
 │   ├── components/      # React components (*.component.tsx)
 │   ├── sections/        # Page sections (*.section.tsx)
-│   └── data/            # Static data (*.data.ts)
+│   ├── pages/           # Route pages (*.page.tsx)
+│   │   ├── home.page.tsx
+│   │   └── crusade.page.tsx
+│   ├── data/            # Static data (*.data.ts)
+│   │   └── crusades/    # Per-crusade landing page data
+│   │       ├── type.data.ts
+│   │       ├── git.data.ts
+│   │       ├── react.data.ts
+│   │       └── ...      # 11 crusade data files + index.ts
+│   ├── app.tsx          # Route definitions (react-router-dom)
+│   └── main.tsx         # Entry point with BrowserRouter
 └── dist/                # Build output (deployed to Netlify)
 ```
 
@@ -96,11 +108,13 @@ Each crusade deploys **specialist agents** (not generic purists) so each squad c
 |------|---------|---------|
 | React components | `*.component.tsx` | `code-block.component.tsx` |
 | Page sections | `*.section.tsx` | `hero.section.tsx` |
+| Route pages | `*.page.tsx` | `crusade.page.tsx` |
 | Static data | `*.data.ts` | `bestiary.data.ts` |
 
 ## Website Tech Stack
 
 - Vite 6 + React 19 + TypeScript 5.7
+- React Router DOM (BrowserRouter with `/crusade/:slug` routes)
 - Tailwind CSS 3.4
 - Deployed to Netlify (church.btas.dev)
 

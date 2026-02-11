@@ -1,5 +1,8 @@
+import { Link } from 'react-router-dom';
+
 interface CrusadeCardProps {
   readonly name: string;
+  readonly slug: string;
   readonly command: string;
   readonly icon: string;
   readonly tagline: string;
@@ -10,6 +13,7 @@ interface CrusadeCardProps {
 
 export function CrusadeCard({
   name,
+  slug,
   command,
   icon,
   tagline,
@@ -18,8 +22,9 @@ export function CrusadeCard({
   index,
 }: CrusadeCardProps) {
   return (
-    <div
-      className="group relative overflow-hidden rounded-lg border border-gold/10 bg-cathedral-deep/80 p-6 transition-all duration-500 hover:border-gold/30 hover:shadow-glow"
+    <Link
+      to={`/crusade/${slug}`}
+      className="group relative block overflow-hidden rounded-lg border border-gold/10 bg-cathedral-deep/80 p-6 transition-all duration-500 hover:border-gold/30 hover:shadow-glow"
       style={{ animationDelay: `${index * 100}ms` }}
     >
       <div
@@ -42,7 +47,11 @@ export function CrusadeCard({
         <blockquote className="border-l-2 border-gold/30 pl-3 text-xs italic text-gray-500">
           &ldquo;{quote}&rdquo;
         </blockquote>
+
+        <div className="mt-4 text-xs font-semibold uppercase tracking-widest text-gold-dim transition-colors group-hover:text-gold">
+          Enter the Crusade &rarr;
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
