@@ -1,7 +1,7 @@
 {
   "name": "church",
   "description": "The Church of Clean Code - Purist subagents and crusade commands for code quality enforcement",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "author": {
     "name": "Bruno"
   },
