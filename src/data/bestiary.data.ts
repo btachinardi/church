@@ -55,4 +55,36 @@ export const bestiary: readonly Creature[] = [
     habitat: 'Comments, FIXME blocks, HACK annotations',
     weakness: 'Issue tracker or DELETE. If it is not tracked, it is not real.',
   },
+  {
+    name: 'The useEffect Kraken',
+    icon: '🐙',
+    description:
+      'It wraps its tentacles around data fetching, derived state, and subscriptions — all inside one `useEffect`. No cleanup. No abort. When the component unmounts, the requests keep firing into the void.',
+    habitat: 'Components that fetch, compute, and subscribe in a single effect',
+    weakness: 'TanStack Query for fetching. `useMemo` for derivation. Cleanup functions for subscriptions.',
+  },
+  {
+    name: 'The God Component',
+    icon: '⛪',
+    description:
+      'It sources state from three stores, maps domain types, renders 400 lines of JSX, and handles every edge case. It is Tier 1, Tier 2, AND Tier 3 — a trinity of CHAOS, not of holiness.',
+    habitat: 'Dashboard pages, detail views, form wizards with embedded logic',
+    weakness: 'The Sacred Three-Tier Split. Provider sources state. Component paints the picture. Design system provides the blocks.',
+  },
+  {
+    name: 'The Infinite Re-render Ouroboros',
+    icon: '🐍',
+    description:
+      'Born from an unstable object reference in a dependency array. The effect fires, creates a new object, which triggers the effect, which creates a new object. The serpent eats its own tail until the browser tab dies.',
+    habitat: '`useEffect` dependency arrays with inline objects, functions defined inside render',
+    weakness: '`useMemo` and `useCallback`. Stabilize thy references or perish in the loop.',
+  },
+  {
+    name: 'The Syncing Store Doppelganger',
+    icon: '🪞',
+    description:
+      'It copies React Query data into Zustand through a `useEffect` bridge — creating TWO sources of truth that slowly drift apart. The UI flickers between present and past. Which store holds the truth? NEITHER. Both are LYING.',
+    habitat: '`useEffect` watchers that sync query results into global stores, Zustand stores with `fetchUsers` methods',
+    weakness: 'The Unifying Lens. Keep the Cache pure, keep the Store focused, merge them through Computed Derivation.',
+  },
 ] as const;

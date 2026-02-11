@@ -88,4 +88,12 @@ export const crusades: readonly Crusade[] = [
     quote: 'An empty catch block. Do you know what lives inside? DARKNESS. Pure, absolute darkness.',
     color: 'from-yellow-500 to-amber-700',
   },
+  {
+    name: 'The React Crusade',
+    command: '/react-crusade',
+    icon: '🛕',
+    tagline: 'Component purity. Effect discipline. The Immutable State.',
+    quote: "This component fetches data, manages state, AND renders UI? That's not a component — that's a MONOLITH with a .tsx extension.",
+    color: 'from-sky-500 to-indigo-700',
+  },
 ] as const;

@@ -6,7 +6,7 @@ const pillars = [
     name: 'Purity',
     description:
       'The code is TYPED. The architecture has BOUNDARIES. The domain depends on NOTHING. Purity is not idealism — it is the foundation upon which everything else stands.',
-    domains: 'Types, Architecture, Naming',
+    domains: 'Types, Architecture, Naming, React',
   },
   {
     icon: '👁️',
