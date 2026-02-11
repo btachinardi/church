@@ -90,7 +90,7 @@ Deploy 2-4 parallel Secret Purist squads based on:
 
 **Task delegation**:
 ```
-Use the secret-purist agent to scan all tracked files in [path].
+Use the secret-scanner-purist agent to scan all tracked files in [path].
 
 Objectives:
 1. List all tracked files with: git ls-files
@@ -126,7 +126,7 @@ Output format:
 
 **Task delegation**:
 ```
-Use the secret-purist agent to validate configuration files in [path].
+Use the secret-config-purist agent to validate configuration files in [path].
 
 Objectives:
 1. Verify .gitignore covers secret patterns
@@ -157,7 +157,7 @@ Output format:
 
 **Task delegation**:
 ```
-Use the secret-purist agent to scan ENTIRE git history for secrets in [path].
+Use the secret-history-purist agent to scan ENTIRE git history for secrets in [path].
 
 ⚠️  WARNING: This scans full git history with git log -p. May take several minutes on large repos.
 
@@ -193,7 +193,7 @@ Output format:
 
 **Task delegation**:
 ```
-Use the secret-purist agent to audit dependencies in [path].
+Use the secret-supply-purist agent to audit dependencies in [path].
 
 Objectives:
 1. List all dependencies from package.json / requirements.txt
@@ -239,10 +239,10 @@ Deploy squads using `Task` tool:
 
 ```typescript
 // Example structure (adapt to actual Task tool syntax)
-Task 1: secret-purist (File Scanner Squad)
-Task 2: secret-purist (Config Sentinel Squad)
-Task 3: secret-purist (History Squad) // if --history
-Task 4: secret-purist (Dependency Audit Squad) // if --deep
+Task 1: secret-scanner-purist (File Scanner Squad)
+Task 2: secret-config-purist (Config Sentinel Squad)
+Task 3: secret-history-purist (History Squad) // if --history
+Task 4: secret-supply-purist (Dependency Audit Squad) // if --deep
 ```
 
 **Important**:

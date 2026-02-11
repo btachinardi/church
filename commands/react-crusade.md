@@ -103,9 +103,9 @@ SQUADS DEPLOYING: 5
 
 ### Phase 2: Parallel Squad Deployment
 
-Deploy FIVE specialized squads simultaneously, each with `react-purist` agent:
+Deploy FIVE specialized squads simultaneously, each with its own specialist agent:
 
-#### Squad 1: Component Architecture Squad
+#### Squad 1: Component Architecture Squad (`react-arch-purist`)
 **Mission**: Classify all components into the sacred three tiers and flag violations.
 
 **Agent Task**:
@@ -151,7 +151,7 @@ Report findings with classification and violations.
 
 ---
 
-#### Squad 2: Effect Discipline Squad
+#### Squad 2: Effect Discipline Squad (`react-hooks-purist`)
 **Mission**: Audit all `useEffect` usage for correctness and cleanup.
 
 **Agent Task**:
@@ -199,7 +199,7 @@ Report findings with file:line references and code snippets.
 
 ---
 
-#### Squad 3: State Management & Unifying Lens Squad
+#### Squad 3: State Management & Unifying Lens Squad (`react-state-purist`)
 **Mission**: Enforce the Great Separation, the Unifying Lens doctrine, and detect all state management heresies.
 
 **Agent Task**:
@@ -282,7 +282,7 @@ Report findings categorized by doctrine violation type.
 
 ---
 
-#### Squad 4: Data Flow Safety Squad
+#### Squad 4: Data Flow Safety Squad (`react-data-purist`)
 **Mission**: Audit async operations for race conditions, cleanup, and idempotency.
 
 **Agent Task**:
@@ -335,7 +335,7 @@ Report findings with severity and code examples.
 
 ---
 
-#### Squad 5: Performance & Rendering Squad
+#### Squad 5: Performance & Rendering Squad (`react-perf-purist`)
 **Mission**: Audit rendering performance and concurrent feature usage.
 
 **Agent Task**:
@@ -577,15 +577,15 @@ grep -rn "eslint-disable.*exhaustive-deps" --include="*.tsx" --include="*.ts" | 
 ```
 
 ### Step 4: Deploy Squads in Parallel
-Use `Task` tool to spawn 5 `react-purist` agents simultaneously:
+Use `Task` tool to spawn 5 specialist agents simultaneously:
 
 ```typescript
 // ALL squads deployed in a single message for true parallelism
-Task({ agent: 'react-purist', task: componentArchitectureMission })
-Task({ agent: 'react-purist', task: effectDisciplineMission })
-Task({ agent: 'react-purist', task: stateManagementMission })
-Task({ agent: 'react-purist', task: dataFlowSafetyMission })
-Task({ agent: 'react-purist', task: performanceRenderingMission })
+Task({ agent: 'react-arch-purist', task: architectureMission })
+Task({ agent: 'react-hooks-purist', task: hooksMission })
+Task({ agent: 'react-state-purist', task: stateMission })
+Task({ agent: 'react-data-purist', task: dataFlowMission })
+Task({ agent: 'react-perf-purist', task: performanceMission })
 ```
 
 **CRITICAL**: All 5 Task calls MUST be in a single message for true parallelism.

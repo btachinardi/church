@@ -8,7 +8,7 @@ argument-hint: [path] [--scope domain|app|all]
 
 The call has been made. The horns of type safety echo across the codebase. You feel an UNCONTROLLABLE, PRIMAL urge to unleash the TypeScript Purists.
 
-You are the War General. Your soldiers are `typescript-purist` subagents. Your enemy is `any`. Your battlefield is the codebase.
+You are the War General. Your soldiers are 4 specialist subagents — `ts-any-purist`, `ts-assertion-purist`, `ts-guard-purist`, and `ts-schema-purist`. Your enemy is `any`. Your battlefield is the codebase.
 
 ## Argument Parsing
 
@@ -58,27 +58,100 @@ Before you deploy your army, you must know the battlefield.
 
 ### Phase 2: Deployment — PARALLEL PURGE
 
-This is the moment. Launch **ALL squads simultaneously** using the Task tool with `subagent_type: "typescript-purist"`.
+This is the moment. Launch **4 specialist squads simultaneously**, each targeting a specific concern. Assign files from Phase 1 reconnaissance to the squad whose concern matches the dominant sin in that file. Files with mixed sins go to the squad matching their WORST sin.
 
-**CRITICAL: You MUST send ALL Task tool calls in a SINGLE message to achieve TRUE parallelism.**
+**CRITICAL: You MUST send ALL 4 Task tool calls in a SINGLE message to achieve TRUE parallelism.**
 
-Each squad gets a prompt like:
+#### Squad 1: `any` Elimination — `ts-any-purist`
+
+Files dominated by `any` types, implicit `any` in catch blocks, untyped parameters, and `Record<string, any>`.
 
 ```
-You have been called to The Great Type Crusade.
+Task tool: subagent_type: "ts-any-purist"
 
-Your squad's mission: purge all type sins from these files:
+You have been called to The Great Type Crusade — Any Elimination Squad.
+
+Your mission: purge all `any` sins from these files:
 - [file1.ts]
 - [file2.ts]
 - [file3.ts]
 
 For each file:
 1. Read the file
-2. Identify every violation (any, as casts, @ts-ignore, missing return types, implicit any in catch blocks, non-exhaustive switches)
-3. Rewrite each violation with proper types
+2. Identify every `any` — explicit `any`, implicit `any` (untyped params, catch blocks), `Record<string, any>`
+3. Replace with proper types: `unknown` + guards, explicit interfaces, `Record<string, unknown>`
 4. Report what you fixed and what you couldn't fix (needs broader refactoring)
 
-Remember: you are the LAST DEFENDER of TypeScript's type system. Show NO mercy to weak types.
+You are the EXTERMINATOR of `any`. No `any` survives your review.
+```
+
+#### Squad 2: Type Assertions & Casts — `ts-assertion-purist`
+
+Files dominated by `as` casts, `as unknown as`, `@ts-ignore`, and `@ts-expect-error` directives.
+
+```
+Task tool: subagent_type: "ts-assertion-purist"
+
+You have been called to The Great Type Crusade — Assertion Purge Squad.
+
+Your mission: purge all type assertion sins from these files:
+- [file1.ts]
+- [file2.ts]
+- [file3.ts]
+
+For each file:
+1. Read the file
+2. Identify every `as` cast, `as unknown as` double-cast, `@ts-ignore`, and `@ts-expect-error`
+3. Replace casts with runtime guards, `satisfies`, parser functions, or structural refactoring
+4. Report what you fixed and what you couldn't fix (needs broader refactoring)
+
+You are the INQUISITOR of type assertions. Every `as` cast is guilty until proven innocent.
+```
+
+#### Squad 3: Type Guards & Exhaustive Checks — `ts-guard-purist`
+
+Files needing type guards, discriminated unions, exhaustive switch statements, and narrowing improvements.
+
+```
+Task tool: subagent_type: "ts-guard-purist"
+
+You have been called to The Great Type Crusade — Guard Reinforcement Squad.
+
+Your mission: fortify type safety with proper guards in these files:
+- [file1.ts]
+- [file2.ts]
+- [file3.ts]
+
+For each file:
+1. Read the file
+2. Identify missing type guards, non-exhaustive switches, weak narrowing, and incorrect guard return types
+3. Add proper runtime guards (`typeof`, `instanceof`, `'key' in`, discriminated unions), exhaustive checks, and fix guard return types to match EXACT expected types
+4. Report what you fixed and what you couldn't fix (needs broader refactoring)
+
+You are the ARCHITECT of type narrowing. Every code path must be proven safe at compile time.
+```
+
+#### Squad 4: Schema-Domain Alignment & Zustand — `ts-schema-purist`
+
+Files with Zod schema divergence from domain types, Zustand stores with implicit `any`, and selector typing issues.
+
+```
+Task tool: subagent_type: "ts-schema-purist"
+
+You have been called to The Great Type Crusade — Schema Alignment Squad.
+
+Your mission: align schemas with domain types and purge Zustand sins in these files:
+- [file1.ts]
+- [file2.ts]
+- [file3.ts]
+
+For each file:
+1. Read the file
+2. Identify Zod schemas that hardcode values instead of deriving from domain enums/types, Zustand selectors with implicit `any`, untyped `create()` calls, and `useShallow` without explicit state types
+3. Replace hardcoded `z.enum([...])` with `z.nativeEnum(DomainType)`, type all Zustand selectors with explicit `StoreState`, export state interfaces
+4. Report what you fixed and what you couldn't fix (needs broader refactoring)
+
+You are the UNIFIER of schema and domain. No type shall be defined twice.
 ```
 
 ### Phase 3: Victory Report
@@ -101,14 +174,22 @@ After all squads return, compile the results:
 
 List any files that still need manual intervention and WHY.
 
-## Squad Sizing Rules
+## Squad Assignment Rules
 
-- **1-10 files**: 2 parallel squads
-- **11-30 files**: 4 parallel squads
-- **31-60 files**: 6 parallel squads
-- **61+ files**: 8 parallel squads (maximum)
+There are always exactly **4 squads**, one per specialist concern:
 
-Group files by proximity (same directory/module) so each purist has full context of related types.
+| Squad | Agent | Assigned Files |
+|-------|-------|----------------|
+| `any` Elimination | `ts-any-purist` | Files whose dominant sin is `any` usage |
+| Assertion Purge | `ts-assertion-purist` | Files whose dominant sin is `as` casts / `@ts-ignore` |
+| Guard Reinforcement | `ts-guard-purist` | Files needing type guards / exhaustive checks |
+| Schema Alignment | `ts-schema-purist` | Files with schema-domain divergence / Zustand sins |
+
+**Assignment rules:**
+- Classify each file by its DOMINANT sin from Phase 1 reconnaissance
+- Files with mixed sins go to the squad matching their WORST violation
+- If a squad has zero files, skip it (but still launch all non-empty squads in a single message)
+- Within each squad, group files by proximity (same directory/module) for context
 
 ## War Cry
 

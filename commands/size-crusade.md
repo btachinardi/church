@@ -156,26 +156,23 @@ If user says no, abort. If yes, continue to Phase 3.
 
 ## PHASE 3: DEPLOY SURGICAL TEAMS
 
-Based on the file types found, organize into specialized squads.
+Assign files to 4 fixed concern-based specialist squads. Every bloated file maps to exactly one squad based on its suffix:
 
 ### Squad Organization
 
-Determine number of squads based on file count:
-- 1-5 files: 2 squads
-- 6-15 files: 4 squads
-- 16-30 files: 6 squads
-- 31+ files: 8 squads
+**Component Surgery Squad** → uses `size-component-purist` agent
+Handles: .tsx component files, .page.tsx, .layout.tsx, .section.tsx, .hook.ts files
 
-Assign files to squads by type:
+**Service Surgery Squad** → uses `size-service-purist` agent
+Handles: .service.ts, .controller.ts, .handler.ts, .use-case.ts, .command.ts, .query.ts files
 
-**Component Surgery Squad** (handles .tsx component files)
-**Hook Surgery Squad** (handles .hook.ts files)
-**Backend Surgery Squad** (handles .controller.ts, .service.ts, .handler.ts)
-**Domain Surgery Squad** (handles .entity.ts, .repository.ts, .value-object.ts)
-**Use Case Surgery Squad** (handles .use-case.ts, .command.ts, .query.ts)
-**Test Triage Squad** (handles .spec.ts, .test.ts)
-**Infrastructure Surgery Squad** (handles .adapter.ts, .mapper.ts, .repository-impl.ts)
-**Utility Surgery Squad** (handles .util.ts, .helper.ts, .config.ts)
+**Domain Surgery Squad** → uses `size-domain-purist` agent
+Handles: .entity.ts, .aggregate.ts, .repository.ts, .value-object.ts files
+
+**Utility Surgery Squad** → uses `size-utility-purist` agent
+Handles: .util.ts, .helper.ts, .mapper.ts, .adapter.ts, .repository-impl.ts, .config.ts files
+
+**Overflow rule**: Files that do not match any squad suffix (e.g., .spec.ts, generic .ts) are assigned to the **Utility Surgery Squad** (`size-utility-purist`).
 
 ### War Cry
 
@@ -194,11 +191,10 @@ We cut deep. We cut clean.
 No file shall be a monolith.
 
 Deploying teams:
-  - Component Surgery Squad: {N} files
-  - Backend Surgery Squad: {N} files
-  - Domain Surgery Squad: {N} files
-  - Test Triage Squad: {N} files
-  [... list active squads ...]
+  - Component Surgery Squad (size-component-purist): {N} files
+  - Service Surgery Squad (size-service-purist): {N} files
+  - Domain Surgery Squad (size-domain-purist): {N} files
+  - Utility Surgery Squad (size-utility-purist): {N} files
 
 Operation begins NOW.
 ═══════════════════════════════════════════════════════════
@@ -206,7 +202,12 @@ Operation begins NOW.
 
 ## PHASE 4: PARALLEL SURGICAL ANALYSIS
 
-For EACH squad, spawn a **size-purist** subagent with:
+For EACH squad, spawn the squad's specialist subagent:
+
+- **Component Surgery Squad** → spawn `size-component-purist`
+- **Service Surgery Squad** → spawn `size-service-purist`
+- **Domain Surgery Squad** → spawn `size-domain-purist`
+- **Utility Surgery Squad** → spawn `size-utility-purist`
 
 **Task definition:**
 ```
@@ -270,7 +271,12 @@ If in --split mode, ask final confirmation:
 
 ## PHASE 5: EXECUTE SURGERY (only if --split flag)
 
-For EACH squad with files to split, spawn a **size-purist** subagent with:
+For EACH squad with files to split, spawn the squad's specialist subagent:
+
+- **Component Surgery Squad** → spawn `size-component-purist`
+- **Service Surgery Squad** → spawn `size-service-purist`
+- **Domain Surgery Squad** → spawn `size-domain-purist`
+- **Utility Surgery Squad** → spawn `size-utility-purist`
 
 **Task definition:**
 ```

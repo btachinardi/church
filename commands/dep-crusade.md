@@ -119,7 +119,7 @@ Launch 4 parallel Dependency Purist agents, each with a specialized mission.
 
 **Delegation**:
 ```
-Use dep-purist agent to analyze /tmp/dep-crusade-audit.json
+Use dep-vulnerability-purist agent to analyze /tmp/dep-crusade-audit.json
 
 Focus: Security vulnerabilities only
 Scope: All manifests in [path]
@@ -150,7 +150,7 @@ Success criteria: Complete vulnerability report with exact fix commands
 
 **Delegation**:
 ```
-Use dep-purist agent to analyze /tmp/dep-crusade-outdated.txt
+Use dep-freshness-purist agent to analyze /tmp/dep-crusade-outdated.txt
 
 Focus: Outdated packages only
 Scope: All manifests in [path]
@@ -180,7 +180,7 @@ Success criteria: Categorized outdated report with safe update path
 
 **Delegation**:
 ```
-Use dep-purist agent to find unused and phantom dependencies
+Use dep-unused-purist agent to find unused and phantom dependencies
 
 Focus: Dead code and fragile imports
 Scope: All source files in [path]
@@ -213,7 +213,7 @@ Success criteria: Complete unused/phantom report with exact fix commands
 
 **Delegation**:
 ```
-Use dep-purist agent to analyze lockfile and bundle sizes
+Use dep-bloat-purist agent to analyze lockfile and bundle sizes
 
 Focus: Duplicate versions and large packages
 Scope: Lockfile and package.json in [path]

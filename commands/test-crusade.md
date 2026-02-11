@@ -99,7 +99,7 @@ SQUADS DEPLOYING: 4
 
 ### Phase 2: Parallel Squad Deployment
 
-Deploy FOUR specialized squads simultaneously, each with `test-purist` agent in background mode:
+Deploy FOUR specialized squads simultaneously, each with its own specialist agent in background mode:
 
 #### Squad 1: Coverage Gap Squad
 **Mission**: Find all files below target coverage.
@@ -436,33 +436,33 @@ pnpm test:coverage
 ```
 
 ### Step 4: Deploy Squads in Parallel
-Use `Task` tool to spawn 4 `test-purist` agents in background mode:
+Use `Task` tool to spawn 4 specialist agents in background mode:
 
 ```typescript
 // All squads run in parallel
 Task({
-  agent: 'test-purist',
+  agent: 'test-coverage-purist',
   background: true,
   task: coverageGapMission,
   absolutePath: resolvedPath
 })
 
 Task({
-  agent: 'test-purist',
+  agent: 'test-assertion-purist',
   background: true,
   task: assertionQualityMission,
   absolutePath: resolvedPath
 })
 
 Task({
-  agent: 'test-purist',
+  agent: 'test-property-purist',
   background: true,
   task: propertyTestMission,
   absolutePath: resolvedPath
 })
 
 Task({
-  agent: 'test-purist',
+  agent: 'test-hygiene-purist',
   background: true,
   task: testHygieneMission,
   absolutePath: resolvedPath

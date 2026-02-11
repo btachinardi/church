@@ -4,21 +4,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-The Church of Clean Code is a Claude Code plugin providing 10 specialized **purist subagents** and 10 **crusade orchestration commands** for parallel code quality enforcement. It includes a marketing website deployed to Netlify.
+The Church of Clean Code is a Claude Code plugin providing 11 **generic purist subagents**, 48 **specialized purist agents**, and 11 **crusade orchestration commands** for parallel code quality enforcement. It includes a marketing website deployed to Netlify.
 
 ## Repository Structure
 
 ```
 church/
-├── agents/           # Purist subagent definitions (*.md)
-├── commands/         # Crusade orchestration commands (*.md)
-├── skills/           # Auto-discovered skills (SKILL.md)
-├── .claude-plugin/   # Plugin manifest (plugin.json, marketplace.json)
-├── src/              # Vite + React website source
-│   ├── components/   # React components (*.component.tsx)
-│   ├── sections/     # Page sections (*.section.tsx)
-│   └── data/         # Static data (*.data.ts)
-└── dist/             # Build output (deployed to Netlify)
+├── agents/              # Purist subagent definitions (*.md)
+│   ├── react-purist.md  # Generic purists (11 total, for direct invocation)
+│   ├── react/           # Specialized purists (48 total, for crusade deployment)
+│   │   ├── react-arch-purist.md
+│   │   ├── react-hooks-purist.md
+│   │   ├── react-state-purist.md
+│   │   ├── react-data-purist.md
+│   │   └── react-perf-purist.md
+│   ├── arch/            # 5 architecture specialists
+│   ├── observability/   # 4 observability specialists
+│   ├── test/            # 4 test specialists
+│   ├── typescript/      # 4 TypeScript specialists
+│   ├── dead/            # 6 dead code specialists
+│   ├── dep/             # 4 dependency specialists
+│   ├── naming/          # 4 naming specialists
+│   ├── git/             # 4 git specialists
+│   ├── secret/          # 4 secret specialists
+│   └── size/            # 4 size specialists
+├── commands/            # Crusade orchestration commands (*.md)
+├── skills/              # Auto-discovered skills (SKILL.md)
+├── .claude-plugin/      # Plugin manifest (plugin.json, marketplace.json)
+├── src/                 # Vite + React website source
+│   ├── components/      # React components (*.component.tsx)
+│   ├── sections/        # Page sections (*.section.tsx)
+│   └── data/            # Static data (*.data.ts)
+└── dist/                # Build output (deployed to Netlify)
 ```
 
 ## Commands
@@ -43,6 +60,10 @@ Subagent definitions follow Claude Code agent format with YAML frontmatter:
 - `tools`: Allowed tools (Read, Edit, Write, Glob, Grep, Bash)
 - `model`: Model to use (opus recommended for code quality tasks)
 
+**Two tiers of agents:**
+- **Generic purists** (`agents/*.md`): 11 broad agents for direct invocation. Each covers a full domain (e.g., `react-purist` covers all React concerns).
+- **Specialist purists** (`agents/<domain>/*.md`): 48 focused agents for crusade deployment. Each covers one narrow concern (e.g., `react-arch-purist` covers only component tier classification).
+
 ### Commands (commands/)
 
 Slash command definitions with YAML frontmatter:
@@ -61,11 +82,13 @@ Auto-discovered knowledge that Claude Code loads when relevant. Each skill has a
 All crusades follow the same parallel deployment pattern:
 
 1. **Reconnaissance** - Scan codebase for violations using Grep/Glob
-2. **Squad Formation** - Group files into squads (3-6 files each)
-3. **Parallel Deployment** - Launch multiple purist agents via Task tool in a single message
+2. **Squad Formation** - Assign concern-based squads to specialist agents
+3. **Parallel Deployment** - Launch specialist purist agents via Task tool in a single message
 4. **Victory Report** - Aggregate results and report findings
 
 Key rule: All Task tool calls MUST be in a single message for true parallelism.
+
+Each crusade deploys **specialist agents** (not generic purists) so each squad carries only the doctrine it needs. Generic purists remain available for direct invocation outside crusades.
 
 ## File Naming Conventions
 

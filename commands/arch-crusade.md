@@ -75,27 +75,27 @@ RECONNAISSANCE COMPLETE
 
 **Squad Assignment**:
 
-#### **Layer Violation Squad** (arch-purist agent)
+#### **Layer Violation Squad** (arch-layer-purist agent)
 - **Target**: Domain purity, upward dependencies, repository pattern violations
 - **Scope**: All `*/domain/` directories
 - **Deliverable**: List of domain files importing from infrastructure/presentation/application
 
-#### **Circular Dependency Squad** (arch-purist agent)
+#### **Circular Dependency Squad** (arch-circular-purist agent)
 - **Target**: Circular import cycles at all levels (file, module, domain)
 - **Scope**: Complete dependency graph
 - **Deliverable**: All detected cycles with full import chains (A→B→C→A)
 
-#### **Cross-Domain Squad** (arch-purist agent)
+#### **Cross-Domain Squad** (arch-cross-domain-purist agent)
 - **Target**: Direct imports between domain modules
 - **Scope**: All domain module boundaries
 - **Deliverable**: Cross-domain import violations with suggested event-driven alternatives
 
-#### **Pattern Compliance Squad** (arch-purist agent)
+#### **Pattern Compliance Squad** (arch-pattern-purist agent)
 - **Target**: Layer skipping, interface segregation, type duplication
 - **Scope**: Application and presentation layers
 - **Deliverable**: Pattern violations with fix proposals
 
-#### **Shadow Contract Squad** (arch-purist agent)
+#### **Shadow Contract Squad** (arch-shadow-purist agent)
 - **Target**: Schemas, DTOs, and tool definitions that hardcode subsets of domain enums or state machines
 - **Scope**: All Zod schemas, DTOs, and tool/API definitions cross-referenced with domain entities
 - **Deliverable**: Schema-domain divergence violations with derivation fixes
@@ -104,16 +104,16 @@ RECONNAISSANCE COMPLETE
 ```typescript
 // Conceptual parallel execution
 const squads = [
-  { name: "Layer Violation", focus: "domain-purity", domains: allDomains },
-  { name: "Circular Dependency", focus: "cycles", domains: allDomains },
-  { name: "Cross-Domain", focus: "domain-isolation", domains: allDomains },
-  { name: "Pattern Compliance", focus: "patterns", domains: allDomains },
-  { name: "Shadow Contract", focus: "schema-domain-alignment", domains: allDomains }
+  { name: "Layer Violation", agent: "arch-layer-purist", focus: "domain-purity", domains: allDomains },
+  { name: "Circular Dependency", agent: "arch-circular-purist", focus: "cycles", domains: allDomains },
+  { name: "Cross-Domain", agent: "arch-cross-domain-purist", focus: "domain-isolation", domains: allDomains },
+  { name: "Pattern Compliance", agent: "arch-pattern-purist", focus: "patterns", domains: allDomains },
+  { name: "Shadow Contract", agent: "arch-shadow-purist", focus: "schema-domain-alignment", domains: allDomains }
 ]
 
-// Each squad gets its own arch-purist agent with specific focus
+// Each squad gets its own specialist agent
 await Promise.all(squads.map(squad =>
-  Task(arch-purist, { focus: squad.focus, domains: squad.domains })
+  Task(squad.agent, { focus: squad.focus, domains: squad.domains })
 ))
 ```
 
@@ -485,7 +485,7 @@ If `--domain` flag provided, filter to that domain only.
 
 ### Step 3: Deploy Parallel Squads
 
-Use `Task` to spawn multiple arch-purist agents with different focus areas:
+Use `Task` to spawn specialist arch-purist agents with different focus areas:
 
 ```
 Squad 1 Focus: domain-purity

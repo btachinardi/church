@@ -97,9 +97,9 @@ If violations >= 5 or any critical violations found, proceed to Phase 2.
 
 ### Phase 2: Squad Deployment (Parallel Attack)
 
-Deploy specialized Naming Purist squads in PARALLEL using the `Task` tool. Each squad uses the `naming-purist` subagent with specific focus.
+Deploy specialized Naming Purist squads in PARALLEL using the `Task` tool. Each squad uses a dedicated specialist subagent.
 
-**Squad 1: File Naming Enforcement Squad**
+**Squad 1: File Naming Enforcement Squad** (`naming-file-purist`)
 ```typescript
 // Objective: Audit all file names against [name].[component-type].ts convention
 // Files: All .ts/.tsx files from recon
@@ -107,7 +107,7 @@ Deploy specialized Naming Purist squads in PARALLEL using the `Task` tool. Each 
 // Success Criteria: Every file follows convention or has rename suggestion
 ```
 
-**Squad 2: Variable Naming Squad**
+**Squad 2: Variable Naming Squad** (`naming-variable-purist`)
 ```typescript
 // Objective: Audit variable naming (booleans, collections, single-letters, generics)
 // Files: Files flagged in recon for variable violations
@@ -115,7 +115,7 @@ Deploy specialized Naming Purist squads in PARALLEL using the `Task` tool. Each 
 // Success Criteria: Every violation has specific suggestion
 ```
 
-**Squad 3: Function Naming Squad**
+**Squad 3: Function Naming Squad** (`naming-function-purist`)
 ```typescript
 // Objective: Audit function names for clarity and specificity
 // Files: All .ts/.tsx files (prioritize controllers, services, handlers)
@@ -123,7 +123,7 @@ Deploy specialized Naming Purist squads in PARALLEL using the `Task` tool. Each 
 // Success Criteria: Every vague function has specific rename suggestion
 ```
 
-**Squad 4: Type/Constant/Event Naming Squad**
+**Squad 4: Type/Constant/Event Naming Squad** (`naming-type-purist`)
 ```typescript
 // Objective: Audit types, interfaces, constants, and events
 // Files: Files with type definitions, exports, event classes
@@ -144,30 +144,30 @@ Each squad operates independently. Results will be reconciled after completion.
 
 Use `Task` tool to spawn each squad:
 ```typescript
-// Squad 1
+// Squad 1 - File Naming
 await Task({
-  agent: 'naming-purist',
+  agent: 'naming-file-purist',
   objective: 'Audit file names in {paths} against [name].[component-type].ts convention. For each violation, provide current name, suggested name, and architectural layer rationale.',
   background: true
 });
 
-// Squad 2
+// Squad 2 - Variable Naming
 await Task({
-  agent: 'naming-purist',
+  agent: 'naming-variable-purist',
   objective: 'Audit variable naming in {paths}. Focus on: boolean prefixes, plural/singular collections, banned generic names, single-letter variables. Provide specific rename suggestions.',
   background: true
 });
 
-// Squad 3
+// Squad 3 - Function Naming
 await Task({
-  agent: 'naming-purist',
+  agent: 'naming-function-purist',
   objective: 'Audit function names in {paths}. Identify vague verbs (handle, process, manage, do). Suggest specific, action-oriented names.',
   background: true
 });
 
-// Squad 4
+// Squad 4 - Type/Constant/Event Naming
 await Task({
-  agent: 'naming-purist',
+  agent: 'naming-type-purist',
   objective: 'Audit types, interfaces, constants, and events in {paths}. Check PascalCase types, SCREAMING_SNAKE constants, past-tense events. Flag violations.',
   background: true
 });

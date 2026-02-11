@@ -5,13 +5,13 @@
   },
   "metadata": {
     "description": "The Church of Clean Code - Purist subagents and crusade commands for parallel code quality enforcement",
-    "version": "1.0.0"
+    "version": "2.0.0"
   },
   "plugins": [
     {
       "name": "church",
       "source": "./",
-      "description": "10 purist subagents + 10 crusade orchestration commands for TypeScript, Git, Architecture, Testing, Dependencies, Naming, Size, Secrets, Dead Code, and Observability"
+      "description": "11 purist subagents + 48 specialized purist agents + 11 crusade orchestration commands for TypeScript, React, Git, Architecture, Testing, Dependencies, Naming, Size, Secrets, Dead Code, and Observability"
     }
   ]
 }

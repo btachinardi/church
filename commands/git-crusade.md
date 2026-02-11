@@ -64,13 +64,20 @@ Group findings into squads for parallel processing:
 
 ### Phase 3: Deployment — PARALLEL PURGE
 
-Launch squads simultaneously using `Task` with `subagent_type: "git-purist"`.
+Launch squads simultaneously using `Task` with their specialist agent types:
+
+| Squad | `subagent_type` |
+|-------|-----------------|
+| Worktree Squad | `git-worktree-purist` |
+| Message Squad | `git-message-purist` |
+| Atomicity Squad | `git-atomicity-purist` |
+| Hygiene Squad | `git-hygiene-purist` |
 
 **CRITICAL: ALL Task calls in a SINGLE message for TRUE parallelism.**
 
 Each squad gets a focused prompt:
 
-**Worktree Squad:**
+**Worktree Squad** (`subagent_type: "git-worktree-purist"`):
 ```
 Your mission: Analyze the worktree of repository at [path] and propose how to organize pending changes into atomic commits.
 
@@ -95,7 +102,7 @@ Output format:
 - Conventional commit message for each
 ```
 
-**Message Squad:**
+**Message Squad** (`subagent_type: "git-message-purist"`):
 ```
 Your mission: Audit these commit messages and provide rewrites.
 
@@ -111,7 +118,7 @@ For each commit:
 Use `git show --stat HASH` to understand what each commit actually changed before judging its message.
 ```
 
-**Atomicity Squad:**
+**Atomicity Squad** (`subagent_type: "git-atomicity-purist"`):
 ```
 Your mission: Identify bloated commits and plan their splits.
 
@@ -127,7 +134,7 @@ For each bloated commit:
    - The exact git commands to perform the split
 ```
 
-**Hygiene Squad:**
+**Hygiene Squad** (`subagent_type: "git-hygiene-purist"`):
 ```
 Your mission: Audit repository hygiene.
 

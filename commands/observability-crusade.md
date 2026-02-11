@@ -211,7 +211,12 @@ Deploy specialized squads to eliminate each category of sin:
 
 **Squad prompts:**
 
-Each squad is spawned with the observability-purist agent:
+Each squad is spawned with its specialist agent:
+
+- **Squad 1 (Logging Purification)** → `observability-logging-purist` agent
+- **Squad 2 (Error Handling)** → `observability-error-purist` agent
+- **Squad 3 (Distributed Tracing)** → `observability-tracing-purist` agent
+- **Squad 4 (Health & Metrics)** → `observability-metrics-purist` agent
 
 ```
 You are Squad {N}: {Squad Name}
@@ -406,7 +411,11 @@ Only files within this path will be scanned and illuminated.
    a. Ask user confirmation
    b. Calculate squad count based on codebase size
    c. Partition files by sin category
-   d. Spawn squads in parallel with observability-purist agent
+   d. Spawn squads in parallel with specialist agents:
+      - Logging Purification → observability-logging-purist
+      - Error Handling → observability-error-purist
+      - Distributed Tracing → observability-tracing-purist
+      - Health & Metrics → observability-metrics-purist
    e. Wait for all squads to complete
    f. Aggregate squad results
 7. Run verification greps
