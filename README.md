@@ -2,13 +2,13 @@
 
 # The Church of Clean Code
 
-**81 purist agents. 15 crusades. Zero tolerance.**
+**86 purist agents. 16 crusades. Zero tolerance.**
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Plugin v2.0.0](https://img.shields.io/badge/plugin-v2.0.0-brightgreen.svg)](https://github.com/btachinardi/church)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-v1.0.33%2B-blueviolet.svg)](https://docs.anthropic.com/en/docs/claude-code)
-[![81 Agents](https://img.shields.io/badge/agents-81-orange.svg)](#purist-agents)
-[![15 Crusades](https://img.shields.io/badge/crusades-15-red.svg)](#crusade-commands)
+[![86 Agents](https://img.shields.io/badge/agents-86-orange.svg)](#purist-agents)
+[![16 Crusades](https://img.shields.io/badge/crusades-16-red.svg)](#crusade-commands)
 [![Website](https://img.shields.io/badge/website-church.btas.dev-black.svg)](https://church.btas.dev)
 
 A Claude Code plugin that deploys specialized AI agents in parallel to enforce code quality across your entire codebase.
@@ -37,8 +37,8 @@ A Claude Code plugin that deploys specialized AI agents in parallel to enforce c
 ## Features
 
 - **Parallel Enforcement** — Crusades deploy multiple specialist agents simultaneously in a single message, scanning your codebase at scale
-- **Two-Tier Agent System** — 15 generic purists for direct invocation + 66 specialists for crusade deployment
-- **15 Crusade Commands** — One `/church:*-crusade` command per domain, each orchestrating 4-6 specialist agents
+- **Two-Tier Agent System** — 16 generic purists for direct invocation + 70 specialists for crusade deployment
+- **16 Crusade Commands** — One `/church:*-crusade` command per domain, each orchestrating 4-6 specialist agents
 - **Actionable Fixes** — Every finding includes exact file locations and remediation steps
 - **Zero Configuration** — Install and run. No config files, no setup, no dependencies
 
@@ -65,8 +65,9 @@ Invoke any generic purist directly by mentioning its trigger phrases in conversa
 | `copy-purist` | UX microcopy, email/SMS, headlines, persuasion frameworks |
 | `adaptive-purist` | Foldable support, touch targets, focus management, DPI, state preservation |
 | `python-purist` | Type hints, PEP 8, complexity limits, pytest quality, security hardening |
+| `rust-purist` | Ownership discipline, error propagation, unsafe justification, type ergonomics, async correctness |
 
-Each generic purist covers its full domain. During crusades, **66 specialist agents** (4-6 per domain) handle narrower concerns for deeper analysis.
+Each generic purist covers its full domain. During crusades, **70 specialist agents** (4-6 per domain) handle narrower concerns for deeper analysis.
 
 ---
 
@@ -91,6 +92,7 @@ Each crusade performs reconnaissance, forms squads, deploys specialists in paral
 | `/church:copy-crusade` | 4 | Buttons, error messages, email/SMS, headlines, value props, CTAs, frameworks |
 | `/church:adaptive-crusade` | 5 | Foldable seams, state preservation, focus management, DPI/resolution, touch targets |
 | `/church:python-crusade` | 5 | Type hints, style, complexity, test quality, security hardening |
+| `/church:rust-crusade` | 5 | Ownership, error propagation, unsafe blocks, type ergonomics, async correctness |
 
 ---
 
@@ -165,7 +167,7 @@ npm run build
 
 The marketing website at **[church.btas.dev](https://church.btas.dev)** includes dedicated landing pages for each crusade at `/crusade/{slug}`:
 
-`type` · `arch` · `test` · `react` · `git` · `dead` · `naming` · `size` · `secret` · `dep` · `observability` · `a11y` · `copy` · `adaptive` · `python`
+`type` · `arch` · `test` · `react` · `git` · `dead` · `naming` · `size` · `secret` · `dep` · `observability` · `a11y` · `copy` · `adaptive` · `python` · `rust`
 
 ---
 

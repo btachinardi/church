@@ -15,6 +15,7 @@ import { a11yCrusade } from './a11y.data';
 import { copyCrusade } from './copy.data';
 import { adaptiveCrusade } from './adaptive.data';
 import { pythonCrusade } from './python.data';
+import { rustCrusade } from './rust.data';
 
 export const crusadeDetails: Record<string, CrusadeDetail> = {
   type: typeCrusade,
@@ -32,4 +33,5 @@ export const crusadeDetails: Record<string, CrusadeDetail> = {
   copy: copyCrusade,
   adaptive: adaptiveCrusade,
   python: pythonCrusade,
+  rust: rustCrusade,
 };

@@ -146,4 +146,13 @@ export const crusades: readonly Crusade[] = [
       "def process(data, **kwargs): — no type hints, no docstring, no shame. This function is a MYSTERY BOX.",
     color: 'from-green-500 to-blue-700',
   },
+  {
+    name: 'The Rust Crusade',
+    slug: 'rust',
+    command: '/rust-crusade',
+    icon: '🦀',
+    tagline: 'No unwrap survives. No lifetime confusion endures. No unsafe block goes unquestioned.',
+    quote: "The borrow checker doesn't hate you. It just refuses to lie.",
+    color: 'from-amber-700 to-orange-900',
+  },
 ] as const;

@@ -107,6 +107,15 @@ This skill provides the foundational principles enforced by the Church of Clean 
 - No dangerous dynamic evaluation, unsafe deserialization, or shell injection vectors
 - All secrets from environment variables; `secrets` module for cryptographic randomness
 
+### 15. Rust Quality
+- No `.unwrap()` or `.expect()` in non-test code — use `?` or handle the error explicitly
+- Every `unsafe` block has a `// SAFETY:` comment that names and proves the invariant holds
+- Every `unsafe fn` has a `# Safety` section in its doc comment
+- Clone to cross boundaries, not to silence the borrow checker
+- Library errors use `thiserror`; application errors use `anyhow`; never `Box<dyn Error>` in public library APIs
+- `&str` for string inputs, `String` for owned outputs; all public types derive `Debug`
+- No `std::thread::sleep` inside `async fn`; no `.lock().unwrap()` on mutexes
+
 ## When to Invoke Crusades
 
 | Situation | Recommended Crusade |
@@ -129,3 +138,6 @@ This skill provides the foundational principles enforced by the Church of Clean 
 | Working in a Python codebase | `/church:python-crusade` |
 | Python security audit | `/church:python-crusade --scope security` |
 | Python type coverage gaps | `/church:python-crusade --scope type` |
+| Working in a Rust codebase | `/church:rust-crusade` |
+| Rust unsafe block audit | `/church:rust-crusade --scope unsafe` |
+| Rust error handling review | `/church:rust-crusade --scope error` |
