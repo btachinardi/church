@@ -78,11 +78,12 @@ Detect mutation testing configuration as part of every audit:
 - `stryker.config.cjs`
 
 **Python projects** — look for:
-- `[tool.mutmut]` section in `pyproject.toml`
-- `mutmut` in `[tool.mutmut]` or dev dependencies
+- `[tool.pytest-gremlins]` section in `pyproject.toml` (primary)
+- `[tool.mutmut]` section in `pyproject.toml` (fallback)
+- `mutmut.ini` (fallback)
 - `cosmic-ray` configuration
 
-If **no mutation testing configuration exists** in a project with more than 20 test files: **CRITICAL finding.** The coverage numbers mean nothing without mutation verification.
+If **none of these exist** in a project with more than 20 test files: **CRITICAL finding.** The coverage numbers mean nothing without mutation verification.
 
 ### Mutation Score Thresholds
 
@@ -106,10 +107,12 @@ Every surviving mutant in a CRITICAL path is an untested behavior waiting to fai
 ### Grep Patterns for Config Detection
 
 ```
-Pattern: "stryker\.config"                  Glob: "**/*.js,**/*.mjs,**/*.cjs"
-Pattern: "\[tool\.mutmut\]"                 Glob: "**/pyproject.toml"
-Pattern: "\"@stryker-mutator"               Glob: "**/package.json"
-Pattern: "mutmut"                           Glob: "**/pyproject.toml,**/setup.cfg"
+Pattern: "stryker\.config"                      Glob: "**/*.js,**/*.mjs,**/*.cjs"
+Pattern: "\"@stryker-mutator"                   Glob: "**/package.json"
+Pattern: "\[tool\.pytest-gremlins\]"            Glob: "**/pyproject.toml"
+Pattern: "pytest-gremlins"                      Glob: "**/pyproject.toml,**/requirements*.txt"
+Pattern: "\[tool\.mutmut\]"                     Glob: "**/pyproject.toml"
+Pattern: "mutmut"                               Glob: "**/pyproject.toml,**/setup.cfg"
 ```
 
 ---

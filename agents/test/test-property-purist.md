@@ -181,6 +181,8 @@ This is not a coincidence. It is the mechanism.
 
 When a project has a low mutation score, the first prescription is not "write more unit tests." It is "write more property tests." More `it('should return 42 for input X')` tests make the suite larger but not meaningfully denser. A property test that generates 100 inputs covers territory that 100 individual example tests would still leave full of gaps, because humans pick examples from the same mental model that produced the bug in the first place.
 
+For Python projects using pytest-gremlins, this pairing is especially effective: fast-check/Hypothesis generates inputs that exercise boundary conditions, and pytest-gremlins' coverage-guided selection ensures those property tests are run against every mutant that touches the validated code.
+
 ### Why Property Tests Kill More Mutants
 
 A mutation changes `price * quantity` to `price + quantity`. Your example test uses `price=10, quantity=1` — the mutation survives because `10 * 1 == 10 + 1` is false, but wait, `10 * 1 = 10` and `10 + 1 = 11`, so actually it fails. Good example. But pick `price=2, quantity=2` and `2 * 2 == 2 + 2 == 4` — mutation survives. A property test generates both inputs and finds the surviving mutant.

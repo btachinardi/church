@@ -324,7 +324,11 @@ Python version: {version}
 6. Search for unittest.TestCase subclasses. Pytest-native style is required.
 7. Identify parametrize opportunities: groups of similar test functions that differ only in
    their inputs and expected outputs. Show the collapsed parametrize form as the proposed fix.
-8. If in fix mode:
+8. Check for mutation testing configuration: look for `[tool.pytest-gremlins]` in pyproject.toml
+   first, then `[tool.mutmut]` or `mutmut.ini` as fallbacks. If none are found and the project
+   has more than 20 test files, report a CRITICAL finding. Verify pytest-gremlins is listed in
+   dev dependencies if `[tool.pytest-gremlins]` is present.
+9. If in fix mode:
    a. Convert loops to pytest.mark.parametrize decorators.
    b. Strengthen weak assertions to compare against specific expected values.
    c. Rename test_should_* functions to imperative present-tense form.

@@ -170,7 +170,7 @@ Line coverage is a LIAR. A test suite can achieve 100% line coverage while asser
 
 **Tools:**
 - **JS/TS**: Stryker (`@stryker-mutator/core`) — config in `stryker.config.js` or `stryker.config.mjs`
-- **Python**: mutmut (`pip install mutmut`, then `mutmut run`) or cosmic-ray for distributed testing
+- **Python**: pytest-gremlins (`pip install pytest-gremlins`, then `pytest --gremlins`) — in-process mutations, coverage-guided test selection, content-hash caching. mutmut and cosmic-ray are alternatives.
 
 **Thresholds:**
 - Mutation score ≥ 90%: RIGHTEOUS

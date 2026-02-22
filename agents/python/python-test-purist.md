@@ -267,65 +267,69 @@ Coverage tells you which lines ran. Mutation testing tells you which lines were 
 
 ### Tools
 
-**mutmut** is the standard choice. Simple to install, integrates with pytest, produces clear output.
+**pytest-gremlins** is the primary choice. It runs mutations in-process (no disk writes per mutant), uses coverage-guided test selection to run only the tests that cover the mutated code (10–100x fewer executions than naive approaches), and caches results by content hash so unchanged code is skipped on re-runs.
 
 ```bash
-pip install mutmut
-mutmut run
-mutmut results
-mutmut show <id>   # show a specific surviving mutant
+pip install pytest-gremlins
+# or with uv:
+uv add --dev pytest-gremlins
+
+pytest --gremlins
+# Optional flags:
+pytest --gremlins --gremlin-parallel   # parallel mutation workers
+pytest --gremlins --gremlin-cache      # skip unchanged code
+pytest --gremlins --gremlin-report=html  # HTML report
 ```
 
-**cosmic-ray** is the alternative for larger projects that need distributed mutation testing or more configuration control. Mutmut is preferred for most projects.
+Output reads: `Zapped: 142 gremlins (85%) / Survived: 18 gremlins (11%)`. Gremlins that survived are mutations your tests did not catch.
+
+**mutmut** and **cosmic-ray** remain valid alternatives. Use mutmut when pytest-gremlins is not an option (e.g., non-pytest test runners). Use cosmic-ray for distributed mutation testing across large monorepos. For most projects, pytest-gremlins is the correct first choice.
 
 ### Configuration
 
 Add to `pyproject.toml`:
 
 ```toml
-[tool.mutmut]
-paths_to_mutate = "src/"
-backup = false
-runner = "python -m pytest -x -q"
-tests_dir = "tests/"
-dict_synonyms = "Exact, Approximate"
+[tool.pytest-gremlins]
+operators = ["comparison", "arithmetic", "boolean"]
+paths = ["src"]
+exclude = ["**/migrations/*", "**/test_*"]
+min_score = 80
 ```
 
-The `-x` flag on the runner is important — it stops pytest on the first failure, which makes mutation testing faster. Without it, mutmut waits for the entire test suite to run for every single mutant.
+The `min_score` setting causes `pytest --gremlins` to exit non-zero when the mutation score drops below 80%, which is the CI gate. Without it, mutation testing runs but never fails the build.
 
 ### Detection
 
-Check for mutmut configuration as part of every Python test audit:
+Check for mutation testing configuration as part of every Python test audit. Look for pytest-gremlins first, then fall back to mutmut:
 
 ```
-Pattern: "\[tool\.mutmut\]"      Glob: "**/pyproject.toml"
-Pattern: "mutmut"                Glob: "**/setup.cfg,**/pyproject.toml"
-Pattern: "cosmic.ray"            Glob: "**/*.toml,**/*.cfg,**/*.ini"
+Pattern: "\[tool\.pytest-gremlins\]"   Glob: "**/pyproject.toml"
+Pattern: "pytest-gremlins"             Glob: "**/pyproject.toml,**/requirements*.txt"
+Pattern: "\[tool\.mutmut\]"            Glob: "**/pyproject.toml"
+Pattern: "mutmut"                      Glob: "**/setup.cfg,**/pyproject.toml"
+Pattern: "cosmic.ray"                  Glob: "**/*.toml,**/*.cfg,**/*.ini"
 ```
 
-Also check dev dependencies:
-
-```
-Pattern: "mutmut"    Glob: "**/pyproject.toml,**/requirements*.txt"
-```
+If neither `[tool.pytest-gremlins]` nor `[tool.mutmut]` is present in `pyproject.toml`, and no `mutmut.ini` exists: CRITICAL finding.
 
 ### Thresholds
 
 | Mutation Score | Verdict |
 |----------------|---------|
 | ≥ 90% | RIGHTEOUS |
-| 80–89% | WARNING — find and fix the surviving mutants |
+| 80–89% | WARNING — find and fix the gremlins that survived |
 | < 80% | CRITICAL — the test suite is not doing its job |
 
 ### Severity
 
 | Finding | Severity |
 |---------|----------|
-| No mutmut config, project has >20 test files | CRITICAL |
-| mutmut not in dev dependencies | CRITICAL |
+| No mutation testing config (no `[tool.pytest-gremlins]`, no `[tool.mutmut]`, no `mutmut.ini`), project has >20 test files | CRITICAL |
+| pytest-gremlins not in dev dependencies | CRITICAL |
 | Mutation score < 80% | CRITICAL |
 | Mutation score 80–89% | WARNING |
-| No CI step running mutmut | WARNING |
+| No CI step running `pytest --gremlins` | WARNING |
 
 ### CI Integration
 
@@ -334,21 +338,15 @@ Mutation testing belongs in CI, not just as a local tool. Without a CI gate, the
 ```yaml
 # In your CI workflow:
 - name: Run mutation tests
-  run: |
-    mutmut run
-    mutmut junitxml > mutmut-results.xml
-    python -c "
-    import subprocess, sys
-    result = subprocess.run(['mutmut', 'results'], capture_output=True, text=True)
-    # Parse killed vs survived and enforce threshold
-    "
+  run: pytest --gremlins --gremlin-cache --gremlin-report=html
+  # Exits non-zero if mutation score < min_score in [tool.pytest-gremlins]
 ```
 
-The specific CI implementation varies, but the gate must exist. A mutation score that nobody is watching is a mutation score that is heading toward 40%.
+The gate is enforced by `min_score = 80` in `[tool.pytest-gremlins]`. A mutation score that nobody is watching is a mutation score that is heading toward 40%.
 
-### Common Surviving Mutants in Python
+### Common Surviving Gremlins in Python
 
-When auditing surviving mutants, these patterns appear repeatedly:
+When auditing gremlins that survived, these patterns appear repeatedly:
 
 - **Off-by-one in ranges**: `range(n)` mutated to `range(n + 1)` — tests that only check return type survive
 - **Comparison operators**: `>=` mutated to `>` — tests that don't test the exact boundary survive
