@@ -141,7 +141,7 @@ export const crusades: readonly Crusade[] = [
     slug: 'python',
     command: '/python-crusade',
     icon: '🐍',
-    tagline: 'No untyped function. No bare eval. No Pythonic sin goes unpunished.',
+    tagline: 'No untyped function. No bare eval. No mutable default survives.',
     quote:
       "def process(data, **kwargs): — no type hints, no docstring, no shame. This function is a MYSTERY BOX.",
     color: 'from-green-500 to-blue-700',

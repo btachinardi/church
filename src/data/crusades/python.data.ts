@@ -5,7 +5,7 @@ export const pythonCrusade: CrusadeDetail = {
   name: 'The Python Crusade',
   command: '/python-crusade',
   icon: '🐍',
-  tagline: 'No untyped function. No bare eval. No Pythonic sin goes unpunished.',
+  tagline: 'No untyped function. No bare eval. No mutable default survives.',
   quote:
     "def process(data, **kwargs): — no type hints, no docstring, no shame. This function is a MYSTERY BOX.",
   color: 'from-green-500 to-blue-700',
@@ -14,7 +14,7 @@ export const pythonCrusade: CrusadeDetail = {
   description:
     'The Python Crusade deploys five specialist squads in parallel to hunt every sin lurking in your .py files. From untyped function signatures to mutable default arguments to injection vulnerabilities, no violation escapes the purge. mypy --strict is the verdict. bandit is the executioner. ruff is the law.',
   battleCry:
-    'The Python Purists deploy at dawn. The serpent of dynamic chaos shall be tamed, typed, and tested. May the runtime have mercy on this codebase, because the Purists will NOT.',
+    'The Python Purists deploy at dawn. Five squads. Every .py file. May the runtime have mercy on this codebase, because the Purists will NOT.',
   commandments: [
     {
       numeral: 'I',
@@ -22,7 +22,7 @@ export const pythonCrusade: CrusadeDetail = {
     },
     {
       numeral: 'II',
-      text: '`Any` is intellectual surrender. When you write `Any`, you tell the type system: I give up. Now NONE of us know what this is. Use `unknown`, use `Protocol`, use a `TypedDict`. Fight for the type.',
+      text: '`Any` is intellectual surrender. When you write `Any`, you tell the type system: I give up. Now NONE of us know what this is. Use `object`, use `Protocol`, use a `TypedDict`. Fight for the type.',
     },
     {
       numeral: 'III',
