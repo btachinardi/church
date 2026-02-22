@@ -261,6 +261,104 @@ INFO: unittest.TestCase (2 classes)
 
 ---
 
+## Mutation Testing (Python)
+
+Coverage tells you which lines ran. Mutation testing tells you which lines were actually verified. A project at 85% coverage with 45% mutation score has a test suite that is mostly decorative.
+
+### Tools
+
+**mutmut** is the standard choice. Simple to install, integrates with pytest, produces clear output.
+
+```bash
+pip install mutmut
+mutmut run
+mutmut results
+mutmut show <id>   # show a specific surviving mutant
+```
+
+**cosmic-ray** is the alternative for larger projects that need distributed mutation testing or more configuration control. Mutmut is preferred for most projects.
+
+### Configuration
+
+Add to `pyproject.toml`:
+
+```toml
+[tool.mutmut]
+paths_to_mutate = "src/"
+backup = false
+runner = "python -m pytest -x -q"
+tests_dir = "tests/"
+dict_synonyms = "Exact, Approximate"
+```
+
+The `-x` flag on the runner is important — it stops pytest on the first failure, which makes mutation testing faster. Without it, mutmut waits for the entire test suite to run for every single mutant.
+
+### Detection
+
+Check for mutmut configuration as part of every Python test audit:
+
+```
+Pattern: "\[tool\.mutmut\]"      Glob: "**/pyproject.toml"
+Pattern: "mutmut"                Glob: "**/setup.cfg,**/pyproject.toml"
+Pattern: "cosmic.ray"            Glob: "**/*.toml,**/*.cfg,**/*.ini"
+```
+
+Also check dev dependencies:
+
+```
+Pattern: "mutmut"    Glob: "**/pyproject.toml,**/requirements*.txt"
+```
+
+### Thresholds
+
+| Mutation Score | Verdict |
+|----------------|---------|
+| ≥ 90% | RIGHTEOUS |
+| 80–89% | WARNING — find and fix the surviving mutants |
+| < 80% | CRITICAL — the test suite is not doing its job |
+
+### Severity
+
+| Finding | Severity |
+|---------|----------|
+| No mutmut config, project has >20 test files | CRITICAL |
+| mutmut not in dev dependencies | CRITICAL |
+| Mutation score < 80% | CRITICAL |
+| Mutation score 80–89% | WARNING |
+| No CI step running mutmut | WARNING |
+
+### CI Integration
+
+Mutation testing belongs in CI, not just as a local tool. Without a CI gate, the score drifts downward invisibly.
+
+```yaml
+# In your CI workflow:
+- name: Run mutation tests
+  run: |
+    mutmut run
+    mutmut junitxml > mutmut-results.xml
+    python -c "
+    import subprocess, sys
+    result = subprocess.run(['mutmut', 'results'], capture_output=True, text=True)
+    # Parse killed vs survived and enforce threshold
+    "
+```
+
+The specific CI implementation varies, but the gate must exist. A mutation score that nobody is watching is a mutation score that is heading toward 40%.
+
+### Common Surviving Mutants in Python
+
+When auditing surviving mutants, these patterns appear repeatedly:
+
+- **Off-by-one in ranges**: `range(n)` mutated to `range(n + 1)` — tests that only check return type survive
+- **Comparison operators**: `>=` mutated to `>` — tests that don't test the exact boundary survive
+- **Return value mutations**: `return result` mutated to `return None` — tests that use `assert response` instead of `assert response == expected` survive
+- **Exception type mutations**: `raise ValueError` mutated to `raise TypeError` — tests that use bare `pytest.raises(Exception)` survive
+
+The fix for all of these is the same: more specific assertions. Which brings it back to Law III.
+
+---
+
 ## Voice
 
 - "A loop in a test. When this fails at line 48, pytest will report `AssertionError`. Which of your four cases failed? Which value? Nobody knows. Parametrize it. The test runner will tell you exactly which case broke."
