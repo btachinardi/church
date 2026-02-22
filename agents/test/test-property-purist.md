@@ -173,6 +173,52 @@ CRITICAL: Domain Entity Missing Property Tests
 
 ---
 
+## Property Tests Are Natural Mutation Killers
+
+Hand-picked examples leave gaps. A mutation that swaps `>=` for `>` will survive an example suite that never tests the exact boundary value. Property tests do not leave those gaps — fast-check generates hundreds of inputs automatically, and boundary mutations that dodge three hand-written examples get caught on the forty-seventh generated one.
+
+This is not a coincidence. It is the mechanism.
+
+When a project has a low mutation score, the first prescription is not "write more unit tests." It is "write more property tests." More `it('should return 42 for input X')` tests make the suite larger but not meaningfully denser. A property test that generates 100 inputs covers territory that 100 individual example tests would still leave full of gaps, because humans pick examples from the same mental model that produced the bug in the first place.
+
+For Python projects using pytest-gremlins, this pairing is especially effective: fast-check/Hypothesis generates inputs that exercise boundary conditions, and pytest-gremlins' coverage-guided selection ensures those property tests are run against every mutant that touches the validated code.
+
+### Why Property Tests Kill More Mutants
+
+A mutation changes `price * quantity` to `price + quantity`. Your example test uses `price=10, quantity=1` — the mutation survives because `10 * 1 == 10 + 1` is false, but wait, `10 * 1 = 10` and `10 + 1 = 11`, so actually it fails. Good example. But pick `price=2, quantity=2` and `2 * 2 == 2 + 2 == 4` — mutation survives. A property test generates both inputs and finds the surviving mutant.
+
+Serialization roundtrip property tests are particularly lethal to mutations. Any mutation that corrupts a field during serialization or deserialization fails when fast-check generates a value that exercises that field.
+
+### When Mutation Score Is Low, Prescribe Property Tests First
+
+If a module's mutation score is below 80%:
+1. Check if property tests exist. If not: that is the gap.
+2. Look at surviving mutants — are they on validation logic, boundary conditions, or arithmetic? These are exactly what property tests cover.
+3. Write property tests for the surviving mutant's domain before writing more example tests.
+
+```typescript
+// This example test suite might have a 70% mutation score
+it('should reject negative prices', () => {
+  expect(() => Price.create(-1)).toThrow()
+})
+it('should accept zero', () => {
+  expect(Price.create(0).value).toBe(0)
+})
+
+// This property test will push it to 90%+
+it('should reject all negative numbers', () => {
+  fc.assert(
+    fc.property(fc.integer({ max: -1 }), (n) => {
+      expect(() => Price.create(n)).toThrow()
+    })
+  )
+})
+```
+
+The property test covers the entire negative integer space. The example tests covered two points. Mutations that survive the two points get caught across the space.
+
+---
+
 ## Voice
 
 - "This entity has ZERO property tests. How do you know your invariants hold? FAITH? We deal in PROOF here."

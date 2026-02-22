@@ -162,7 +162,28 @@ expect(emailService.send).toHaveBeenCalledWith({
 
 Unverified mocks are POINTLESS.
 
-### 11. Factory Lifecycle Tests — Born to Complete
+### 11. Mutation Score Is the True Measure
+
+Line coverage is a LIAR. A test suite can achieve 100% line coverage while asserting NOTHING meaningful — as long as each line executes, coverage is satisfied. But executing a line is not the same as verifying it.
+
+**Mutation testing is the only honest measure of test quality.** It injects small code mutations — changing `==` to `!=`, flipping booleans, removing conditions, replacing constants with zero — and verifies that your tests FAIL when the code is broken. A mutation that SURVIVES is code your tests do not actually verify.
+
+**Tools:**
+- **JS/TS**: Stryker (`@stryker-mutator/core`) — config in `stryker.config.js` or `stryker.config.mjs`
+- **Python**: pytest-gremlins (`pip install pytest-gremlins`, then `pytest --gremlins`) — in-process mutations, coverage-guided test selection, content-hash caching. mutmut and cosmic-ray are alternatives.
+
+**Thresholds:**
+- Mutation score ≥ 90%: RIGHTEOUS
+- Mutation score 80–89%: WARNING — gaps exist
+- Mutation score < 80%: CRITICAL — tests are lying
+
+A green test suite with a 40% mutation score is green paint over void. It proves the code ran. It does not prove the code works.
+
+If you reach for `toBeTruthy()` or `assert result`, ask yourself: if the production code returned the wrong TYPE of truthy value, would this test catch it? If the answer is NO, the assertion is WORTHLESS and your mutation score will prove it.
+
+---
+
+### 12. Factory Lifecycle Tests — Born to Complete
 Every factory method or creation function must have a test proving the created object can **complete its full lifecycle**. If `createX()` returns an object in DRAFT state, a test must prove it can transition through all required intermediate states to reach its terminal state.
 
 ```typescript

@@ -146,6 +146,86 @@ Pattern: "lifecycle|draft.*active.*completed"                 Glob: "**/*.spec.t
 
 Also scan for: tests over 50 lines (doing too much), and AAA comment presence as a positive signal.
 
+### Mutation Testing Configuration Scan
+
+```
+Pattern: "stryker\.config"                  Glob: "**/*.js,**/*.mjs,**/*.cjs"
+Pattern: "\"@stryker-mutator"               Glob: "**/package.json"
+Pattern: "\[tool\.pytest-gremlins\]"        Glob: "**/pyproject.toml"
+Pattern: "pytest-gremlins"                  Glob: "**/pyproject.toml,**/requirements*.txt"
+Pattern: "\[tool\.mutmut\]"                 Glob: "**/pyproject.toml"
+Pattern: "mutmut"                           Glob: "**/pyproject.toml,**/setup.cfg"
+```
+
+---
+
+## Mutation Testing Configuration Hygiene
+
+A test suite without mutation testing configured is a test suite you trust on faith. You have coverage numbers. You do not know if those numbers mean anything.
+
+### Requirements
+
+**JS/TS projects with more than 20 test files** must have a Stryker config:
+- `stryker.config.js`, `stryker.config.mjs`, or `stryker.config.cjs`
+- `@stryker-mutator/core` listed in `devDependencies`
+
+**Python projects** must have pytest-gremlins configured:
+- `[tool.pytest-gremlins]` section in `pyproject.toml` with `min_score = 80`
+- `pytest-gremlins` in dev dependencies (`pyproject.toml` optional-dependencies or `requirements-dev.txt`)
+- mutmut (`[tool.mutmut]` in `pyproject.toml` or `mutmut.ini`) is an accepted alternative
+
+### Stryker Configuration Standards
+
+A Stryker config is not just a file that exists — it must be configured correctly:
+
+```javascript
+// stryker.config.mjs
+export default {
+  reporters: ['html', 'clear-text', 'json'],
+  testRunner: 'vitest',
+  coverageAnalysis: 'perTest',
+  thresholds: { high: 90, low: 80, break: 80 },
+  mutate: [
+    'src/**/*.ts',
+    '!src/**/*.spec.ts',
+    '!src/**/*.d.ts',
+    '!src/**/generated/**',  // Don't mutate generated code
+  ],
+}
+```
+
+Missing `thresholds.break` means mutation testing runs but never fails CI. That is decoration, not a gate.
+
+### CI Gate Requirement
+
+Mutation testing configured but not in CI is the same as not configured. The score must be enforced:
+- Stryker: `thresholds.break` set to 80 minimum
+- pytest-gremlins: `min_score = 80` in `[tool.pytest-gremlins]`, CI runs `pytest --gremlins`
+- mutmut: CI step that exits non-zero if score drops below 80%
+
+A mutation score gate that isn't wired to CI is a dashboard nobody watches.
+
+### Exclusion Rules
+
+Mutation testing must exclude:
+- Test files themselves (`**/*.spec.ts`, `test_*.py`)
+- Type definitions (`**/*.d.ts`)
+- Generated code (`**/generated/**`, `**/__generated__/**`)
+- Build output (`dist/`, `build/`)
+
+Mutating test files wastes time. Mutating generated code generates noise. The config must be explicit.
+
+### Severity
+
+| Finding | Severity |
+|---------|----------|
+| No mutation testing config, >20 test files | CRITICAL |
+| Config exists but no CI gate | WARNING |
+| Stryker config missing `thresholds.break` | WARNING |
+| Generated code not excluded from mutation | INFO |
+| pytest-gremlins not in dev dependencies (Python) | CRITICAL |
+| `[tool.pytest-gremlins]` missing `min_score` | WARNING |
+
 ---
 
 ## Reporting Format
