@@ -89,9 +89,9 @@ After gathering signals, classify all findings into severity tiers before genera
 
 | Severity | Condition |
 |----------|-----------|
-| EMERGENCY | Function cyclomatic complexity > 20 |
-| CRITICAL | Function complexity 15–20 |
-| WARNING | Function complexity 10–14 |
+| BLOCKER | Function cyclomatic complexity > 20 |
+| CRITICAL | Function complexity 15-20 |
+| WARNING | Function complexity 10-14 |
 
 **Style severity (from ruff violations):**
 
@@ -353,7 +353,7 @@ Python version: {version}
 5. Search for hardcoded secrets: variables named password, api_key, or secret assigned to string
    literals. Any match is a BLOCKER.
 6. Search for assert statements in non-test files used for access control or input validation.
-   Python's -O flag disables all assertions, making these invisible in optimized environments.
+   Python's -O flag strips all assertions — your access control vanishes in production.
 7. Search for random module usage in security-sensitive contexts such as token generation or
    session IDs. The secrets module must be used instead.
 8. If in fix mode:
@@ -485,7 +485,7 @@ Fall back to grep-based pattern matching for the highest-risk patterns: eval(), 
 
 ### If no virtual environment is detected
 
-Warn before Phase 2: no .venv or venv found, tools may not be installed. Check each tool with `which mypy`, `which ruff`, `which bandit`. If none are found, offer to stop and let the team install them first: run `uv add --dev mypy ruff bandit` to install all three, then re-run the crusade. If some are found and some are not, proceed with what's available and note which squads are operating at reduced capacity.
+Warn before Phase 2: no .venv or venv found — mypy, ruff, and bandit may not be available. Check each with `which mypy`, `which ruff`, `which bandit`. If none are found, offer to stop and let the team install them first: run `uv add --dev mypy ruff bandit` to install all three, then re-run the crusade. If some are found and some are not, proceed with what's available and note which squads are fighting blind.
 
 ### If Security Squad finds a BLOCKER
 
@@ -505,17 +505,15 @@ This is not a linting suggestion tool.
 
 This is a CRUSADE.
 
-Python's dynamic nature is not an excuse. mypy --strict exists. ruff exists. bandit exists. mutmut exists. The tools are there. The discipline is not.
+Python's dynamic nature is not an excuse. mypy --strict exists. ruff exists. bandit exists. The tools are there. The discipline is not.
 
 The Python Purists are your army.
 - The Type Sentinel annotates every mystery.
-- The Style Inquisitor enforces every PEP.
+- The Style Enforcer disciplines every PEP violation.
 - The Complexity Surgeon extracts every god class.
-- The Test Inquisitor parametrizes every loop.
-- The Security Inquisitor closes every injection vector.
+- The Test Chaplain parametrizes every loop.
+- The Security Warden seals every injection vector.
 
 You are their general.
 
 **Command them well. The serpent shall be tamed — one type hint at a time.**
-
-(The serpent here is Python's dynamic-typing nature — not Python itself. Taming it is the whole point.)
