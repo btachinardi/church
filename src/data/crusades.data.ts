@@ -136,4 +136,14 @@ export const crusades: readonly Crusade[] = [
       '100vw. Do you know what happens when a foldable unfolds? This layout SHATTERS. Like glass. Like the CEO\'s confidence on launch day.',
     color: 'from-violet-600 to-fuchsia-900',
   },
+  {
+    name: 'The Python Crusade',
+    slug: 'python',
+    command: '/python-crusade',
+    icon: '🐍',
+    tagline: 'No untyped function. No bare eval. No Pythonic sin goes unpunished.',
+    quote:
+      "def process(data, **kwargs): — no type hints, no docstring, no shame. This function is a MYSTERY BOX.",
+    color: 'from-green-500 to-blue-700',
+  },
 ] as const;
