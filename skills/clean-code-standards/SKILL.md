@@ -129,3 +129,6 @@ This skill provides the foundational principles enforced by the Church of Clean 
 | Foldable/responsive UI audit | `/church:adaptive-crusade` |
 | Touch target compliance | `/church:adaptive-crusade --concern touch` |
 | Focus/keyboard accessibility | `/church:adaptive-crusade --concern focus` |
+| Compose architecture audit | `/church:compose-crusade` |
+| Recomposition performance | `/church:compose-crusade --scope perf` |
+| Effect/state discipline | `/church:compose-crusade --scope effects` |
