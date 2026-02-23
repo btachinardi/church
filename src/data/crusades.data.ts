@@ -136,4 +136,15 @@ export const crusades: readonly Crusade[] = [
       '100vw. Do you know what happens when a foldable unfolds? This layout SHATTERS. Like glass. Like the CEO\'s confidence on launch day.',
     color: 'from-violet-600 to-fuchsia-900',
   },
+  {
+    name: 'The Swift Crusade',
+    slug: 'swift',
+    command: '/swift-crusade',
+    icon: '🦅',
+    tagline:
+      'No data race survives. No force-unwrap escapes. The compiler is absolute.',
+    quote:
+      "Force-unwrap on line 47. This is not confidence — this is a CRASH INSTRUCTION disguised as code.",
+    color: 'from-lime-600 to-green-800',
+  },
 ] as const;
