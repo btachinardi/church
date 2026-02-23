@@ -136,4 +136,14 @@ export const crusades: readonly Crusade[] = [
       '100vw. Do you know what happens when a foldable unfolds? This layout SHATTERS. Like glass. Like the CEO\'s confidence on launch day.',
     color: 'from-violet-600 to-fuchsia-900',
   },
+  {
+    name: 'The Kotlin Crusade',
+    slug: 'kotlin',
+    command: '/kotlin-crusade',
+    icon: '\uD83D\uDC7B',
+    tagline: 'Exorcise every Java ghost. Uphold the Null Safety Promise.',
+    quote:
+      'A double-bang. The developer looked at the type system and said "I don\'t need you." They SUMMONED NullPointerException back from the grave. We had BANISHED it. And they broke the seal with two characters.',
+    color: 'from-indigo-500 to-orange-600',
+  },
 ] as const;
