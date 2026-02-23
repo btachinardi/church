@@ -167,6 +167,27 @@ data class CreateOrderRequest(
 fun createOrder(request: CreateOrderRequest): Order { ... }
 ```
 
+### Law 6: Prefer `checkNotNull` for Internal Invariants
+
+**Severity: INFO**
+
+`checkNotNull` throws `IllegalStateException` (vs `IllegalArgumentException` from `requireNotNull`). Use `requireNotNull` for validating function ARGUMENTS (input), and `checkNotNull` for asserting internal STATE invariants.
+
+```kotlin
+// For function arguments:
+fun processOrder(orderId: String?) {
+    val id = requireNotNull(orderId) { "orderId must not be null" }
+    // ...
+}
+
+// For internal state:
+fun getActiveSession(): Session {
+    return checkNotNull(currentSession) { "Session must be initialized before use" }
+}
+```
+
+**Java Interop:** `@NonNull` and `@Nullable` annotations from `org.jetbrains.annotations` or JSR-305 (`javax.annotation`) can be applied to Java interop code to give Kotlin proper nullability information, eliminating platform types at the boundary.
+
 ## Thresholds
 
 | Violation | Severity | Action |

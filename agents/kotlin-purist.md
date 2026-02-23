@@ -62,7 +62,7 @@ And then NullPointerException returns. From the grave. Because they INVITED it b
 | `!!` (double-bang / not-null assertion) | CRITICAL | Grep `!!` in `.kt` files |
 | `lateinit var` on nullable-compatible types | WARNING | Grep `lateinit var` |
 | Platform type leaks (Java interop without nullability annotations) | CRITICAL | Manual review of Java-calling code |
-| Unsafe cast `as` without safe operator `?` | WARNING | Grep `\bas\b` then filter out `as?` occurrences |
+| Unsafe cast `as` without safe operator `?` | WARNING | Grep `\bas\s+[A-Z]` then filter out `as?` occurrences |
 | Missing `?.` safe-call where null is possible | WARNING | Context-dependent analysis |
 | `requireNotNull` over safe alternatives | INFO | Grep `requireNotNull` |
 | Catching `NullPointerException` explicitly | CRITICAL | Grep `NullPointerException` |
@@ -245,14 +245,19 @@ scope.launch {
 **RIGHTEOUS: Structured error handling**
 ```kotlin
 scope.launch {
-    runCatching { api.deleteAccount(userId) }
-        .onSuccess { showConfirmation() }
-        .onFailure { error ->
-            logger.error("Account deletion failed for $userId", error)
-            showRetryDialog()
-        }
+    try {
+        api.deleteAccount(userId)
+        showConfirmation()
+    } catch (e: CancellationException) {
+        throw e  // NEVER swallow cancellation
+    } catch (e: Exception) {
+        logger.error("Account deletion failed for $userId", e)
+        showRetryDialog()
+    }
 }
 ```
+
+> **WARNING:** Do NOT use `runCatching` inside coroutine builders (`launch`, `async`, `withContext`). It catches `CancellationException`, which silently breaks structured concurrency. Always use explicit `try/catch` with `CancellationException` rethrown.
 
 ---
 
@@ -289,8 +294,10 @@ Kotlin is NOT Java with different syntax. It is a fundamentally different langua
 - **Scope functions.** `let` for null-safe chains and transformations. `apply` for configuring objects. `also` for side effects. `run` for computing results. `with` for operating on an object. Each has a PURPOSE. Learn the differences.
 - **`data class` for value objects.** If a class exists to hold data, it's a `data class`. You get `equals`, `hashCode`, `toString`, `copy`, and destructuring FOR FREE.
 - **`sealed class`/`sealed interface` for restricted hierarchies.** Compiler-enforced exhaustiveness. No forgotten branches. No default cases hiding bugs.
+- **`data object` for singletons.** Since Kotlin 1.9+, use `data object` instead of plain `object` for singletons that need `toString()`. A `data object Loading` prints `"Loading"` instead of `"Loading@3a71f4dd"`.
 - **String templates.** `"Hello, $name"` not `"Hello, " + name`. `"Total: ${items.size}"` not `"Total: " + items.size`. ALWAYS.
 - **Extension functions.** If you find yourself writing a utility function that takes a type as its first parameter, it should probably be an extension function on that type.
+- **K2 compiler benefits.** Kotlin 2.0+ uses the K2 compiler with faster compilation, better smart casts (across `when` branches and assignments), and more precise type inference. Ensure your project targets Kotlin 2.0+ to benefit.
 
 #### HERESY vs RIGHTEOUS
 
@@ -409,7 +416,7 @@ Kotlin's type system is one of the most expressive in mainstream languages. Seal
 |---|---|---|
 | `Any` as parameter type | CRITICAL | Grep `: Any[,\s)]` and `(Any)` patterns |
 | `Any?` as parameter type | CRITICAL | Grep `: Any\?` |
-| Unsafe cast `as` without safe operator | WARNING | Grep `\bas\b` then exclude `as?` matches |
+| Unsafe cast `as` without safe operator | WARNING | Grep `\bas\s+[A-Z]` then exclude `as?` matches |
 | `data class` with `var` properties | WARNING | Grep `data class` then check for `var` in constructor |
 | Non-exhaustive `when` on sealed types (no `else`) | WARNING | Context review |
 | Star projection `<*>` hiding type information | WARNING | Grep `<\*>` |
@@ -710,7 +717,7 @@ Run these searches across all discovered Kotlin files:
 
 **Type Design scans:**
 - `: Any` — Any as parameter/return type (CRITICAL)
-- `as [^?]` — unsafe cast without safe operator (WARNING)
+- `\bas\s+[A-Z]` — unsafe cast without safe operator, excluding `as?` (WARNING)
 - `data class` with `var` — mutable data class (WARNING)
 - `<*>` — star projection (WARNING)
 - `typealias` — check for misuse (review)

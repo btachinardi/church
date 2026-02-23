@@ -162,6 +162,37 @@ runCatching { api.submitOrder(order) }
 
 **The rule:** Every `runCatching` MUST be followed by `.onFailure`, `.fold`, or explicit error handling BEFORE any `.getOrNull()`, `.getOrDefault()`, or `.getOrElse {}`.
 
+#### CRITICAL: `runCatching` Inside Coroutines Catches `CancellationException`
+
+When `runCatching` is used inside a `launch` or `async` block, it catches ALL exceptions — including `CancellationException`. This silently prevents coroutine cancellation, breaking structured concurrency.
+
+**HERESY: `runCatching` inside a coroutine**
+```kotlin
+scope.launch {
+    runCatching { api.fetchData() }
+        .onFailure { logger.error("Failed", it) }
+        .getOrDefault(emptyList())
+    // If the coroutine is cancelled during fetchData(), CancellationException
+    // is caught and swallowed. The coroutine CONTINUES when it should DIE.
+}
+```
+
+**RIGHTEOUS: Explicit `try/catch` in coroutine context**
+```kotlin
+scope.launch {
+    try {
+        val data = api.fetchData()
+        process(data)
+    } catch (e: CancellationException) {
+        throw e  // ALWAYS rethrow — structured concurrency demands it
+    } catch (e: Exception) {
+        logger.error("Failed to fetch data", e)
+    }
+}
+```
+
+**Cross-reference:** The `kotlin-coroutine-purist` handles the coroutine-specific aspects. If you encounter `runCatching` inside a coroutine builder (`launch`, `async`, `coroutineScope`, `supervisorScope`, `withContext`), flag it as CRITICAL and recommend the `try/catch` pattern above.
+
 ### Law 4: Captured Mutable State is a Ticking Bomb
 
 **Severity: WARNING**
@@ -270,6 +301,34 @@ items.forEach { println(it) }
 names.map(String::uppercase)
 events.filter(::isValid)
 items.forEach(::println)
+```
+
+### Law 8: Use Builder Functions for Collection Construction
+
+**Severity: INFO**
+
+Kotlin provides `buildList`, `buildMap`, and `buildSet` (stable since Kotlin 1.6) for constructing collections with conditional or iterative logic. They are more readable than manual mutable collection construction.
+
+**HERESY:**
+```kotlin
+val items = mutableListOf<String>()
+items.add("always")
+if (condition) {
+    items.add("conditional")
+}
+for (extra in extras) {
+    items.add(extra.name)
+}
+return items.toList()
+```
+
+**RIGHTEOUS:**
+```kotlin
+return buildList {
+    add("always")
+    if (condition) add("conditional")
+    extras.forEach { add(it.name) }
+}
 ```
 
 ## Thresholds

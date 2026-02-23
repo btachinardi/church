@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Kotlin Purist agents to exorcise Java ghosts, banish null abuse, tame rogue coroutines, and enforce idiomatic purity across the codebase. No Java ghost survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--scope null|coroutine|idiom|type|functional|all] [--write]
+argument-hint: [path] [--scope null|coroutine|idiom|type|functional|all] [--severity critical|warning|info|all] [--write]
 ---
 
 # Kotlin Crusade: The Great Exorcism
@@ -35,6 +35,11 @@ Extract from the user's command:
   - `type`: Only type design (`Any` params, unsafe casts, mutable data classes, missing sealed hierarchies)
   - `functional`: Only functional patterns (nested lambdas, missing `inline`, `runCatching` abuse, mutable closures)
   - `all` (default): All concerns
+- **--severity**: Filter findings by minimum severity
+  - `critical`: Only CRITICAL violations (crashes, corruption, safety broken)
+  - `warning`: CRITICAL + WARNING violations
+  - `info`: All violations including INFO (default)
+  - `all`: Alias for `info`
 - **--write**: Apply automated fixes (default: report-only mode)
 
 ### Step 2: Scan the Codebase
@@ -44,13 +49,18 @@ Extract from the user's command:
 Use Bash to find all Kotlin files in scope:
 
 ```bash
-find [PATH] -type f \( -name "*.kt" -o -name "*.kts" \) \
+KT_FILES=$(find [PATH] -type f \( -name "*.kt" -o -name "*.kts" \) \
   ! -path "*/build/*" ! -path "*/.gradle/*" ! -path "*/.idea/*" \
-  ! -path "*/node_modules/*" ! -path "*Generated*" ! -path "*generated*" \
-  | head -500
+  ! -path "*/node_modules/*" ! -path "*Generated*" ! -path "*generated*")
+KT_COUNT=$(echo "$KT_FILES" | wc -l)
+echo "$KT_FILES" | head -500
 ```
 
 Count total .kt and .kts files. If **zero** Kotlin files are found, abort immediately with a message that no Kotlin files were detected in the given path.
+
+If the total file count exceeds 500, warn the user:
+
+> **Warning:** {KT_COUNT} Kotlin files detected but scanning is limited to the first 500 files. Consider narrowing the path argument to target specific modules for comprehensive coverage.
 
 ### Step 3: Quick Violation Scan
 
@@ -291,6 +301,8 @@ Each squad receives ONLY the files relevant to its concern domain. A file may ap
 Collect all squad reports. Each should contain files analyzed, violations per file with severity, proposed fixes with before/after code, and fixes applied (if --write mode).
 
 ## PHASE 5: AGGREGATE AND REPORT
+
+If `--severity` is set, filter the consolidated report to only show violations at or above the requested severity level. Still show total counts for all severity levels in the summary, but mark filtered-out violations as "(N hidden by --severity filter)".
 
 Combine all squad reports into a master assessment, grouped three ways:
 

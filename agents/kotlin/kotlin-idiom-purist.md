@@ -276,6 +276,65 @@ val message = "Hello, ${user.name}! You have $count new messages."
 logger.info("Processing request $requestId for user $userId")
 ```
 
+### Commandment IX: Thou Shalt Use Scope Functions Appropriately
+
+**Severity: INFO**
+
+Kotlin has five scope functions, each with a distinct purpose. Ignoring them leads to verbose, repetitive code. Misusing them leads to confusion. Learn the matrix:
+
+| Function | Object ref | Return value | Use when |
+|----------|-----------|--------------|----------|
+| `let` | `it` | Lambda result | Null-safe chains, transformations |
+| `run` | `this` | Lambda result | Computing a result from an object |
+| `with` | `this` | Lambda result | Grouping calls on an object (non-null) |
+| `apply` | `this` | Object itself | Configuring an object |
+| `also` | `it` | Object itself | Side effects (logging, validation) |
+
+**HERESY: Verbose null-safe chain**
+```kotlin
+val displayName: String
+val user = repository.findById(id)
+if (user != null) {
+    displayName = user.name.uppercase()
+} else {
+    displayName = "Anonymous"
+}
+```
+
+**RIGHTEOUS: `let` for null-safe transformation**
+```kotlin
+val displayName = repository.findById(id)?.let { it.name.uppercase() } ?: "Anonymous"
+```
+
+**HERESY: Repetitive object configuration**
+```kotlin
+val button = Button(context)
+button.text = "Submit"
+button.isEnabled = true
+button.setOnClickListener { submit() }
+```
+
+**RIGHTEOUS: `apply` for configuration**
+```kotlin
+val button = Button(context).apply {
+    text = "Submit"
+    isEnabled = true
+    setOnClickListener { submit() }
+}
+```
+
+**HERESY: Ignoring `also` for side effects**
+```kotlin
+val user = createUser(name)
+logger.info("Created user: ${user.id}")
+return user
+```
+
+**RIGHTEOUS: `also` for transparent side effects**
+```kotlin
+return createUser(name).also { logger.info("Created user: ${it.id}") }
+```
+
 ## Thresholds
 
 | Violation | Severity | Action |
@@ -289,6 +348,7 @@ logger.info("Processing request $requestId for user $userId")
 | `ArrayList`/`HashMap`/`HashSet` | INFO | Replace with Kotlin factories |
 | Missing destructuring | INFO | Use destructuring declarations |
 | Missing extension functions | INFO | Extract repeated utility patterns |
+| Missing scope functions | INFO | Use appropriate scope function for readability |
 
 ## Detection Approach
 
@@ -346,7 +406,7 @@ Use Grep for string concatenation patterns:
 Pattern: "\s*\+\s*\w
 File types: *.kt
 ```
-Check context to confirm it is string concatenation, not numeric addition.
+Check context to confirm it is string concatenation, not numeric addition. This pattern may match numeric addition (`val total = price + tax`) or list concatenation. For each match, verify the left operand is a string literal, a `String`-typed variable, or a `.toString()` call. Discard numeric and collection matches.
 
 ### Phase 7: Hunt the Companion Object Bloat
 

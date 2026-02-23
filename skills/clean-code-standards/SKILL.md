@@ -7,7 +7,7 @@ description: Core principles and standards for clean code enforcement. Auto-invo
 
 This skill provides the foundational principles enforced by the Church of Clean Code purist agents.
 
-## The Ten Pillars of Clean Code
+## The Fourteen Pillars of Clean Code
 
 ### 1. Type Safety
 - No `any` types - use `unknown` with guards
@@ -98,6 +98,13 @@ This skill provides the foundational principles enforced by the Church of Clean 
 - No hover-only interactions -- touch/keyboard alternatives required
 - Drag-and-drop has visual feedback and keyboard alternative
 
+### 14. Kotlin Purity
+- Zero `!!` operators in production code
+- Structured concurrency: no `GlobalScope`, no `runBlocking` outside main/tests
+- Idiomatic Kotlin: no StringBuilder, ArrayList, HashMap, Java-style accessors
+- Type safety: no `Any` parameters, no unsafe `as` casts, immutable data classes
+- Functional discipline: no unhandled `runCatching`, max 2-level lambda nesting
+
 ## When to Invoke Crusades
 
 | Situation | Recommended Crusade |
@@ -117,3 +124,6 @@ This skill provides the foundational principles enforced by the Church of Clean 
 | Foldable/responsive UI audit | `/church:adaptive-crusade` |
 | Touch target compliance | `/church:adaptive-crusade --concern touch` |
 | Focus/keyboard accessibility | `/church:adaptive-crusade --concern focus` |
+| Kotlin code quality review | `/church:kotlin-crusade` |
+| Kotlin null safety audit | `/church:kotlin-crusade --scope null` |
+| Coroutine discipline check | `/church:kotlin-crusade --scope coroutine` |

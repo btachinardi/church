@@ -162,6 +162,14 @@ val handler = CoroutineExceptionHandler { _, exception ->
 val scope = CoroutineScope(SupervisorJob() + handler)
 ```
 
+> **WARNING: `runCatching` in coroutine context is a SILENT CANCELLATION KILLER.**
+>
+> While `runCatching` itself is the functional purist's domain, its use inside coroutine builders is a STRUCTURED CONCURRENCY violation because it catches `CancellationException`. If you encounter `runCatching` inside `launch`, `async`, or any coroutine builder, flag it as WARNING:
+>
+> *"`runCatching` inside a coroutine catches `CancellationException`, preventing proper cancellation propagation. Replace with explicit `try/catch` that rethrows `CancellationException`, as shown in the RIGHTEOUS example above."*
+>
+> This is a cross-cutting concern shared with `kotlin-functional-purist`.
+
 ### Law 5: Dispatchers Must Match Their Mission
 
 **Severity: WARNING**
@@ -226,6 +234,34 @@ val dataFlow: Flow<Data> = flow {
 }
 ```
 
+### Law 7: Use `runTest` for Coroutine Tests
+
+**Severity: INFO**
+
+`runTest` (from `kotlinx-coroutines-test`) provides a `TestScope` with virtual time control. It replaces `runBlocking` in tests with proper delay skipping and coroutine leak detection.
+
+**HERESY:**
+```kotlin
+@Test
+fun `should fetch user`() = runBlocking {
+    val user = repository.getUser("123")
+    assertEquals("Alice", user.name)
+    // delay(5000) in the implementation actually WAITS 5 seconds
+}
+```
+
+**RIGHTEOUS:**
+```kotlin
+@Test
+fun `should fetch user`() = runTest {
+    val user = repository.getUser("123")
+    assertEquals("Alice", user.name)
+    // delay(5000) is SKIPPED — virtual time advances instantly
+}
+```
+
+Also prefer `Dispatchers.IO.limitedParallelism(n)` over creating custom thread pools for bounded I/O concurrency.
+
 ## Thresholds
 
 | Violation | Severity | Action |
@@ -238,6 +274,7 @@ val dataFlow: Flow<Data> = flow {
 | `Channel` where `Flow` suffices | WARNING | Refactor to Flow |
 | `runBlocking` in main/test | INFO | Acceptable bridge usage |
 | Missing `CancellationException` rethrow | WARNING | Always rethrow cancellation |
+| `runBlocking` in test (vs `runTest`) | INFO | Prefer `runTest` for virtual time |
 
 ## Detection Approach
 

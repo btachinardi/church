@@ -225,6 +225,22 @@ fun <T : Identifiable> processItems(items: List<T>) {
 }
 ```
 
+### Law 7: Context Parameters (Kotlin 2.2+)
+
+**Severity: INFO**
+
+Kotlin 2.2 introduces context parameters, replacing the experimental `context(...)` syntax with a stable mechanism for passing implicit context through call chains. If your project targets Kotlin 2.2+, prefer context parameters over manual parameter threading for cross-cutting concerns like logging, transactions, or coroutine contexts.
+
+```kotlin
+// Instead of threading CoroutineScope through every function:
+context(scope: CoroutineScope)
+fun loadData() {
+    scope.launch { /* ... */ }
+}
+```
+
+**Note:** This feature is still stabilizing. Only flag as INFO if the project already uses Kotlin 2.2+. Do not recommend upgrading Kotlin versions solely for this feature.
+
 ## Thresholds
 
 | Violation | Severity | Action |
@@ -244,7 +260,7 @@ fun <T : Identifiable> processItems(items: List<T>) {
 
 Use Grep for `Any` as a type:
 ```
-Pattern: :\s*Any[?\s,)]
+Pattern: :\s*Any\b
 File types: *.kt
 ```
 Also search for `Any` as return type:
