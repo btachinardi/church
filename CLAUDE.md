@@ -30,9 +30,10 @@ church/
 │   ├── size/            # 4 size specialists
 │   ├── a11y/            # 4 accessibility specialists
 │   ├── copy/            # 4 copywriting specialists
-│   └── adaptive/        # 5 adaptive UI specialists
+│   ├── adaptive/        # 5 adaptive UI specialists
+│   └── compose/         # 5 Compose specialists
 ├── commands/            # Crusade orchestration commands (*.md)
-│   ├── react-crusade.md # 13 crusade commands total
+│   ├── react-crusade.md # 14 crusade commands total
 │   └── ...
 ├── skills/              # Auto-discovered skills (SKILL.md)
 ├── .claude-plugin/      # Plugin manifest (plugin.json, marketplace.json)
@@ -542,6 +543,7 @@ Avoid duplicating existing color schemes:
 | a11y | `from-violet-600 to-fuchsia-800` |
 | copy | `from-teal-600 to-cyan-800` |
 | adaptive | `from-violet-600 to-fuchsia-900` |
+| compose | `from-green-500 to-teal-700` |
 
 ---
 

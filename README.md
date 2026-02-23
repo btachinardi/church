@@ -64,6 +64,7 @@ Invoke any generic purist directly by mentioning its trigger phrases in conversa
 | `a11y-purist` | WCAG compliance, semantic HTML, ARIA, keyboard navigation, perceivability |
 | `copy-purist` | UX microcopy, email/SMS, headlines, persuasion frameworks |
 | `adaptive-purist` | Foldable support, touch targets, focus management, DPI, state preservation |
+| `compose-purist` | Composable architecture, state hoisting, effects, recomposition, modifiers |
 
 Each generic purist covers its full domain. During crusades, **61 specialist agents** (4-6 per domain) handle narrower concerns for deeper analysis.
 
@@ -89,6 +90,7 @@ Each crusade performs reconnaissance, forms squads, deploys specialists in paral
 | `/church:a11y-crusade` | 4 | WCAG 2.2 AA compliance, semantic HTML, keyboard access, ARIA, contrast, alt text |
 | `/church:copy-crusade` | 4 | Buttons, error messages, email/SMS, headlines, value props, CTAs, frameworks |
 | `/church:adaptive-crusade` | 5 | Foldable seams, state preservation, focus management, DPI/resolution, touch targets |
+| `/church:compose-crusade` | 5 | Composable tiers, state hoisting, effects, recomposition, modifier chains |
 
 ---
 
@@ -163,7 +165,7 @@ npm run build
 
 The marketing website at **[church.btas.dev](https://church.btas.dev)** includes dedicated landing pages for each crusade at `/crusade/{slug}`:
 
-`type` · `arch` · `test` · `react` · `git` · `dead` · `naming` · `size` · `secret` · `dep` · `observability` · `a11y` · `copy` · `adaptive`
+`type` · `arch` · `test` · `react` · `git` · `dead` · `naming` · `size` · `secret` · `dep` · `observability` · `a11y` · `copy` · `adaptive` · `compose`
 
 ---
 

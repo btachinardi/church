@@ -136,4 +136,14 @@ export const crusades: readonly Crusade[] = [
       '100vw. Do you know what happens when a foldable unfolds? This layout SHATTERS. Like glass. Like the CEO\'s confidence on launch day.',
     color: 'from-violet-600 to-fuchsia-900',
   },
+  {
+    name: 'The Compose Crusade',
+    slug: 'compose',
+    command: '/compose-crusade',
+    icon: '🧩',
+    tagline: 'Declarative purity. State discipline. Zero recomposition waste.',
+    quote:
+      'This composable fetches data, manages state, AND renders UI? That is not a composable \u2014 that is an Activity with a @Composable annotation.',
+    color: 'from-green-500 to-teal-700',
+  },
 ] as const;
