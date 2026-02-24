@@ -98,6 +98,17 @@ This skill provides the foundational principles enforced by the Church of Clean 
 - No hover-only interactions -- touch/keyboard alternatives required
 - Drag-and-drop has visual feedback and keyboard alternative
 
+### 14. Swift Safety
+- All types crossing concurrency boundaries must be `Sendable`
+- Mutable shared state must live in `actor` types
+- UI code must be `@MainActor`
+- No force-unwraps (`!`), force-casts (`as!`), or force-tries (`try!`)
+- `[weak self]` in all escaping closures; delegates always `weak var`
+- Typed throws (`throws(SpecificError)`) over bare `throws`
+- No empty `catch {}` blocks — every error handled or propagated
+- Prefer `struct`/`enum` over `class` unless identity is needed
+- Apple API Design Guidelines for all public API naming
+
 ## When to Invoke Crusades
 
 | Situation | Recommended Crusade |
@@ -117,3 +128,6 @@ This skill provides the foundational principles enforced by the Church of Clean 
 | Foldable/responsive UI audit | `/church:adaptive-crusade` |
 | Touch target compliance | `/church:adaptive-crusade --concern touch` |
 | Focus/keyboard accessibility | `/church:adaptive-crusade --concern focus` |
+| Swift code quality, concurrency safety | `/church:swift-crusade` |
+| Swift 6 strict concurrency audit | `/church:swift-crusade --scope concurrency` |
+| Swift memory leak detection | `/church:swift-crusade --scope memory` |
