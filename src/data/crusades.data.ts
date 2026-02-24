@@ -136,4 +136,14 @@ export const crusades: readonly Crusade[] = [
       '100vw. Do you know what happens when a foldable unfolds? This layout SHATTERS. Like glass. Like the CEO\'s confidence on launch day.',
     color: 'from-violet-600 to-fuchsia-900',
   },
+  {
+    name: 'The SwiftUI Crusade',
+    slug: 'swiftui',
+    command: '/swiftui-crusade',
+    icon: '📱',
+    tagline: 'Defend the declarative kingdom from imperative corruption',
+    quote:
+      "This view fetches data, manages state, AND renders UI? That's not a view — that's a MONOLITH wearing a struct declaration.",
+    color: 'from-lime-500 to-emerald-700',
+  },
 ] as const;

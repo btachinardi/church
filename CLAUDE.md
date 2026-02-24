@@ -4,15 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-The Church of Clean Code is a Claude Code plugin providing 14 **generic purist subagents**, 61 **specialized purist agents**, and 14 **crusade orchestration commands** for parallel code quality enforcement. It includes a marketing website deployed to Netlify.
+The Church of Clean Code is a Claude Code plugin providing 15 **generic purist subagents**, 66 **specialized purist agents**, and 15 **crusade orchestration commands** for parallel code quality enforcement. It includes a marketing website deployed to Netlify.
 
 ## Repository Structure
 
 ```
 church/
 ├── agents/              # Purist subagent definitions (*.md)
-│   ├── react-purist.md  # Generic purists (14 total, for direct invocation)
-│   ├── react/           # Specialized purists (61 total, for crusade deployment)
+│   ├── react-purist.md  # Generic purists (15 total, for direct invocation)
+│   ├── react/           # Specialized purists (66 total, for crusade deployment)
 │   │   ├── react-arch-purist.md
 │   │   ├── react-hooks-purist.md
 │   │   ├── react-state-purist.md
@@ -30,9 +30,10 @@ church/
 │   ├── size/            # 4 size specialists
 │   ├── a11y/            # 4 accessibility specialists
 │   ├── copy/            # 4 copywriting specialists
-│   └── adaptive/        # 5 adaptive UI specialists
+│   ├── adaptive/        # 5 adaptive UI specialists
+│   └── swiftui/         # 5 SwiftUI specialists
 ├── commands/            # Crusade orchestration commands (*.md)
-│   ├── react-crusade.md # 13 crusade commands total
+│   ├── react-crusade.md # 15 crusade commands total
 │   └── ...
 ├── skills/              # Auto-discovered skills (SKILL.md)
 ├── .claude-plugin/      # Plugin manifest (plugin.json, marketplace.json)
@@ -47,7 +48,7 @@ church/
 │   │       ├── type.data.ts
 │   │       ├── git.data.ts
 │   │       ├── react.data.ts
-│   │       └── ...      # 13 crusade data files + index.ts
+│   │       └── ...      # 15 crusade data files + index.ts
 │   ├── app.tsx          # Route definitions (react-router-dom)
 │   └── main.tsx         # Entry point with BrowserRouter
 └── dist/                # Build output (deployed to Netlify)
@@ -76,8 +77,8 @@ Subagent definitions follow Claude Code agent format with YAML frontmatter:
 - `model`: Model to use (opus recommended for code quality tasks)
 
 **Two tiers of agents:**
-- **Generic purists** (`agents/*.md`): 13 broad agents for direct invocation. Each covers a full domain (e.g., `react-purist` covers all React concerns).
-- **Specialist purists** (`agents/<domain>/*.md`): 55 focused agents for crusade deployment. Each covers one narrow concern (e.g., `react-arch-purist` covers only component tier classification).
+- **Generic purists** (`agents/*.md`): 15 broad agents for direct invocation. Each covers a full domain (e.g., `react-purist` covers all React concerns).
+- **Specialist purists** (`agents/<domain>/*.md`): 66 focused agents for crusade deployment. Each covers one narrow concern (e.g., `react-arch-purist` covers only component tier classification).
 
 ### Commands (commands/)
 
@@ -152,7 +153,7 @@ Use an existing crusade as your reference template throughout. The **Size Crusad
 | 9 | CLAUDE.md structure + counts | `CLAUDE.md` | No |
 | 10 | Skill "When to Invoke" table | `skills/clean-code-standards/SKILL.md` | No |
 
-**No changes needed to:** `plugin.json`, `marketplace.json`, `app.tsx`, `crusade.page.tsx`, `crusades.section.tsx`, `crusade-card.component.tsx`, `netlify.toml`, or `crusade-detail.types.ts`. These are all data-driven and auto-discover new crusades.
+**No changes needed to:** `plugin.json`, `marketplace.json`, `app.tsx`, `crusade.page.tsx`, `crusade-card.component.tsx`, `netlify.toml`, or `crusade-detail.types.ts`. These are all data-driven and auto-discover new crusades.
 
 ---
 
@@ -542,6 +543,7 @@ Avoid duplicating existing color schemes:
 | a11y | `from-violet-600 to-fuchsia-800` |
 | copy | `from-teal-600 to-cyan-800` |
 | adaptive | `from-violet-600 to-fuchsia-900` |
+| swiftui | `from-lime-500 to-emerald-700` |
 
 ---
 
