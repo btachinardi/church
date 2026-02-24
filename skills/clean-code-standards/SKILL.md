@@ -7,7 +7,7 @@ description: Core principles and standards for clean code enforcement. Auto-invo
 
 This skill provides the foundational principles enforced by the Church of Clean Code purist agents.
 
-## The Ten Pillars of Clean Code
+## The Pillars of Clean Code
 
 ### 1. Type Safety
 - No `any` types - use `unknown` with guards
@@ -98,6 +98,24 @@ This skill provides the foundational principles enforced by the Church of Clean 
 - No hover-only interactions -- touch/keyboard alternatives required
 - Drag-and-drop has visual feedback and keyboard alternative
 
+### 14. Python Quality
+- All functions and methods have type annotations; `mypy --strict` passes clean
+- No mutable default arguments — `def foo(x=[])` creates a shared haunted list
+- PEP 8 enforced via ruff; line length 88; f-strings exclusively
+- Cyclomatic complexity ≤10 per function; length ≤50 lines; nesting ≤3 levels
+- pytest with `@pytest.mark.parametrize`; no loops in tests; assert specific values
+- No dangerous dynamic evaluation, unsafe deserialization, or shell injection vectors
+- All secrets from environment variables; `secrets` module for cryptographic randomness
+
+### 15. Rust Quality
+- No `.unwrap()` or `.expect()` in non-test code — use `?` or handle the error explicitly
+- Every `unsafe` block has a `// SAFETY:` comment that names and proves the invariant holds
+- Every `unsafe fn` has a `# Safety` section in its doc comment
+- Clone to cross boundaries, not to silence the borrow checker
+- Library errors use `thiserror`; application errors use `anyhow`; never `Box<dyn Error>` in public library APIs
+- `&str` for string inputs, `String` for owned outputs; all public types derive `Debug`
+- No `std::thread::sleep` inside `async fn`; no `.lock().unwrap()` on mutexes
+
 ## When to Invoke Crusades
 
 | Situation | Recommended Crusade |
@@ -117,3 +135,9 @@ This skill provides the foundational principles enforced by the Church of Clean 
 | Foldable/responsive UI audit | `/church:adaptive-crusade` |
 | Touch target compliance | `/church:adaptive-crusade --concern touch` |
 | Focus/keyboard accessibility | `/church:adaptive-crusade --concern focus` |
+| Working in a Python codebase | `/church:python-crusade` |
+| Python security audit | `/church:python-crusade --scope security` |
+| Python type coverage gaps | `/church:python-crusade --scope type` |
+| Working in a Rust codebase | `/church:rust-crusade` |
+| Rust unsafe block audit | `/church:rust-crusade --scope unsafe` |
+| Rust error handling review | `/church:rust-crusade --scope error` |

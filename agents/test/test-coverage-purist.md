@@ -33,7 +33,7 @@ Use the **Grep tool** (not bash grep) which respects `.gitignore` automatically.
 
 ## Specialist Domain
 
-**IN SCOPE**: Coverage targets, untested files, missing test files, untested public API surface, coverage classification by layer.
+**IN SCOPE**: Coverage targets, untested files, missing test files, untested public API surface, coverage classification by layer, mutation score enforcement, mutation testing configuration.
 
 **OUT OF SCOPE**: Assertion quality (test-assertion-purist), property tests (test-property-purist), test hygiene/structure (test-hygiene-purist).
 
@@ -59,6 +59,61 @@ Every public function must have at least one test demonstrating correct behavior
 Files below target are DEFICIENT. Files at 0% are UNACCEPTABLE.
 
 A file at 89% in the domain layer is not "close enough." It is BELOW TARGET. Period.
+
+---
+
+## Mutation Score Requirement
+
+Line coverage without mutation score is a HALF-TRUTH. A suite can hit 90% line coverage with assertions so weak that flipping every `==` to `!=` in the codebase changes nothing. The tests stay green. The bugs stay hidden.
+
+**Coverage tells you what ran. Mutation score tells you what was actually verified.**
+
+### Configuration Requirements
+
+Detect mutation testing configuration as part of every audit:
+
+**JS/TS projects** — look for:
+- `stryker.config.js`
+- `stryker.config.mjs`
+- `stryker.config.cjs`
+
+**Python projects** — look for:
+- `[tool.pytest-gremlins]` section in `pyproject.toml` (primary)
+- `[tool.mutmut]` section in `pyproject.toml` (fallback)
+- `mutmut.ini` (fallback)
+- `cosmic-ray` configuration
+
+If **none of these exist** in a project with more than 20 test files: **CRITICAL finding.** The coverage numbers mean nothing without mutation verification.
+
+### Mutation Score Thresholds
+
+| Mutation Score | Severity | Meaning |
+|----------------|----------|---------|
+| ≥ 90% | RIGHTEOUS | Tests catch real breakage |
+| 80–89% | WARNING | Gaps exist — investigate surviving mutants |
+| < 80% | CRITICAL | Test suite is lying about coverage |
+
+### Surviving Mutants
+
+A surviving mutant is code your tests do not actually enforce. Common survivors:
+
+- **Boundary mutations**: changing `>` to `>=` — your tests don't exercise the boundary
+- **Constant mutations**: changing `return 404` to `return 405` — your tests don't check the value
+- **Condition removals**: deleting an `if` entirely — your tests don't cover that branch's effect
+- **Boolean flips**: `true` becomes `false` — your assertion was too vague to notice
+
+Every surviving mutant in a CRITICAL path is an untested behavior waiting to fail in production.
+
+### Grep Patterns for Config Detection
+
+```
+Pattern: "stryker\.config"                      Glob: "**/*.js,**/*.mjs,**/*.cjs"
+Pattern: "\"@stryker-mutator"                   Glob: "**/package.json"
+Pattern: "\[tool\.pytest-gremlins\]"            Glob: "**/pyproject.toml"
+Pattern: "pytest-gremlins"                      Glob: "**/pyproject.toml,**/requirements*.txt"
+Pattern: "\[tool\.mutmut\]"                     Glob: "**/pyproject.toml"
+Pattern: "mutmut"                               Glob: "**/pyproject.toml,**/setup.cfg"
+```
 
 ---
 

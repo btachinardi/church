@@ -4,15 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-The Church of Clean Code is a Claude Code plugin providing 14 **generic purist subagents**, 61 **specialized purist agents**, and 14 **crusade orchestration commands** for parallel code quality enforcement. It includes a marketing website deployed to Netlify.
+The Church of Clean Code is a Claude Code plugin providing 16 **generic purist subagents**, 70 **specialized purist agents**, and 16 **crusade orchestration commands** for parallel code quality enforcement. It includes a marketing website deployed to Netlify.
 
 ## Repository Structure
 
 ```
 church/
 ├── agents/              # Purist subagent definitions (*.md)
-│   ├── react-purist.md  # Generic purists (14 total, for direct invocation)
-│   ├── react/           # Specialized purists (61 total, for crusade deployment)
+│   ├── react-purist.md  # Generic purists (16 total, for direct invocation)
+│   ├── react/           # Specialized purists (70 total, for crusade deployment)
 │   │   ├── react-arch-purist.md
 │   │   ├── react-hooks-purist.md
 │   │   ├── react-state-purist.md
@@ -30,9 +30,11 @@ church/
 │   ├── size/            # 4 size specialists
 │   ├── a11y/            # 4 accessibility specialists
 │   ├── copy/            # 4 copywriting specialists
-│   └── adaptive/        # 5 adaptive UI specialists
+│   ├── adaptive/        # 5 adaptive UI specialists
+│   ├── python/          # 5 python specialists
+│   └── rust/            # 5 rust specialists
 ├── commands/            # Crusade orchestration commands (*.md)
-│   ├── react-crusade.md # 13 crusade commands total
+│   ├── react-crusade.md # 16 crusade commands total
 │   └── ...
 ├── skills/              # Auto-discovered skills (SKILL.md)
 ├── .claude-plugin/      # Plugin manifest (plugin.json, marketplace.json)
