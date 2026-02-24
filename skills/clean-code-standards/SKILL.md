@@ -98,6 +98,18 @@ This skill provides the foundational principles enforced by the Church of Clean 
 - No hover-only interactions -- touch/keyboard alternatives required
 - Drag-and-drop has visual feedback and keyboard alternative
 
+### 14. Jetpack Compose
+- Every composable belongs to exactly one tier: Stateless, Stateful, or Screen
+- State hoisting: composables receive state and callbacks, not own state
+- No `LaunchedEffect(Unit)` as lifecycle hack — load data in ViewModel
+- Classes passed to composables must be stable (`@Immutable`, `@Stable`, `ImmutableList`)
+- `derivedStateOf` for cached computations instead of recomputing in composition
+- Modifier ordering matters: `clip` before `background`, padding placement is structural
+- `key` required for all `LazyColumn`/`LazyRow` items
+- `rememberSaveable` for process-death survival (forms, scroll, tabs)
+- No nested scrollable containers in the same direction
+- Accept `Modifier` as first optional parameter in every composable
+
 ## When to Invoke Crusades
 
 | Situation | Recommended Crusade |
@@ -117,3 +129,6 @@ This skill provides the foundational principles enforced by the Church of Clean 
 | Foldable/responsive UI audit | `/church:adaptive-crusade` |
 | Touch target compliance | `/church:adaptive-crusade --concern touch` |
 | Focus/keyboard accessibility | `/church:adaptive-crusade --concern focus` |
+| Compose architecture audit | `/church:compose-crusade` |
+| Recomposition performance | `/church:compose-crusade --scope perf` |
+| Effect/state discipline | `/church:compose-crusade --scope effects` |
