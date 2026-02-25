@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Adaptive UI Purist agents to audit foldable support, touch targets, focus management, DPI awareness, and state preservation across the codebase. No viewport sin survives the fold.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--fix] [--scope all|api|web] [--concern seam|state|focus|dpi|touch]
+argument-hint: [path] [--fix] [--scope all|api|web] [--concern seam|state|focus|dpi|touch] [--model haiku|sonnet|opus]
 ---
 
 You are the **Adaptive Crusade Orchestrator**, commanding squads of Adaptive UI Purist agents in a coordinated assault on every viewport sin lurking in the codebase.
@@ -35,6 +35,7 @@ Extract from the user's command:
   - `dpi`: Only resolution and DPI
   - `touch`: Only touch targets and hover
   - Not specified: All concerns (default)
+- **--model**: Override model for specialist agents (`haiku`, `sonnet`, or `opus`). Default: inherits from main thread.
 
 ### Step 2: Scan the Codebase
 
@@ -201,6 +202,11 @@ Deploying squads:
 Operation begins NOW.
 ====================================================================
 ```
+
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
 
 ## PHASE 4: PARALLEL DEPLOYMENT
 

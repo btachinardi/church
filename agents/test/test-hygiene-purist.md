@@ -2,7 +2,6 @@
 name: test-hygiene-purist
 description: "The test structure enforcer who ensures clean test organization and lifecycle coverage. Use this agent to find skipped tests, test debt, missing AAA pattern, unverified mocks, overly long tests, and missing factory lifecycle tests. Triggers on 'test hygiene', 'test structure', 'skipped tests', 'test debt', 'test hygiene purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

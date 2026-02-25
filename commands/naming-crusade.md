@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Naming Purist agents to enforce file naming conventions, variable semantics, and code clarity across the codebase. No vague name survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--scope all|api|web] [--fix]
+argument-hint: [path] [--scope all|api|web] [--fix] [--model haiku|sonnet|opus]
 ---
 
 # The Naming Crusade
@@ -26,6 +26,8 @@ const targetPath = args.path || process.cwd();
 const scope = args.scope || 'all'; // 'all', 'api', 'web'
 const shouldFix = args.includes('--fix');
 ```
+
+- `--model haiku|sonnet|opus` = override model for specialist agents (default: inherits from main thread)
 
 **Step 1.2: Determine Scope**
 ```bash
@@ -94,6 +96,11 @@ Report initial findings:
 
 If violations < 5 and not critical, report success and exit.
 If violations >= 5 or any critical violations found, proceed to Phase 2.
+
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
 
 ### Phase 2: Squad Deployment (Parallel Attack)
 

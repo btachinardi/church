@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Test Purist agents to audit coverage, test quality, and assertions across the codebase. No untested code survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--scope domain|app|all] [--write]
+argument-hint: [path] [--scope domain|app|all] [--write] [--model haiku|sonnet|opus]
 ---
 
 # Test Crusade: The War Against Untested Code
@@ -33,6 +33,7 @@ Deploy parallel Test Purist agents to audit every corner of the codebase. No unt
 | `path` | `.` | Root path to audit (absolute path required for agents) |
 | `--scope` | `all` | Focus area: `domain` (domain layer only), `app` (application layer only), `all` (entire codebase) |
 | `--write` | `false` | If present, squads will WRITE missing tests, not just report |
+| `--model` | *(inherit)* | Override model for specialist agents: `haiku`, `sonnet`, or `opus` |
 
 ### Examples
 ```bash
@@ -96,6 +97,11 @@ SQUADS DEPLOYING: 4
 ```
 
 ---
+
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
 
 ### Phase 2: Parallel Squad Deployment
 

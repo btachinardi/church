@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Git Purist agents to audit branches, commits, and worktrees across the codebase. No bad commit survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--depth 20] [--fix]
+argument-hint: [path] [--depth 20] [--fix] [--model haiku|sonnet|opus]
 ---
 
 # The Great Git Crusade
@@ -15,6 +15,7 @@ You are the War General. Your soldiers are `git-purist` subagents. Your enemy is
 - `$ARGUMENTS` may contain a repo path (defaults to current working directory)
 - `--depth N` = how many commits to audit (default: 20)
 - `--fix` = rewrite existing history (rebase, amend, split commits). Without this flag, only CREATE NEW commits from pending changes.
+- `--model haiku|sonnet|opus` = override model for specialist agents (default: inherits from main thread)
 
 ## Battle Plan
 
@@ -61,6 +62,11 @@ Group findings into squads for parallel processing:
 | **Message Squad** | Audit commit messages, propose rewrites (requires `--fix` to execute) |
 | **Atomicity Squad** | Identify bloated commits, plan splits (requires `--fix` to execute) |
 | **Hygiene Squad** | Audit .gitignore, tracked artifacts, branch names |
+
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
 
 ### Phase 3: Deployment — PARALLEL PURGE
 

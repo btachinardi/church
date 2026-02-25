@@ -2,7 +2,6 @@
 name: test-purist
 description: The merciless enforcer of test coverage and quality. Use this agent to find untested code, meaningless assertions, missing property tests, and coverage gaps. Triggers on "test review", "coverage audit", "test quality", "missing tests", "test purist", "coverage gaps".
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Observability Purist agents to audit logging, tracing, metrics, and error handling across the codebase. No silent failure survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--scope all|api|web] [--illuminate]
+argument-hint: [path] [--scope all|api|web] [--illuminate] [--model haiku|sonnet|opus]
 ---
 
 # The Observability Crusade
@@ -26,7 +26,12 @@ This command orchestrates a multi-squad crusade to eliminate observability sins 
 # Target specific directory
 /observability-crusade apps/api/src/domains/orders
 /observability-crusade apps/api/src/domains/orders --illuminate
+
+# Override model for specialist agents
+/observability-crusade --model haiku
 ```
+
+- `--model haiku|sonnet|opus` = override model for specialist agents (default: inherits from main thread)
 
 ## The Four Phases
 
@@ -132,6 +137,11 @@ Examples:
 
   [+20 more occurrences]
 ```
+
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
 
 ### Phase 3: The Enlightenment (Parallel Squad Deployment)
 

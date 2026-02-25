@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel A11y Purist agents to audit WCAG compliance, semantic HTML, keyboard navigation, ARIA usage, and perceivability across the codebase. Universal Readability awaits.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--write] [--scope all|api|web]
+argument-hint: [path] [--write] [--scope all|api|web] [--model haiku|sonnet|opus]
 ---
 
 # A11y Crusade: The March for Universal Readability
@@ -35,6 +35,7 @@ Extract and validate arguments from the user's invocation:
 - `path` (optional) - Target directory (default: current working directory)
 - `--write` - Enable auto-remediation for fixable violations
 - `--scope all|api|web` - Limit scan to specific workspace
+- `--model haiku|sonnet|opus` - Override model for specialist agents. Default: inherits from main thread.
 
 ### Step 2: Scan the Codebase
 
@@ -209,6 +210,11 @@ If `--write` not provided, inform user this is a report-only run.
 **File Scope**: `*.html`, `*.tsx`, `*.jsx`, `*.css`, `*.scss`, `*.vue`
 
 ---
+
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
 
 ## PHASE 4: PARALLEL DEPLOYMENT
 

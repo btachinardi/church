@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Secret Purist agents to scan the codebase and git history for leaked credentials, API keys, and hardcoded secrets. No leaked secret survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--history] [--deep]
+argument-hint: [path] [--history] [--deep] [--model haiku|sonnet|opus]
 ---
 
 You are the **Secret Crusade Commander** — orchestrating a coordinated security sweep to detect and eliminate credential leaks across the entire codebase and git history.
@@ -30,6 +30,9 @@ Enable deep analysis:
 - Docker and docker-compose inspection
 - Binary file metadata checks
 - Entropy analysis for obfuscated secrets
+
+## `--model`
+- **--model**: Override model for specialist agents (`haiku`, `sonnet`, or `opus`). Default: inherits from main thread.
 
 # DEPLOYMENT PHASES
 
@@ -232,6 +235,11 @@ Standby for contact reports...
 ```
 
 ---
+
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
 
 ## PHASE 4: PARALLEL EXECUTION
 

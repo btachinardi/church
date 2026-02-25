@@ -2,7 +2,6 @@
 name: dep-unused-purist
 description: "The ghost hunter who finds dependencies declared but never imported. Use this agent to detect unused dependencies, phantom dependencies, and misplaced devDependencies. Triggers on 'unused dependencies', 'phantom dependencies', 'ghost packages', 'dep unused purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 
