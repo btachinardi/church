@@ -143,11 +143,15 @@ Examples:
 If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
 If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
 
-**Before deploying squads, announce the active model to the user:**
-- If `--model haiku`: output `Model: Haiku 4.5`
-- If `--model sonnet`: output `Model: Sonnet 4.6`
-- If `--model opus`: output `Model: Opus 4.6`
-- If no `--model` flag: output `Model: inherited (Opus 4.6)` — or whatever model the main thread is running
+**Before deploying squads, announce the models to the user:**
+```
+Orchestrator model: {main thread model, e.g. Opus 4.6}
+Subagent model: {--model value resolved, e.g. Haiku 4.5}
+```
+- If `--model haiku`: subagent model is `Haiku 4.5`
+- If `--model sonnet`: subagent model is `Sonnet 4.6`
+- If `--model opus`: subagent model is `Opus 4.6`
+- If no `--model` flag: subagent model is `inherited` (same as orchestrator)
 
 ### Phase 3: The Enlightenment (Parallel Squad Deployment)
 
