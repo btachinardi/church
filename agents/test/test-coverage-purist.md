@@ -2,7 +2,6 @@
 name: test-coverage-purist
 description: "The coverage gap hunter who ensures no code ships without proof. Use this agent to find files below coverage targets, untested public APIs, and directories with zero test files. Triggers on 'coverage gaps', 'untested code', 'missing tests', 'coverage audit', 'test coverage purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

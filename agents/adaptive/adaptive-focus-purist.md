@@ -2,7 +2,6 @@
 name: adaptive-focus-purist
 description: "The relentless enforcer of keyboard navigation and focus management. Use this agent to audit focus-visible styles, tab order, focus trapping in modals, skip navigation, outline removal, and keyboard accessibility of custom widgets. Triggers on 'focus management', 'keyboard navigation', 'tab order', 'focus visible', 'focus trapping', 'skip nav', 'adaptive focus purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

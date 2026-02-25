@@ -2,7 +2,6 @@
 name: arch-layer-purist
 description: "The iron-fisted guardian of DDD layer boundaries. Use this agent to detect domain purity violations, upward dependencies, and layer boundary breaches. Triggers on 'layer violations', 'domain purity', 'upward dependencies', 'arch layer purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

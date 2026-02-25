@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Dead Code Purist agents to find and eliminate unused exports, orphaned files, commented-out blocks, and unreachable branches across the codebase. No dead code survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--scope all|api|web] [--reap] [--severity critical|warning|info]
+argument-hint: [path] [--scope all|api|web] [--reap] [--severity critical|warning|info] [--model haiku|sonnet|opus]
 ---
 
 # Dead Code Crusade
@@ -47,6 +47,7 @@ Parse command arguments:
 - **--scope**: `all` (default), `api`, `web`, or custom path
 - **--reap**: If present, DELETE dead code. If absent, AUDIT only.
 - **--severity**: Filter results — `critical`, `warning`, `info`, or `all` (default)
+- **--model**: Override model for specialist agents (`haiku`, `sonnet`, or `opus`). Default: inherits from main thread.
 
 ```typescript
 const scope = args.scope || 'all';
@@ -110,6 +111,21 @@ Report:
 
 Deploying specialized squads for precise analysis...
 ```
+
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
+
+**Before deploying squads, announce the models to the user:**
+```
+Orchestrator model: {main thread model, e.g. Opus 4.6}
+Subagent model: {--model value resolved, e.g. Haiku 4.5}
+```
+- If `--model haiku`: subagent model is `Haiku 4.5`
+- If `--model sonnet`: subagent model is `Sonnet 4.6`
+- If `--model opus`: subagent model is `Opus 4.6`
+- If no `--model` flag: subagent model is `inherited` (same as orchestrator)
 
 ## Phase 2: Parallel Deployment
 

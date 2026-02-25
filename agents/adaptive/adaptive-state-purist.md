@@ -2,7 +2,6 @@
 name: adaptive-state-purist
 description: "The guardian of state continuity across resize, fold, rotate, and window transitions. Use this agent to audit state preservation during configuration changes, scroll position persistence, form draft survival, and viewport-dependent state management. Triggers on 'state preservation', 'resize state', 'rotate state', 'fold state', 'configuration change', 'adaptive state purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

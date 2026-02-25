@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Architecture Purist agents to audit layer boundaries, import graphs, and structural integrity across the entire codebase. No layer violation survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--domain <name>] [--fix]
+argument-hint: [path] [--domain <name>] [--fix] [--model haiku|sonnet|opus]
 ---
 
 # Architecture Crusade
@@ -24,6 +24,7 @@ This slash command orchestrates a comprehensive architectural audit of the entir
 - `[path]` — Optional. Root path to audit (defaults to current working directory)
 - `--domain <name>` — Optional. Audit specific domain only (e.g., "orders", "users")
 - `--fix` — Optional. Automatically apply fixes for auto-fixable violations
+- `--model haiku|sonnet|opus` = override model for specialist agents (default: inherits from main thread)
 
 **Examples:**
 ```bash
@@ -68,6 +69,21 @@ RECONNAISSANCE COMPLETE
   Import statements extracted: Z
   Dependency graph built: A nodes, B edges
 ```
+
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
+
+**Before deploying squads, announce the models to the user:**
+```
+Orchestrator model: {main thread model, e.g. Opus 4.6}
+Subagent model: {--model value resolved, e.g. Haiku 4.5}
+```
+- If `--model haiku`: subagent model is `Haiku 4.5`
+- If `--model sonnet`: subagent model is `Sonnet 4.6`
+- If `--model opus`: subagent model is `Opus 4.6`
+- If no `--model` flag: subagent model is `inherited` (same as orchestrator)
 
 ### Phase 2: Parallel Deployment
 

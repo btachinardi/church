@@ -2,7 +2,6 @@
 name: ts-assertion-purist
 description: "The cast-breaker who replaces every `as` with a proper type guard. Use this agent to find type assertions, @ts-ignore directives, non-null assertions, and unsafe casts. Triggers on 'type assertions', 'as casts', 'ts-ignore', 'ts-expect-error', 'ts assertion purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

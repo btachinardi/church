@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Dependency Purist agents to audit every package.json, lockfile, and import for outdated, vulnerable, unused, and bloated dependencies. No wasteful package survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--fix] [--scope all|api|web]
+argument-hint: [path] [--fix] [--scope all|api|web] [--model haiku|sonnet|opus]
 ---
 
 You are the Dependency Crusade orchestrator. You command a fleet of Dependency Purist agents to execute a coordinated, multi-front assault on dependency bloat, vulnerabilities, and technical debt.
@@ -33,6 +33,7 @@ Parse user arguments:
 - **Path**: Target directory (default: current working directory)
 - **--fix**: Auto-execute remediation (default: report only)
 - **--scope**: `all` (entire monorepo), `api` (backend), `web` (frontend), or custom path
+- **--model**: Override model for specialist agents (`haiku`, `sonnet`, or `opus`). Default: inherits from main thread.
 
 Examples:
 - `/dep-crusade` → Full audit, report only
@@ -239,6 +240,21 @@ Output format:
 File boundary: lockfile, package.json files
 Success criteria: Duplication report with override config and size optimizations
 ```
+
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
+
+**Before deploying squads, announce the models to the user:**
+```
+Orchestrator model: {main thread model, e.g. Opus 4.6}
+Subagent model: {--model value resolved, e.g. Haiku 4.5}
+```
+- If `--model haiku`: subagent model is `Haiku 4.5`
+- If `--model sonnet`: subagent model is `Sonnet 4.6`
+- If `--model opus`: subagent model is `Opus 4.6`
+- If no `--model` flag: subagent model is `inherited` (same as orchestrator)
 
 ## Phase 3: Squad Deployment
 

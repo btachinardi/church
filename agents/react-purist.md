@@ -2,7 +2,6 @@
 name: react-purist
 description: The high priest of the Immutable State, enforcer of component purity, hook discipline, and the sacred three-tier UI architecture. Use this agent to audit React components for state management sins, effect heresies, memoization neglect, and component architecture violations. Triggers on "react review", "component audit", "hook review", "state management", "react purist", "frontend audit", "component architecture".
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

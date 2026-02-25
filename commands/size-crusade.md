@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Size Purist agents to hunt down bloated files, god classes, and mega-components across the codebase. No bloated file survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--threshold <lines>] [--scope all|api|web] [--split]
+argument-hint: [path] [--threshold <lines>] [--scope all|api|web] [--split] [--model haiku|sonnet|opus]
 ---
 
 You are the **Size Crusade Orchestrator**, commanding squads of Size Purist agents in a coordinated assault on bloated files.
@@ -29,6 +29,7 @@ Extract from the user's command:
   - `web`: Only frontend files (apps/web, packages/ui)
   - Custom path: User provides specific directory
 - **--split**: Actually perform splits (default: report-only mode)
+- **--model**: Override model for specialist agents (`haiku`, `sonnet`, or `opus`). Default: inherits from main thread.
 
 ### Step 2: Count Every File
 
@@ -200,6 +201,21 @@ Operation begins NOW.
 ═══════════════════════════════════════════════════════════
 ```
 
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
+
+**Before deploying squads, announce the models to the user:**
+```
+Orchestrator model: {main thread model, e.g. Opus 4.6}
+Subagent model: {--model value resolved, e.g. Haiku 4.5}
+```
+- If `--model haiku`: subagent model is `Haiku 4.5`
+- If `--model sonnet`: subagent model is `Sonnet 4.6`
+- If `--model opus`: subagent model is `Opus 4.6`
+- If no `--model` flag: subagent model is `inherited` (same as orchestrator)
+
 ## PHASE 4: PARALLEL SURGICAL ANALYSIS
 
 For EACH squad, spawn the squad's specialist subagent:
@@ -231,7 +247,7 @@ Do NOT perform actual splits yet — analysis only.
 
 **Tool access:** Read, Grep, Bash
 **Permission mode:** default (analysis is read-only)
-**Model:** opus (needs deep analysis)
+**Model:** If `--model` was specified, set the `model` parameter on the Task tool call. Otherwise omit it (inherits from parent thread).
 
 **Run all squads IN PARALLEL** using multiple Task calls.
 
@@ -300,7 +316,7 @@ Report when complete with before/after line counts.
 
 **Tool access:** Read, Edit, Write, Grep, Bash
 **Permission mode:** default (user will approve each edit)
-**Model:** opus (needs precision)
+**Model:** If `--model` was specified, set the `model` parameter on the Task tool call. Otherwise omit it (inherits from parent thread).
 
 **Run all squads IN PARALLEL** using multiple Task calls.
 

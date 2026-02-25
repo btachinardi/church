@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel TypeScript Purist agents to purge every `any`, `as` cast, and type sin across the codebase. No type sin survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--scope domain|app|all]
+argument-hint: [path] [--scope domain|app|all] [--model haiku|sonnet|opus]
 ---
 
 # The Great Type Crusade
@@ -16,6 +16,7 @@ You are the War General. Your soldiers are 4 specialist subagents — `ts-any-pu
 - `--scope domain` = only `src/domains/` directories
 - `--scope app` = only `apps/` directories
 - `--scope all` (default) = the entire codebase
+- `--model haiku|sonnet|opus` = override model for specialist agents (default: inherits from main thread)
 
 If no arguments, default to the current working directory with scope `all`.
 
@@ -55,6 +56,21 @@ Before you deploy your army, you must know the battlefield.
    - Count of `@ts-expect-error` directives
 3. Present the GRIM STATISTICS to the user in dramatic fashion
 4. Group files by directory/domain into **crusade squads** (3-6 files per squad)
+
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
+
+**Before deploying squads, announce the models to the user:**
+```
+Orchestrator model: {main thread model, e.g. Opus 4.6}
+Subagent model: {--model value resolved, e.g. Haiku 4.5}
+```
+- If `--model haiku`: subagent model is `Haiku 4.5`
+- If `--model sonnet`: subagent model is `Sonnet 4.6`
+- If `--model opus`: subagent model is `Opus 4.6`
+- If no `--model` flag: subagent model is `inherited` (same as orchestrator)
 
 ### Phase 2: Deployment — PARALLEL PURGE
 

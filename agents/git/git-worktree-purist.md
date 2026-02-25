@@ -2,7 +2,6 @@
 name: git-worktree-purist
 description: "The staging artist who ensures a clean worktree at all times. Use this agent to organize pending changes, clean untracked files, and ensure intentional staging. Triggers on 'worktree cleanup', 'git status', 'staging review', 'pending changes', 'git worktree purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 
