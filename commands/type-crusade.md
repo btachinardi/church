@@ -62,6 +62,12 @@ Before you deploy your army, you must know the battlefield.
 If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
 If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
 
+**Before deploying squads, announce the active model to the user:**
+- If `--model haiku`: output `Model: Haiku 4.5`
+- If `--model sonnet`: output `Model: Sonnet 4.6`
+- If `--model opus`: output `Model: Opus 4.6`
+- If no `--model` flag: output `Model: inherited (Opus 4.6)` — or whatever model the main thread is running
+
 ### Phase 2: Deployment — PARALLEL PURGE
 
 This is the moment. Launch **4 specialist squads simultaneously**, each targeting a specific concern. Assign files from Phase 1 reconnaissance to the squad whose concern matches the dominant sin in that file. Files with mixed sins go to the squad matching their WORST sin.
