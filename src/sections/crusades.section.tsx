@@ -9,7 +9,7 @@ export function CrusadesSection() {
         <ScrollReveal>
           <div className="mb-16 text-center">
             <h2 className="mb-4 font-cinzel text-3xl font-bold text-gold sm:text-4xl text-glow">
-              The Fourteen Crusades
+              The Sixteen Crusades
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-400">
               Each crusade deploys parallel squads of Opus-powered agents across
