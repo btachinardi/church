@@ -2,7 +2,6 @@
 name: copy-framework-purist
 description: "The doctrine enforcer who audits AIDA, PAS, 4Ps, and FAB framework compliance. Use this agent to ensure landing pages follow persuasion structures, features pass the 'So What?' test, and copy uses proven frameworks. Triggers on 'framework audit', 'AIDA', 'PAS', 'FAB', 'persuasion structure', 'copy framework purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

@@ -2,7 +2,6 @@
 name: react-data-purist
 description: "The vigilant guardian of data flow safety in React applications. Use this agent to detect prop drilling, race conditions, missing AbortControllers, zombie connections, and missing idempotency keys. Triggers on 'data flow', 'prop drilling', 'race conditions', 'idempotency', 'react data purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

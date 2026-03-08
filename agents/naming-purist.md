@@ -2,7 +2,6 @@
 name: naming-purist
 description: The linguistic guardian of code clarity. Use this agent to enforce naming conventions, file naming patterns, and semantic variable/function naming across the codebase. Triggers on "naming review", "naming conventions", "rename audit", "file naming", "naming purist", "bad names".
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

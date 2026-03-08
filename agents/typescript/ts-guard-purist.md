@@ -2,7 +2,6 @@
 name: ts-guard-purist
 description: "The exhaustiveness enforcer who ensures every type branch is handled. Use this agent to audit type guards, exhaustive switch checks, discriminated union handling, and `never` assertions. Triggers on 'type guards', 'exhaustive checks', 'discriminated unions', 'switch exhaustiveness', 'ts guard purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

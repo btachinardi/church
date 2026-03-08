@@ -2,7 +2,6 @@
 name: dep-purist
 description: The relentless auditor of project dependencies. Use this agent to find outdated, vulnerable, duplicate, unused, and bloated npm packages. Triggers on "dependency audit", "dep review", "outdated packages", "npm audit", "dep purist", "package bloat".
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

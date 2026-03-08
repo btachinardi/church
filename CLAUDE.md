@@ -4,15 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-The Church of Clean Code is a Claude Code plugin providing 14 **generic purist subagents**, 61 **specialized purist agents**, and 14 **crusade orchestration commands** for parallel code quality enforcement. It includes a marketing website deployed to Netlify.
+The Church of Clean Code is a Claude Code plugin providing 16 **generic purist subagents**, 70 **specialized purist agents**, and 16 **crusade orchestration commands** for parallel code quality enforcement. It includes a marketing website deployed to Netlify.
 
 ## Repository Structure
 
 ```
 church/
 ├── agents/              # Purist subagent definitions (*.md)
-│   ├── react-purist.md  # Generic purists (14 total, for direct invocation)
-│   ├── react/           # Specialized purists (61 total, for crusade deployment)
+│   ├── react-purist.md  # Generic purists (16 total, for direct invocation)
+│   ├── react/           # Specialized purists (70 total, for crusade deployment)
 │   │   ├── react-arch-purist.md
 │   │   ├── react-hooks-purist.md
 │   │   ├── react-state-purist.md
@@ -30,9 +30,11 @@ church/
 │   ├── size/            # 4 size specialists
 │   ├── a11y/            # 4 accessibility specialists
 │   ├── copy/            # 4 copywriting specialists
-│   └── adaptive/        # 5 adaptive UI specialists
+│   ├── adaptive/        # 5 adaptive UI specialists
+│   ├── python/          # 5 python specialists
+│   └── rust/            # 5 rust specialists
 ├── commands/            # Crusade orchestration commands (*.md)
-│   ├── react-crusade.md # 13 crusade commands total
+│   ├── react-crusade.md # 16 crusade commands total
 │   └── ...
 ├── skills/              # Auto-discovered skills (SKILL.md)
 ├── .claude-plugin/      # Plugin manifest (plugin.json, marketplace.json)
@@ -73,7 +75,7 @@ Subagent definitions follow Claude Code agent format with YAML frontmatter:
 - `name`: Agent identifier used in Task tool's `subagent_type`
 - `description`: Trigger phrases and purpose
 - `tools`: Allowed tools (Read, Edit, Write, Glob, Grep, Bash)
-- `model`: Model to use (opus recommended for code quality tasks)
+- `model`: *(Optional)* Model override. When omitted, agents inherit from the parent thread.
 
 **Two tiers of agents:**
 - **Generic purists** (`agents/*.md`): 13 broad agents for direct invocation. Each covers a full domain (e.g., `react-purist` covers all React concerns).
@@ -104,6 +106,21 @@ All crusades follow the same parallel deployment pattern:
 Key rule: All Task tool calls MUST be in a single message for true parallelism.
 
 Each crusade deploys **specialist agents** (not generic purists) so each squad carries only the doctrine it needs. Generic purists remain available for direct invocation outside crusades.
+
+## Model Configuration
+
+Agent files do **not** specify a `model` in their YAML frontmatter. This means they **inherit** the model from the parent thread (the user's main Claude Code session).
+
+Crusade commands accept a `--model` flag that overrides the model for all specialist agents spawned during the crusade:
+
+| Scenario | Model Used |
+|----------|-----------|
+| Direct agent invocation | Inherits from main thread |
+| `/church:size-crusade` (no flag) | Inherits from main thread |
+| `/church:size-crusade --model haiku` | Haiku for all specialists |
+| `/church:size-crusade --model sonnet` | Sonnet for all specialists |
+
+When `--model` is specified, crusade commands pass it to every Task tool call via the `model` parameter. When omitted, the `model` parameter is not set, so agents inherit naturally.
 
 ## File Naming Conventions
 
@@ -169,7 +186,6 @@ This is the broad agent users invoke directly in conversation (e.g., "review the
 name: {domain}-purist
 description: {Dramatic persona description}. Use this agent to {what it does}. Triggers on "{trigger1}", "{trigger2}", "{trigger3}", "{trigger4}".
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 ```
@@ -177,8 +193,9 @@ permissionMode: default
 - `name` — Kebab-case identifier. Must match `{domain}-purist`.
 - `description` — Include trigger phrases that Claude Code uses for auto-dispatch. List 5-8 trigger phrases.
 - `tools` — Always `Read, Edit, Write, Glob, Grep, Bash`.
-- `model` — Always `opus`.
 - `permissionMode` — Always `default`.
+
+> **Model Configuration:** Do NOT set `model` in agent frontmatter. Agents inherit from the parent thread by default, and crusade commands can override via `--model` flag.
 
 #### Markdown Body Structure
 
@@ -231,7 +248,6 @@ Split the generic purist's doctrine into 4-6 non-overlapping concerns. Examples:
 name: {domain}-{concern}-purist
 description: "{Focused description}. Use this agent to {narrow purpose}. Triggers on '{trigger1}', '{trigger2}', '{domain} {concern} purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 ```
@@ -273,13 +289,13 @@ This is the slash command users invoke as `/church:{domain}-crusade`. It orchest
 ---
 description: Unleash parallel {Domain} Purist agents to {what it audits} across the codebase. {Dramatic closing line}.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--flag1] [--flag2] [--scope all|api|web]
+argument-hint: [path] [--flag1] [--flag2] [--scope all|api|web] [--model haiku|sonnet|opus]
 ---
 ```
 
 - `description` — One sentence. Starts with "Unleash parallel...".
 - `allowed-tools` — Always `Read, Glob, Grep, Bash, Task, AskUserQuestion`. The `Task` tool is essential for spawning specialist subagents.
-- `argument-hint` — Show supported flags. Always include `[path]`.
+- `argument-hint` — Show supported flags. Always include `[path]` and `[--model haiku|sonnet|opus]`.
 
 #### Markdown Body Structure (The Battle Plan)
 

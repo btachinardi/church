@@ -2,7 +2,6 @@
 name: copy-headline-purist
 description: "The conversion sentinel who audits hero headlines, value propositions, and CTAs. Use this agent to ensure headlines state clear benefits, value props appear above the fold, and calls-to-action are compelling. Triggers on 'headline audit', 'value proposition', 'hero copy', 'landing page', 'CTA audit', 'copy headline purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

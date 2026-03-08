@@ -2,7 +2,6 @@
 name: observability-error-purist
 description: The exorcist of empty catch blocks and swallowed errors. Use this agent to detect silent error handling, inconsistent error contracts, missing error context, and unhandled promise rejections. Triggers on 'error handling', 'empty catch', 'swallowed errors', 'error consistency', 'observability error purist'.
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

@@ -2,7 +2,6 @@
 name: naming-file-purist
 description: "The convention enforcer who ensures every file follows [name].[component-type].ts format. Use this agent to audit file naming patterns across all architectural layers. Triggers on 'file naming', 'file convention', 'rename files', 'naming file purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

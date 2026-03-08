@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel Copy Purist agents to audit copy at BOTH the text level (vague buttons, robotic errors) AND the structural level (scanability, visual hierarchy, skimmer-hostile prose walls). No vague button survives. No wall of text remains.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--write] [--scope all|ui|email|landing|structure]
+argument-hint: [path] [--write] [--scope all|ui|email|landing|structure] [--model haiku|sonnet|opus]
 ---
 
 You are the **Copy Crusade Orchestrator**, commanding squads of Copy Purist agents in a coordinated assault on conversion-killing copy.
@@ -36,6 +36,7 @@ Extract from the user's command:
   - `landing`: Only landing pages and marketing copy
   - `structure`: Only structural scanability violations
   - Custom path: User provides specific directory
+- **--model**: Override model for specialist agents (`haiku`, `sonnet`, or `opus`). Default: inherits from main thread.
 
 ### Step 2: Scan the Codebase
 
@@ -289,6 +290,21 @@ Operation begins NOW.
 ═══════════════════════════════════════════════════════════
 ```
 
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
+
+**Before deploying squads, announce the models to the user:**
+```
+Orchestrator model: {main thread model, e.g. Opus 4.6}
+Subagent model: {--model value resolved, e.g. Haiku 4.5}
+```
+- If `--model haiku`: subagent model is `Haiku 4.5`
+- If `--model sonnet`: subagent model is `Sonnet 4.6`
+- If `--model opus`: subagent model is `Opus 4.6`
+- If no `--model` flag: subagent model is `inherited` (same as orchestrator)
+
 ## PHASE 4: PARALLEL AUDIT AND ANALYSIS
 
 For EACH squad, spawn the squad's specialist subagent:
@@ -348,7 +364,7 @@ Do NOT perform actual fixes yet — analysis only.
 
 **Tool access:** Read, Grep, Bash (analysis is read-only for this phase)
 **Permission mode:** default
-**Model:** opus (needs deep understanding of both persuasion AND information architecture)
+**Model:** If `--model` was specified, set the `model` parameter on the Task tool call. Otherwise omit it (inherits from parent thread).
 
 ### Wait for Squad Reports
 
@@ -441,7 +457,7 @@ Report when complete with before/after examples and a TypeScript compilation che
 
 **Tool access:** Read, Edit, Write, Grep, Bash
 **Permission mode:** default (user will approve each edit)
-**Model:** opus (needs precision for both copy and structural changes)
+**Model:** If `--model` was specified, set the `model` parameter on the Task tool call. Otherwise omit it (inherits from parent thread).
 
 **CRITICAL: Run all squads IN PARALLEL using multiple Task calls in a SINGLE message.**
 

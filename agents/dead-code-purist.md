@@ -2,7 +2,6 @@
 name: dead-code-purist
 description: The grim reaper of unused code. Use this agent to find and eliminate dead code, unreachable branches, unused exports, orphaned files, and commented-out blocks. Triggers on "dead code", "unused code", "code cleanup", "orphaned files", "dead code purist", "remove unused".
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

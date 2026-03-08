@@ -2,7 +2,6 @@
 name: naming-type-purist
 description: "The type nomenclature enforcer who ensures interfaces, events, and enums follow naming doctrine. Use this agent to audit PascalCase types, past-tense events, and eliminate Hungarian notation. Triggers on 'type naming', 'event naming', 'interface naming', 'enum naming', 'naming type purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

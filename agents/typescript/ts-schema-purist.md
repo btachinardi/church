@@ -2,7 +2,6 @@
 name: ts-schema-purist
 description: "The alignment enforcer who ensures Zod schemas and Zustand stores derive from domain types. Use this agent to detect schema-domain divergence, hardcoded enum subsets, and untyped Zustand selectors. Triggers on 'schema alignment', 'zod audit', 'zustand types', 'schema divergence', 'ts schema purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

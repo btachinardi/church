@@ -2,7 +2,6 @@
 name: a11y-perceivable-purist
 description: The Sensory Guardian who ensures content is perceivable to all senses. Use this agent to audit color contrast, alt text, text alternatives, text spacing, and visual presentation. Triggers on 'color contrast', 'alt text', 'text alternatives', 'perceivable', 'a11y perceivable purist'.
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

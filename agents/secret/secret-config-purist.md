@@ -2,7 +2,6 @@
 name: secret-config-purist
 description: "The configuration sentinel who validates .gitignore, .env files, and CI/CD secret handling. Use this agent to ensure .gitignore covers all secret file patterns, .env.example has only placeholders, and CI/CD configs use secret managers. Triggers on 'config security', 'gitignore audit', 'env security', 'CI secrets', 'secret config purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

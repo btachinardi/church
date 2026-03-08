@@ -2,7 +2,6 @@
 name: git-atomicity-purist
 description: "The commit surgeon who ensures each commit is a single logical change. Use this agent to find bloated commits, plan splits, and verify commit completeness. Triggers on 'commit atomicity', 'split commit', 'bloated commits', 'single concern', 'git atomicity purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 
