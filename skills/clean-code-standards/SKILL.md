@@ -135,6 +135,17 @@ This skill provides the foundational principles enforced by the Church of Clean 
 - No nested scrollable containers in the same direction
 - Accept `Modifier` as first optional parameter in every composable
 
+### 18. Swift Safety
+- All types crossing concurrency boundaries must be `Sendable`
+- Mutable shared state must live in `actor` types
+- UI code must be `@MainActor`
+- No force-unwraps (`!`), force-casts (`as!`), or force-tries (`try!`)
+- `[weak self]` in all escaping closures; delegates always `weak var`
+- Typed throws (`throws(SpecificError)`) over bare `throws`
+- No empty `catch {}` blocks — every error handled or propagated
+- Prefer `struct`/`enum` over `class` unless identity is needed
+- Apple API Design Guidelines for all public API naming
+
 ## When to Invoke Crusades
 
 | Situation | Recommended Crusade |
@@ -166,3 +177,6 @@ This skill provides the foundational principles enforced by the Church of Clean 
 | Compose architecture audit | `/church:compose-crusade` |
 | Recomposition performance | `/church:compose-crusade --scope perf` |
 | Effect/state discipline | `/church:compose-crusade --scope effects` |
+| Swift code quality, concurrency safety | `/church:swift-crusade` |
+| Swift 6 strict concurrency audit | `/church:swift-crusade --scope concurrency` |
+| Swift memory leak detection | `/church:swift-crusade --scope memory` |

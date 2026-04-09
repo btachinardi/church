@@ -18,6 +18,7 @@ import { pythonCrusade } from './python.data';
 import { rustCrusade } from './rust.data';
 import { kotlinCrusade } from './kotlin.data';
 import { composeCrusade } from './compose.data';
+import { swiftCrusade } from './swift.data';
 
 export const crusadeDetails: Record<string, CrusadeDetail> = {
   type: typeCrusade,
@@ -38,4 +39,5 @@ export const crusadeDetails: Record<string, CrusadeDetail> = {
   rust: rustCrusade,
   kotlin: kotlinCrusade,
   compose: composeCrusade,
+  swift: swiftCrusade,
 };

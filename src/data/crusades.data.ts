@@ -175,4 +175,15 @@ export const crusades: readonly Crusade[] = [
       'This composable fetches data, manages state, AND renders UI? That is not a composable \u2014 that is an Activity with a @Composable annotation.',
     color: 'from-green-500 to-teal-700',
   },
+  {
+    name: 'The Swift Crusade',
+    slug: 'swift',
+    command: '/swift-crusade',
+    icon: '🦅',
+    tagline:
+      'No data race survives. No force-unwrap escapes. The compiler is absolute.',
+    quote:
+      "Force-unwrap on line 47. This is not confidence — this is a CRASH INSTRUCTION disguised as code.",
+    color: 'from-lime-600 to-green-800',
+  },
 ] as const;
