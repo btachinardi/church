@@ -116,6 +116,13 @@ This skill provides the foundational principles enforced by the Church of Clean 
 - `&str` for string inputs, `String` for owned outputs; all public types derive `Debug`
 - No `std::thread::sleep` inside `async fn`; no `.lock().unwrap()` on mutexes
 
+### 16. Kotlin Purity
+- Zero `!!` operators in production code
+- Structured concurrency: no `GlobalScope`, no `runBlocking` outside main/tests
+- Idiomatic Kotlin: no StringBuilder, ArrayList, HashMap, Java-style accessors
+- Type safety: no `Any` parameters, no unsafe `as` casts, immutable data classes
+- Functional discipline: no unhandled `runCatching`, max 2-level lambda nesting
+
 ## When to Invoke Crusades
 
 | Situation | Recommended Crusade |
@@ -141,3 +148,6 @@ This skill provides the foundational principles enforced by the Church of Clean 
 | Working in a Rust codebase | `/church:rust-crusade` |
 | Rust unsafe block audit | `/church:rust-crusade --scope unsafe` |
 | Rust error handling review | `/church:rust-crusade --scope error` |
+| Kotlin code quality review | `/church:kotlin-crusade` |
+| Kotlin null safety audit | `/church:kotlin-crusade --scope null` |
+| Coroutine discipline check | `/church:kotlin-crusade --scope coroutine` |

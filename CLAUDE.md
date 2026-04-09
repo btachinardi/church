@@ -4,15 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-The Church of Clean Code is a Claude Code plugin providing 16 **generic purist subagents**, 70 **specialized purist agents**, and 16 **crusade orchestration commands** for parallel code quality enforcement. It includes a marketing website deployed to Netlify.
+The Church of Clean Code is a Claude Code plugin providing 17 **generic purist subagents**, 75 **specialized purist agents**, and 17 **crusade orchestration commands** for parallel code quality enforcement. It includes a marketing website deployed to Netlify.
 
 ## Repository Structure
 
 ```
 church/
 ├── agents/              # Purist subagent definitions (*.md)
-│   ├── react-purist.md  # Generic purists (16 total, for direct invocation)
-│   ├── react/           # Specialized purists (70 total, for crusade deployment)
+│   ├── react-purist.md  # Generic purists (17 total, for direct invocation)
+│   ├── react/           # Specialized purists (75 total, for crusade deployment)
 │   │   ├── react-arch-purist.md
 │   │   ├── react-hooks-purist.md
 │   │   ├── react-state-purist.md
@@ -32,9 +32,10 @@ church/
 │   ├── copy/            # 4 copywriting specialists
 │   ├── adaptive/        # 5 adaptive UI specialists
 │   ├── python/          # 5 python specialists
-│   └── rust/            # 5 rust specialists
+│   ├── rust/            # 5 rust specialists
+│   └── kotlin/          # 5 Kotlin specialists
 ├── commands/            # Crusade orchestration commands (*.md)
-│   ├── react-crusade.md # 16 crusade commands total
+│   ├── react-crusade.md # 17 crusade commands total
 │   └── ...
 ├── skills/              # Auto-discovered skills (SKILL.md)
 ├── .claude-plugin/      # Plugin manifest (plugin.json, marketplace.json)
@@ -49,7 +50,7 @@ church/
 │   │       ├── type.data.ts
 │   │       ├── git.data.ts
 │   │       ├── react.data.ts
-│   │       └── ...      # 13 crusade data files + index.ts
+│   │       └── ...      # 15 crusade data files + index.ts
 │   ├── app.tsx          # Route definitions (react-router-dom)
 │   └── main.tsx         # Entry point with BrowserRouter
 └── dist/                # Build output (deployed to Netlify)
@@ -78,8 +79,8 @@ Subagent definitions follow Claude Code agent format with YAML frontmatter:
 - `model`: *(Optional)* Model override. When omitted, agents inherit from the parent thread.
 
 **Two tiers of agents:**
-- **Generic purists** (`agents/*.md`): 13 broad agents for direct invocation. Each covers a full domain (e.g., `react-purist` covers all React concerns).
-- **Specialist purists** (`agents/<domain>/*.md`): 55 focused agents for crusade deployment. Each covers one narrow concern (e.g., `react-arch-purist` covers only component tier classification).
+- **Generic purists** (`agents/*.md`): 15 broad agents for direct invocation. Each covers a full domain (e.g., `react-purist` covers all React concerns).
+- **Specialist purists** (`agents/<domain>/*.md`): 66 focused agents for crusade deployment. Each covers one narrow concern (e.g., `react-arch-purist` covers only component tier classification).
 
 ### Commands (commands/)
 
@@ -558,6 +559,7 @@ Avoid duplicating existing color schemes:
 | a11y | `from-violet-600 to-fuchsia-800` |
 | copy | `from-teal-600 to-cyan-800` |
 | adaptive | `from-violet-600 to-fuchsia-900` |
+| kotlin | `from-indigo-500 to-orange-600` |
 
 ---
 

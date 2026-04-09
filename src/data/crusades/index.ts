@@ -16,6 +16,7 @@ import { copyCrusade } from './copy.data';
 import { adaptiveCrusade } from './adaptive.data';
 import { pythonCrusade } from './python.data';
 import { rustCrusade } from './rust.data';
+import { kotlinCrusade } from './kotlin.data';
 
 export const crusadeDetails: Record<string, CrusadeDetail> = {
   type: typeCrusade,
@@ -34,4 +35,5 @@ export const crusadeDetails: Record<string, CrusadeDetail> = {
   adaptive: adaptiveCrusade,
   python: pythonCrusade,
   rust: rustCrusade,
+  kotlin: kotlinCrusade,
 };

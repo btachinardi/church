@@ -155,4 +155,14 @@ export const crusades: readonly Crusade[] = [
     quote: "The borrow checker doesn't hate you. It just refuses to lie.",
     color: 'from-amber-700 to-orange-900',
   },
+  {
+    name: 'The Kotlin Crusade',
+    slug: 'kotlin',
+    command: '/kotlin-crusade',
+    icon: '\uD83D\uDC7B',
+    tagline: 'Exorcise every Java ghost. Uphold the Null Safety Promise.',
+    quote:
+      'A double-bang. The developer looked at the type system and said "I don\'t need you." They SUMMONED NullPointerException back from the grave. We had BANISHED it. And they broke the seal with two characters.',
+    color: 'from-indigo-500 to-orange-600',
+  },
 ] as const;
