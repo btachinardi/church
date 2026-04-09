@@ -146,6 +146,18 @@ This skill provides the foundational principles enforced by the Church of Clean 
 - Prefer `struct`/`enum` over `class` unless identity is needed
 - Apple API Design Guidelines for all public API naming
 
+### 19. SwiftUI Standards
+- Views are thin declarative shells -- no business logic, no networking
+- @Observable over @ObservedObject/@StateObject on iOS 17+
+- @State always private; never used with non-@Observable reference types
+- Single source of truth -- no duplicate state, no derived state stored as @State
+- View body under 80 lines; extract subviews for composition
+- LazyVStack/LazyHStack for scrollable content, no eager containers
+- No heavy computation in body (sorting, filtering, mapping)
+- NavigationStack with typed Hashable route enums, not deprecated NavigationView
+- .task over .onAppear + Task for automatic cancellation
+- Scoped .animation(_:value:) instead of unscoped .animation()
+
 ## When to Invoke Crusades
 
 | Situation | Recommended Crusade |
@@ -180,3 +192,6 @@ This skill provides the foundational principles enforced by the Church of Clean 
 | Swift code quality, concurrency safety | `/church:swift-crusade` |
 | Swift 6 strict concurrency audit | `/church:swift-crusade --scope concurrency` |
 | Swift memory leak detection | `/church:swift-crusade --scope memory` |
+| SwiftUI code review | `/church:swiftui-crusade` |
+| SwiftUI navigation modernization | `/church:swiftui-crusade --min-ios 17` |
+| SwiftUI state management audit | `/church:swiftui-crusade --scope models` |

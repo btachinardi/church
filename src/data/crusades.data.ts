@@ -186,4 +186,14 @@ export const crusades: readonly Crusade[] = [
       "Force-unwrap on line 47. This is not confidence — this is a CRASH INSTRUCTION disguised as code.",
     color: 'from-lime-600 to-green-800',
   },
+  {
+    name: 'The SwiftUI Crusade',
+    slug: 'swiftui',
+    command: '/swiftui-crusade',
+    icon: '📱',
+    tagline: 'Defend the declarative kingdom from imperative corruption',
+    quote:
+      "This view fetches data, manages state, AND renders UI? That's not a view — that's a MONOLITH wearing a struct declaration.",
+    color: 'from-lime-500 to-emerald-700',
+  },
 ] as const;

@@ -19,6 +19,7 @@ import { rustCrusade } from './rust.data';
 import { kotlinCrusade } from './kotlin.data';
 import { composeCrusade } from './compose.data';
 import { swiftCrusade } from './swift.data';
+import { swiftuiCrusade } from './swiftui.data';
 
 export const crusadeDetails: Record<string, CrusadeDetail> = {
   type: typeCrusade,
@@ -40,4 +41,5 @@ export const crusadeDetails: Record<string, CrusadeDetail> = {
   kotlin: kotlinCrusade,
   compose: composeCrusade,
   swift: swiftCrusade,
+  swiftui: swiftuiCrusade,
 };
