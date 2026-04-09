@@ -4,15 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-The Church of Clean Code is a Claude Code plugin providing 17 **generic purist subagents**, 75 **specialized purist agents**, and 17 **crusade orchestration commands** for parallel code quality enforcement. It includes a marketing website deployed to Netlify.
+The Church of Clean Code is a Claude Code plugin providing 18 **generic purist subagents**, 80 **specialized purist agents**, and 18 **crusade orchestration commands** for parallel code quality enforcement. It includes a marketing website deployed to Netlify.
 
 ## Repository Structure
 
 ```
 church/
 ├── agents/              # Purist subagent definitions (*.md)
-│   ├── react-purist.md  # Generic purists (17 total, for direct invocation)
-│   ├── react/           # Specialized purists (75 total, for crusade deployment)
+│   ├── react-purist.md  # Generic purists (18 total, for direct invocation)
+│   ├── react/           # Specialized purists (80 total, for crusade deployment)
 │   │   ├── react-arch-purist.md
 │   │   ├── react-hooks-purist.md
 │   │   ├── react-state-purist.md
@@ -33,9 +33,10 @@ church/
 │   ├── adaptive/        # 5 adaptive UI specialists
 │   ├── python/          # 5 python specialists
 │   ├── rust/            # 5 rust specialists
-│   └── kotlin/          # 5 Kotlin specialists
+│   ├── kotlin/          # 5 Kotlin specialists
+│   └── compose/         # 5 Compose specialists
 ├── commands/            # Crusade orchestration commands (*.md)
-│   ├── react-crusade.md # 17 crusade commands total
+│   ├── react-crusade.md # 18 crusade commands total
 │   └── ...
 ├── skills/              # Auto-discovered skills (SKILL.md)
 ├── .claude-plugin/      # Plugin manifest (plugin.json, marketplace.json)
@@ -50,7 +51,8 @@ church/
 │   │       ├── type.data.ts
 │   │       ├── git.data.ts
 │   │       ├── react.data.ts
-│   │       └── ...      # 15 crusade data files + index.ts
+<<<<<<< HEAD
+│   │       └── ...      # 18 crusade data files + index.ts
 │   ├── app.tsx          # Route definitions (react-router-dom)
 │   └── main.tsx         # Entry point with BrowserRouter
 └── dist/                # Build output (deployed to Netlify)
@@ -560,6 +562,7 @@ Avoid duplicating existing color schemes:
 | copy | `from-teal-600 to-cyan-800` |
 | adaptive | `from-violet-600 to-fuchsia-900` |
 | kotlin | `from-indigo-500 to-orange-600` |
+| compose | `from-green-500 to-teal-700` |
 
 ---
 

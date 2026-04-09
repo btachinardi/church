@@ -165,4 +165,14 @@ export const crusades: readonly Crusade[] = [
       'A double-bang. The developer looked at the type system and said "I don\'t need you." They SUMMONED NullPointerException back from the grave. We had BANISHED it. And they broke the seal with two characters.',
     color: 'from-indigo-500 to-orange-600',
   },
+  {
+    name: 'The Compose Crusade',
+    slug: 'compose',
+    command: '/compose-crusade',
+    icon: '🧩',
+    tagline: 'Declarative purity. State discipline. Zero recomposition waste.',
+    quote:
+      'This composable fetches data, manages state, AND renders UI? That is not a composable \u2014 that is an Activity with a @Composable annotation.',
+    color: 'from-green-500 to-teal-700',
+  },
 ] as const;
