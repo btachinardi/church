@@ -2,7 +2,6 @@
 name: dead-unreachable-purist
 description: "The branch pruner who eliminates code that can never execute. Use this agent to find unreachable code after return/throw statements, impossible conditions, dead switch cases, and resolved feature flags. Triggers on 'unreachable code', 'dead branches', 'impossible conditions', 'dead unreachable purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

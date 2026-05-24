@@ -2,7 +2,6 @@
 name: git-hygiene-purist
 description: "The repository hygiene inspector who audits .gitignore, branch names, and tracked artifacts. Use this agent to find missing .gitignore entries, poorly named branches, tracked build artifacts, and history rewrite safety. Triggers on 'gitignore audit', 'branch naming', 'tracked artifacts', 'git hygiene purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

@@ -14,6 +14,12 @@ import { reactCrusade } from './react.data';
 import { a11yCrusade } from './a11y.data';
 import { copyCrusade } from './copy.data';
 import { adaptiveCrusade } from './adaptive.data';
+import { pythonCrusade } from './python.data';
+import { rustCrusade } from './rust.data';
+import { kotlinCrusade } from './kotlin.data';
+import { composeCrusade } from './compose.data';
+import { swiftCrusade } from './swift.data';
+import { swiftuiCrusade } from './swiftui.data';
 
 export const crusadeDetails: Record<string, CrusadeDetail> = {
   type: typeCrusade,
@@ -30,4 +36,10 @@ export const crusadeDetails: Record<string, CrusadeDetail> = {
   a11y: a11yCrusade,
   copy: copyCrusade,
   adaptive: adaptiveCrusade,
+  python: pythonCrusade,
+  rust: rustCrusade,
+  kotlin: kotlinCrusade,
+  compose: composeCrusade,
+  swift: swiftCrusade,
+  swiftui: swiftuiCrusade,
 };

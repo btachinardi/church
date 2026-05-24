@@ -2,7 +2,6 @@
 name: adaptive-seam-purist
 description: "The guardian of the fold who ensures no content is devoured by the hinge. Use this agent to audit foldable hinge awareness, viewport segments, canonical layouts, split-screen support, and hardcoded viewport dimensions. Triggers on 'foldable', 'hinge', 'viewport segments', 'canonical layout', 'split screen', 'adaptive seam purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

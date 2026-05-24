@@ -2,7 +2,6 @@
 name: secret-supply-purist
 description: "The supply chain auditor who verifies lockfile integrity and dependency trustworthiness. Use this agent to audit dependencies for suspicious packages, verify lockfile hashes, and check for supply chain attack vectors. Triggers on 'supply chain', 'lockfile integrity', 'dependency security', 'secret supply purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

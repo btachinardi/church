@@ -2,7 +2,6 @@
 name: observability-logging-purist
 description: The prophet of structured logging who banishes console.log to the void. Use this agent to replace bare console calls with structured logging, enforce log levels, add context to log statements, and detect PII in logs. Triggers on 'logging review', 'console.log audit', 'structured logging', 'log levels', 'observability logging purist'.
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

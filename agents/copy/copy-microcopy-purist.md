@@ -2,7 +2,6 @@
 name: copy-microcopy-purist
 description: "The UX copy exorcist who purges vague buttons, robotic error messages, and confusing UI text. Use this agent to audit button labels, error messages, tooltips, form fields, and empty states. Triggers on 'button copy', 'error messages', 'UX copy', 'UI text', 'microcopy', 'copy microcopy purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

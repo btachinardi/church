@@ -2,7 +2,6 @@
 name: react-perf-purist
 description: "The performance sentinel who eliminates unnecessary re-renders. Use this agent to audit memoization patterns, detect unstable references, identify missing React.memo, and enforce useTransition for heavy updates. Triggers on 'react performance', 'memoization', 're-render audit', 'useTransition', 'react perf purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

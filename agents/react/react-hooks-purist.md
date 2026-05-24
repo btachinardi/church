@@ -2,7 +2,6 @@
 name: react-hooks-purist
 description: "The relentless auditor of React effect discipline. Use this agent to detect data fetching in useEffect, missing cleanup functions, derived state anti-patterns, and dependency array violations. Triggers on 'effect discipline', 'useEffect audit', 'hook review', 'cleanup audit', 'react hooks purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

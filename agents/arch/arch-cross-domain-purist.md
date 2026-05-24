@@ -2,7 +2,6 @@
 name: arch-cross-domain-purist
 description: "The border patrol enforcing domain module isolation. Use this agent to detect direct imports between domain modules and enforce event-driven communication. Triggers on 'cross-domain imports', 'domain isolation', 'domain boundaries', 'arch cross-domain purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

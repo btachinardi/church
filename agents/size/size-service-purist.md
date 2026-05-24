@@ -2,7 +2,6 @@
 name: size-service-purist
 description: "The backend surgeon who splits bloated services, controllers, and handlers. Use this agent to find oversized backend files and plan Extract Service, Extract Strategy, and Extract Validator splits. Triggers on 'service size', 'bloated controller', 'god class', 'split service', 'size service purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

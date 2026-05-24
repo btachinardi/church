@@ -2,7 +2,6 @@
 name: arch-pattern-purist
 description: "The pattern compliance enforcer for DDD structural patterns. Use this agent to audit repository pattern compliance, interface segregation, layer skipping, type duplication, and shared types. Triggers on 'repository pattern', 'interface segregation', 'layer skipping', 'type duplication', 'arch pattern purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

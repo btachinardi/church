@@ -1,7 +1,7 @@
 ---
 description: Unleash parallel React Purist agents to audit component architecture, hook discipline, state management, and effect hygiene across the frontend codebase. No impure component survives.
 allowed-tools: Read, Glob, Grep, Bash, Task, AskUserQuestion
-argument-hint: [path] [--scope architecture|effects|state|all] [--write]
+argument-hint: [path] [--scope architecture|effects|state|all] [--write] [--model haiku|sonnet|opus]
 ---
 
 # React Crusade: The War Against Impure Components
@@ -33,6 +33,7 @@ Deploy parallel React Purist agents to audit every component, every hook, every 
 | `path` | `.` | Root path to audit (absolute path required for agents) |
 | `--scope` | `all` | Focus area: `architecture` (tier compliance), `effects` (hook discipline), `state` (state management), `all` (complete audit) |
 | `--write` | `false` | If present, squads will REFACTOR components, not just report |
+| `--model` | *(inherit)* | Override model for specialist agents: `haiku`, `sonnet`, or `opus` |
 
 ### Examples
 ```bash
@@ -100,6 +101,21 @@ SQUADS DEPLOYING: 5
 ```
 
 ---
+
+### Model Configuration
+
+If `--model` was specified, pass it to every Task tool call using the `model` parameter (e.g., `model: "haiku"`).
+If no `--model` flag was provided, omit the `model` parameter so agents inherit the model from the parent thread.
+
+**Before deploying squads, announce the models to the user:**
+```
+Orchestrator model: {main thread model, e.g. Opus 4.6}
+Subagent model: {--model value resolved, e.g. Haiku 4.5}
+```
+- If `--model haiku`: subagent model is `Haiku 4.5`
+- If `--model sonnet`: subagent model is `Sonnet 4.6`
+- If `--model opus`: subagent model is `Opus 4.6`
+- If no `--model` flag: subagent model is `inherited` (same as orchestrator)
 
 ### Phase 2: Parallel Squad Deployment
 

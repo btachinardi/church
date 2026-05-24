@@ -136,4 +136,64 @@ export const crusades: readonly Crusade[] = [
       '100vw. Do you know what happens when a foldable unfolds? This layout SHATTERS. Like glass. Like the CEO\'s confidence on launch day.',
     color: 'from-violet-600 to-fuchsia-900',
   },
+  {
+    name: 'The Python Crusade',
+    slug: 'python',
+    command: '/python-crusade',
+    icon: '🐍',
+    tagline: 'No untyped function. No bare eval. No mutable default survives.',
+    quote:
+      "def process(data, **kwargs): — no type hints, no docstring, no shame. This function is a MYSTERY BOX.",
+    color: 'from-green-500 to-blue-700',
+  },
+  {
+    name: 'The Rust Crusade',
+    slug: 'rust',
+    command: '/rust-crusade',
+    icon: '🦀',
+    tagline: 'No unwrap survives. No lifetime confusion endures. No unsafe block goes unquestioned.',
+    quote: "The borrow checker doesn't hate you. It just refuses to lie.",
+    color: 'from-amber-700 to-orange-900',
+  },
+  {
+    name: 'The Kotlin Crusade',
+    slug: 'kotlin',
+    command: '/kotlin-crusade',
+    icon: '\uD83D\uDC7B',
+    tagline: 'Exorcise every Java ghost. Uphold the Null Safety Promise.',
+    quote:
+      'A double-bang. The developer looked at the type system and said "I don\'t need you." They SUMMONED NullPointerException back from the grave. We had BANISHED it. And they broke the seal with two characters.',
+    color: 'from-indigo-500 to-orange-600',
+  },
+  {
+    name: 'The Compose Crusade',
+    slug: 'compose',
+    command: '/compose-crusade',
+    icon: '🧩',
+    tagline: 'Declarative purity. State discipline. Zero recomposition waste.',
+    quote:
+      'This composable fetches data, manages state, AND renders UI? That is not a composable \u2014 that is an Activity with a @Composable annotation.',
+    color: 'from-green-500 to-teal-700',
+  },
+  {
+    name: 'The Swift Crusade',
+    slug: 'swift',
+    command: '/swift-crusade',
+    icon: '🦅',
+    tagline:
+      'No data race survives. No force-unwrap escapes. The compiler is absolute.',
+    quote:
+      "Force-unwrap on line 47. This is not confidence — this is a CRASH INSTRUCTION disguised as code.",
+    color: 'from-lime-600 to-green-800',
+  },
+  {
+    name: 'The SwiftUI Crusade',
+    slug: 'swiftui',
+    command: '/swiftui-crusade',
+    icon: '📱',
+    tagline: 'Defend the declarative kingdom from imperative corruption',
+    quote:
+      "This view fetches data, manages state, AND renders UI? That's not a view — that's a MONOLITH wearing a struct declaration.",
+    color: 'from-lime-500 to-emerald-700',
+  },
 ] as const;

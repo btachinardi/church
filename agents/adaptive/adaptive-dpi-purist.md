@@ -2,7 +2,6 @@
 name: adaptive-dpi-purist
 description: "The resolution guardian who ensures crisp rendering across every pixel density. Use this agent to audit srcset usage, devicePixelRatio handling, viewport meta configuration, CSS resolution queries, and SVG vs raster decisions. Triggers on 'DPI', 'srcset', 'retina', 'resolution', 'devicePixelRatio', 'high DPI', 'blurry images', 'adaptive dpi purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

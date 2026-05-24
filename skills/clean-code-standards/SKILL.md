@@ -7,7 +7,7 @@ description: Core principles and standards for clean code enforcement. Auto-invo
 
 This skill provides the foundational principles enforced by the Church of Clean Code purist agents.
 
-## The Ten Pillars of Clean Code
+## The Pillars of Clean Code
 
 ### 1. Type Safety
 - No `any` types - use `unknown` with guards
@@ -98,6 +98,66 @@ This skill provides the foundational principles enforced by the Church of Clean 
 - No hover-only interactions -- touch/keyboard alternatives required
 - Drag-and-drop has visual feedback and keyboard alternative
 
+### 14. Python Quality
+- All functions and methods have type annotations; `mypy --strict` passes clean
+- No mutable default arguments — `def foo(x=[])` creates a shared haunted list
+- PEP 8 enforced via ruff; line length 88; f-strings exclusively
+- Cyclomatic complexity ≤10 per function; length ≤50 lines; nesting ≤3 levels
+- pytest with `@pytest.mark.parametrize`; no loops in tests; assert specific values
+- No dangerous dynamic evaluation, unsafe deserialization, or shell injection vectors
+- All secrets from environment variables; `secrets` module for cryptographic randomness
+
+### 15. Rust Quality
+- No `.unwrap()` or `.expect()` in non-test code — use `?` or handle the error explicitly
+- Every `unsafe` block has a `// SAFETY:` comment that names and proves the invariant holds
+- Every `unsafe fn` has a `# Safety` section in its doc comment
+- Clone to cross boundaries, not to silence the borrow checker
+- Library errors use `thiserror`; application errors use `anyhow`; never `Box<dyn Error>` in public library APIs
+- `&str` for string inputs, `String` for owned outputs; all public types derive `Debug`
+- No `std::thread::sleep` inside `async fn`; no `.lock().unwrap()` on mutexes
+
+### 16. Kotlin Purity
+- Zero `!!` operators in production code
+- Structured concurrency: no `GlobalScope`, no `runBlocking` outside main/tests
+- Idiomatic Kotlin: no StringBuilder, ArrayList, HashMap, Java-style accessors
+- Type safety: no `Any` parameters, no unsafe `as` casts, immutable data classes
+- Functional discipline: no unhandled `runCatching`, max 2-level lambda nesting
+
+### 17. Jetpack Compose
+- Every composable belongs to exactly one tier: Stateless, Stateful, or Screen
+- State hoisting: composables receive state and callbacks, not own state
+- No `LaunchedEffect(Unit)` as lifecycle hack — load data in ViewModel
+- Classes passed to composables must be stable (`@Immutable`, `@Stable`, `ImmutableList`)
+- `derivedStateOf` for cached computations instead of recomputing in composition
+- Modifier ordering matters: `clip` before `background`, padding placement is structural
+- `key` required for all `LazyColumn`/`LazyRow` items
+- `rememberSaveable` for process-death survival (forms, scroll, tabs)
+- No nested scrollable containers in the same direction
+- Accept `Modifier` as first optional parameter in every composable
+
+### 18. Swift Safety
+- All types crossing concurrency boundaries must be `Sendable`
+- Mutable shared state must live in `actor` types
+- UI code must be `@MainActor`
+- No force-unwraps (`!`), force-casts (`as!`), or force-tries (`try!`)
+- `[weak self]` in all escaping closures; delegates always `weak var`
+- Typed throws (`throws(SpecificError)`) over bare `throws`
+- No empty `catch {}` blocks — every error handled or propagated
+- Prefer `struct`/`enum` over `class` unless identity is needed
+- Apple API Design Guidelines for all public API naming
+
+### 19. SwiftUI Standards
+- Views are thin declarative shells -- no business logic, no networking
+- @Observable over @ObservedObject/@StateObject on iOS 17+
+- @State always private; never used with non-@Observable reference types
+- Single source of truth -- no duplicate state, no derived state stored as @State
+- View body under 80 lines; extract subviews for composition
+- LazyVStack/LazyHStack for scrollable content, no eager containers
+- No heavy computation in body (sorting, filtering, mapping)
+- NavigationStack with typed Hashable route enums, not deprecated NavigationView
+- .task over .onAppear + Task for automatic cancellation
+- Scoped .animation(_:value:) instead of unscoped .animation()
+
 ## When to Invoke Crusades
 
 | Situation | Recommended Crusade |
@@ -117,3 +177,21 @@ This skill provides the foundational principles enforced by the Church of Clean 
 | Foldable/responsive UI audit | `/church:adaptive-crusade` |
 | Touch target compliance | `/church:adaptive-crusade --concern touch` |
 | Focus/keyboard accessibility | `/church:adaptive-crusade --concern focus` |
+| Working in a Python codebase | `/church:python-crusade` |
+| Python security audit | `/church:python-crusade --scope security` |
+| Python type coverage gaps | `/church:python-crusade --scope type` |
+| Working in a Rust codebase | `/church:rust-crusade` |
+| Rust unsafe block audit | `/church:rust-crusade --scope unsafe` |
+| Rust error handling review | `/church:rust-crusade --scope error` |
+| Kotlin code quality review | `/church:kotlin-crusade` |
+| Kotlin null safety audit | `/church:kotlin-crusade --scope null` |
+| Coroutine discipline check | `/church:kotlin-crusade --scope coroutine` |
+| Compose architecture audit | `/church:compose-crusade` |
+| Recomposition performance | `/church:compose-crusade --scope perf` |
+| Effect/state discipline | `/church:compose-crusade --scope effects` |
+| Swift code quality, concurrency safety | `/church:swift-crusade` |
+| Swift 6 strict concurrency audit | `/church:swift-crusade --scope concurrency` |
+| Swift memory leak detection | `/church:swift-crusade --scope memory` |
+| SwiftUI code review | `/church:swiftui-crusade` |
+| SwiftUI navigation modernization | `/church:swiftui-crusade --min-ios 17` |
+| SwiftUI state management audit | `/church:swiftui-crusade --scope models` |

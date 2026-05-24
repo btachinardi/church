@@ -2,7 +2,6 @@
 name: size-component-purist
 description: "The component surgeon who splits bloated React components. Use this agent to find oversized .tsx files and plan Extract Component, Extract Hook, and Provider/Component splits. Triggers on 'component size', 'bloated component', 'split component', 'mega component', 'size component purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

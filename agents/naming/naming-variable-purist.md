@@ -2,7 +2,6 @@
 name: naming-variable-purist
 description: "The semantic guardian who ensures variables tell their story. Use this agent to enforce boolean prefixes, ban generic names, eliminate single-letter variables, and enforce plural collections. Triggers on 'variable naming', 'boolean prefixes', 'generic names', 'naming variable purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

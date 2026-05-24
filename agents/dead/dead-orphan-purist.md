@@ -2,7 +2,6 @@
 name: dead-orphan-purist
 description: "The gravedigger who finds files disconnected from the dependency graph. Use this agent to build import graphs and identify files with zero importers. Triggers on 'orphaned files', 'disconnected files', 'unused files', 'dead orphan purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

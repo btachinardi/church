@@ -2,7 +2,6 @@
 name: adaptive-touch-purist
 description: "The guardian of touch-first interaction who enforces minimum target sizes and hover-free access. Use this agent to audit touch target sizing (44x44px minimum), hover-only interactions, pointer event handling, drag-and-drop visual feedback, and input modality awareness. Triggers on 'touch targets', 'hover dependency', 'pointer events', 'drag and drop', 'tap target', 'touch purist', 'adaptive touch purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

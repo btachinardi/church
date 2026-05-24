@@ -2,13 +2,13 @@
 
 # The Church of Clean Code
 
-**75 purist agents. 14 crusades. Zero tolerance.**
+**110 purist agents. 20 crusades. Zero tolerance.**
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Plugin v2.0.0](https://img.shields.io/badge/plugin-v2.0.0-brightgreen.svg)](https://github.com/btachinardi/church)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-v1.0.33%2B-blueviolet.svg)](https://docs.anthropic.com/en/docs/claude-code)
-[![75 Agents](https://img.shields.io/badge/agents-75-orange.svg)](#purist-agents)
-[![14 Crusades](https://img.shields.io/badge/crusades-14-red.svg)](#crusade-commands)
+[![110 Agents](https://img.shields.io/badge/agents-110-orange.svg)](#purist-agents)
+[![20 Crusades](https://img.shields.io/badge/crusades-20-red.svg)](#crusade-commands)
 [![Website](https://img.shields.io/badge/website-church.btas.dev-black.svg)](https://church.btas.dev)
 
 A Claude Code plugin that deploys specialized AI agents in parallel to enforce code quality across your entire codebase.
@@ -37,8 +37,8 @@ A Claude Code plugin that deploys specialized AI agents in parallel to enforce c
 ## Features
 
 - **Parallel Enforcement** — Crusades deploy multiple specialist agents simultaneously in a single message, scanning your codebase at scale
-- **Two-Tier Agent System** — 14 generic purists for direct invocation + 61 specialists for crusade deployment
-- **14 Crusade Commands** — One `/church:*-crusade` command per domain, each orchestrating 4-6 specialist agents
+- **Two-Tier Agent System** — 20 generic purists for direct invocation + 90 specialists for crusade deployment
+- **20 Crusade Commands** — One `/church:*-crusade` command per domain, each orchestrating 4-6 specialist agents
 - **Actionable Fixes** — Every finding includes exact file locations and remediation steps
 - **Zero Configuration** — Install and run. No config files, no setup, no dependencies
 
@@ -64,8 +64,14 @@ Invoke any generic purist directly by mentioning its trigger phrases in conversa
 | `a11y-purist` | WCAG compliance, semantic HTML, ARIA, keyboard navigation, perceivability |
 | `copy-purist` | UX microcopy, email/SMS, headlines, persuasion frameworks |
 | `adaptive-purist` | Foldable support, touch targets, focus management, DPI, state preservation |
+| `python-purist` | Type hints, PEP 8, complexity limits, pytest quality, security hardening |
+| `rust-purist` | Ownership discipline, error propagation, unsafe justification, type ergonomics, async correctness |
+| `kotlin-purist` | Null safety, coroutines, idiomatic patterns, type design, functional discipline |
+| `compose-purist` | Composable architecture, state hoisting, effects, recomposition, modifiers |
+| `swift-purist` | Swift 6 concurrency, type safety, memory management, error handling, API design |
+| `swiftui-purist` | SwiftUI view architecture, state management, navigation, performance |
 
-Each generic purist covers its full domain. During crusades, **61 specialist agents** (4-6 per domain) handle narrower concerns for deeper analysis.
+Each generic purist covers its full domain. During crusades, **90 specialist agents** (4-6 per domain) handle narrower concerns for deeper analysis.
 
 ---
 
@@ -89,6 +95,12 @@ Each crusade performs reconnaissance, forms squads, deploys specialists in paral
 | `/church:a11y-crusade` | 4 | WCAG 2.2 AA compliance, semantic HTML, keyboard access, ARIA, contrast, alt text |
 | `/church:copy-crusade` | 4 | Buttons, error messages, email/SMS, headlines, value props, CTAs, frameworks |
 | `/church:adaptive-crusade` | 5 | Foldable seams, state preservation, focus management, DPI/resolution, touch targets |
+| `/church:python-crusade` | 5 | Type hints, style, complexity, test quality, security hardening |
+| `/church:rust-crusade` | 5 | Ownership, error propagation, unsafe blocks, type ergonomics, async correctness |
+| `/church:kotlin-crusade` | 5 | Null safety (!!), coroutines, Java-isms, type design, functional patterns |
+| `/church:compose-crusade` | 5 | Composable tiers, state hoisting, effects, recomposition, modifier chains |
+| `/church:swift-crusade` | 5 | Concurrency safety, type safety, memory management, error handling, API design |
+| `/church:swiftui-crusade` | 5 | View architecture, state management, view composition, performance, navigation |
 
 ---
 
@@ -163,7 +175,7 @@ npm run build
 
 The marketing website at **[church.btas.dev](https://church.btas.dev)** includes dedicated landing pages for each crusade at `/crusade/{slug}`:
 
-`type` · `arch` · `test` · `react` · `git` · `dead` · `naming` · `size` · `secret` · `dep` · `observability` · `a11y` · `copy` · `adaptive`
+`type` · `arch` · `test` · `react` · `git` · `dead` · `naming` · `size` · `secret` · `dep` · `observability` · `a11y` · `copy` · `adaptive` · `python` · `rust` · `kotlin` · `compose` · `swift` · `swiftui`
 
 ---
 

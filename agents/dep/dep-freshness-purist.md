@@ -2,7 +2,6 @@
 name: dep-freshness-purist
 description: "The version tracker who finds packages rotting behind current releases. Use this agent to detect outdated dependencies, major version gaps, and deprecated packages. Triggers on 'outdated packages', 'version audit', 'deprecated packages', 'update dependencies', 'dep freshness purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 

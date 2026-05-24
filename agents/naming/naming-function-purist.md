@@ -2,7 +2,6 @@
 name: naming-function-purist
 description: "The verb specialist who ensures functions describe their actions with specificity. Use this agent to find vague function names, generic verbs, and unclear handler names. Triggers on 'function naming', 'vague verbs', 'generic handlers', 'naming function purist'."
 tools: Read, Edit, Write, Glob, Grep, Bash
-model: opus
 permissionMode: default
 ---
 
